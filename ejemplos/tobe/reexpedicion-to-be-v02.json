@@ -1,0 +1,363 @@
+{
+  "id": "Definitions_Reexpedicion_TO_BE_Didactica",
+  "name": "Reexpedicion de recibos — TO-BE DIDACTICO (NO APROBADO)",
+  "messages": [
+    {
+      "id": "Msg_PagoConfirmado",
+      "name": "Confirmación de pago"
+    },
+    {
+      "id": "Msg_ReciboVencido",
+      "name": "Vencimiento informado"
+    },
+    {
+      "id": "Msg_AvisoVencimiento",
+      "name": "Aviso al titular"
+    },
+    {
+      "id": "Msg_SolicitudReexpedicion",
+      "name": "Solicitud de reexpedición"
+    },
+    {
+      "id": "Msg_ConfirmacionBOGDATA",
+      "name": "Recibo reexpedido"
+    },
+    {
+      "id": "Msg_ReciboReexpedido",
+      "name": "Recibo comunicado al titular"
+    }
+  ],
+  "processes": [
+    {
+      "id": "Process_Seguimiento",
+      "name": "Sistema: seguimiento del recibo",
+      "isExecutable": false,
+      "lanes": [
+        {
+          "id": "Lane_Seguimiento",
+          "name": "Seguimiento",
+          "nodeIds": [
+            "S_Start",
+            "S_Espera",
+            "S_Pago",
+            "S_FinPagado",
+            "S_Vencido",
+            "S_NotificarVencimiento"
+          ]
+        },
+        {
+          "id": "Lane_Reexpedicion",
+          "name": "Reexpedición",
+          "nodeIds": [
+            "S_RecibirSolicitud",
+            "S_ValidarEnlace",
+            "S_DecidirValidez",
+            "S_SolicitarBOGDATA",
+            "S_EsperarBOGDATA",
+            "S_ComunicarNuevo",
+            "S_NoValida",
+            "S_FinNoValida",
+            "S_DecisionHumana",
+            "S_RechazoFormal"
+          ]
+        }
+      ],
+      "nodes": [
+        {
+          "id": "S_Start",
+          "type": "startEvent",
+          "name": "Recibo expedido",
+          "column": 0
+        },
+        {
+          "id": "S_Espera",
+          "type": "eventBasedGateway",
+          "name": "¿Pago o vencimiento?",
+          "column": 1
+        },
+        {
+          "id": "S_Pago",
+          "type": "intermediateCatchEvent",
+          "name": "Pago confirmado",
+          "event": {
+            "kind": "message",
+            "ref": "Msg_PagoConfirmado"
+          },
+          "column": 2
+        },
+        {
+          "id": "S_FinPagado",
+          "type": "endEvent",
+          "name": "Fin: pagado",
+          "column": 3
+        },
+        {
+          "id": "S_Vencido",
+          "type": "intermediateCatchEvent",
+          "name": "Recibo vencido",
+          "event": {
+            "kind": "message",
+            "ref": "Msg_ReciboVencido"
+          },
+          "column": 2
+        },
+        {
+          "id": "S_NotificarVencimiento",
+          "type": "sendTask",
+          "name": "Informar vencimiento",
+          "column": 3
+        },
+        {
+          "id": "S_RecibirSolicitud",
+          "type": "intermediateCatchEvent",
+          "name": "Recibir solicitud",
+          "event": {
+            "kind": "message",
+            "ref": "Msg_SolicitudReexpedicion"
+          },
+          "column": 4
+        },
+        {
+          "id": "S_ValidarEnlace",
+          "type": "serviceTask",
+          "name": "Validar reglas del recibo [PROPUESTA]",
+          "column": 5
+        },
+        {
+          "id": "S_DecidirValidez",
+          "type": "exclusiveGateway",
+          "name": "¿Solicitud válida?",
+          "column": 6
+        },
+        {
+          "id": "S_SolicitarBOGDATA",
+          "type": "serviceTask",
+          "name": "Pedir reexpedición a SDP",
+          "column": 7
+        },
+        {
+          "id": "S_EsperarBOGDATA",
+          "type": "intermediateCatchEvent",
+          "name": "Esperar recibo nuevo",
+          "event": {
+            "kind": "message",
+            "ref": "Msg_ConfirmacionBOGDATA"
+          },
+          "column": 8
+        },
+        {
+          "id": "S_ComunicarNuevo",
+          "type": "sendTask",
+          "name": "Comunicar nuevo recibo",
+          "column": 9
+        },
+        {
+          "id": "S_NoValida",
+          "type": "userTask",
+          "name": "Revisar excepcion por humano [PROPUESTA]",
+          "column": 7
+        },
+        {
+          "id": "S_FinNoValida",
+          "type": "endEvent",
+          "name": "Fin: rechazo documentado",
+          "column": 8
+        },
+        {
+          "id": "S_DecisionHumana",
+          "type": "exclusiveGateway",
+          "name": "¿Profesional autoriza?",
+          "column": 8
+        },
+        {
+          "id": "S_RechazoFormal",
+          "type": "sendTask",
+          "name": "Notificar rechazo motivado [PROPUESTA]",
+          "column": 9
+        }
+      ],
+      "flows": [
+        {
+          "id": "F_S01",
+          "source": "S_Start",
+          "target": "S_Espera"
+        },
+        {
+          "id": "F_S02",
+          "source": "S_Espera",
+          "target": "S_Pago",
+          "name": "Pago"
+        },
+        {
+          "id": "F_S03",
+          "source": "S_Pago",
+          "target": "S_FinPagado"
+        },
+        {
+          "id": "F_S04",
+          "source": "S_Espera",
+          "target": "S_Vencido",
+          "name": "Vencimiento"
+        },
+        {
+          "id": "F_S05",
+          "source": "S_Vencido",
+          "target": "S_NotificarVencimiento"
+        },
+        {
+          "id": "F_S06",
+          "source": "S_NotificarVencimiento",
+          "target": "S_RecibirSolicitud"
+        },
+        {
+          "id": "F_S07",
+          "source": "S_RecibirSolicitud",
+          "target": "S_ValidarEnlace"
+        },
+        {
+          "id": "F_S08",
+          "source": "S_ValidarEnlace",
+          "target": "S_DecidirValidez"
+        },
+        {
+          "id": "F_S09",
+          "source": "S_DecidirValidez",
+          "target": "S_SolicitarBOGDATA",
+          "name": "Sí"
+        },
+        {
+          "id": "F_S10",
+          "source": "S_DecidirValidez",
+          "target": "S_NoValida",
+          "name": "No / por confirmar"
+        },
+        {
+          "id": "F_S11",
+          "source": "S_NoValida",
+          "target": "S_DecisionHumana"
+        },
+        {
+          "id": "F_S12",
+          "source": "S_SolicitarBOGDATA",
+          "target": "S_EsperarBOGDATA"
+        },
+        {
+          "id": "F_S13",
+          "source": "S_EsperarBOGDATA",
+          "target": "S_ComunicarNuevo"
+        },
+        {
+          "id": "F_S14",
+          "source": "S_ComunicarNuevo",
+          "target": "S_Espera",
+          "name": "Nuevo ciclo"
+        },
+        {
+          "id": "F_S15",
+          "source": "S_DecisionHumana",
+          "target": "S_SolicitarBOGDATA",
+          "name": "Sí / revisión humana"
+        },
+        {
+          "id": "F_S16",
+          "source": "S_DecisionHumana",
+          "target": "S_RechazoFormal",
+          "name": "No"
+        },
+        {
+          "id": "F_S17",
+          "source": "S_RechazoFormal",
+          "target": "S_FinNoValida"
+        }
+      ]
+    },
+    {
+      "id": "Process_Titular",
+      "name": "Titular del recibo",
+      "isExecutable": false,
+      "nodes": [
+        {
+          "id": "T_Inicio",
+          "type": "startEvent",
+          "name": "Recibir aviso",
+          "event": {
+            "kind": "message",
+            "ref": "Msg_AvisoVencimiento"
+          },
+          "column": 0
+        },
+        {
+          "id": "T_Solicitar",
+          "type": "userTask",
+          "name": "Solicitar reexpedición",
+          "column": 1
+        },
+        {
+          "id": "T_RecibirNuevo",
+          "type": "intermediateCatchEvent",
+          "name": "Recibir nuevo recibo",
+          "event": {
+            "kind": "message",
+            "ref": "Msg_ReciboReexpedido"
+          },
+          "column": 2
+        },
+        {
+          "id": "T_Fin",
+          "type": "endEvent",
+          "name": "Fin: recibo recibido",
+          "column": 3
+        }
+      ],
+      "flows": [
+        {
+          "id": "F_T01",
+          "source": "T_Inicio",
+          "target": "T_Solicitar"
+        },
+        {
+          "id": "F_T02",
+          "source": "T_Solicitar",
+          "target": "T_RecibirNuevo"
+        },
+        {
+          "id": "F_T03",
+          "source": "T_RecibirNuevo",
+          "target": "T_Fin"
+        }
+      ]
+    }
+  ],
+  "participants": [
+    {
+      "id": "Participant_Sistema",
+      "name": "Sistema de seguimiento",
+      "processRef": "Process_Seguimiento"
+    },
+    {
+      "id": "Participant_Titular",
+      "name": "Titular",
+      "processRef": "Process_Titular"
+    }
+  ],
+  "messageFlows": [
+    {
+      "id": "MF_Aviso",
+      "source": "S_NotificarVencimiento",
+      "target": "T_Inicio",
+      "name": "Aviso de vencimiento"
+    },
+    {
+      "id": "MF_Peticion",
+      "source": "T_Solicitar",
+      "target": "S_RecibirSolicitud",
+      "name": "Solicita reexpedición"
+    },
+    {
+      "id": "MF_Recibo",
+      "source": "S_ComunicarNuevo",
+      "target": "T_RecibirNuevo",
+      "name": "Nuevo recibo"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "archivo": "/mnt/data/taller-opencode-bpmn/ejemplos/bpmn/reexpedicion-v01.bpmn",
+  "errores": [],
+  "advertencias": [
+    "Process_Seguimiento: gateway de decisión S_DecidirValidez sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)"
+  ],
+  "estadisticas": {
+    "Process_Seguimiento": {
+      "nodos": 14,
+      "flujos": 14,
+      "inicios": 1,
+      "fines": 2
+    },
+    "Process_Titular": {
+      "nodos": 4,
+      "flujos": 3,
+      "inicios": 1,
+      "fines": 1
+    },
+    "global": {
+      "procesos": 2,
+      "participantes": 2,
+      "messageFlows": 3,
+      "formasDI": 22,
+      "conectoresDI": 20
+    }
+  },
+  "limitaciones": [
+    "No valida contra el XSD oficial BPMN 2.0.",
+    "No comprueba configuración Zeebe/Camunda para ejecución.",
+    "No verifica coherencia jurídica ni semántica de las decisiones.",
+    "El aspecto visual debe revisarse en Camunda Modeler."
+  ]
+}

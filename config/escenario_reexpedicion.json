@@ -1,0 +1,32 @@
+{
+  "proceso": "Reexpedicion de recibos SDP (demostracion didactica)",
+  "naturaleza": "SINTETICO - NO SON REGISTROS REALES DE SDP",
+  "semilla": 20261016,
+  "meses": [
+    "2026-07",
+    "2026-08",
+    "2026-09"
+  ],
+  "casos_por_mes": 55,
+  "costo_hora_cop": 60000,
+  "costo_error_cop": 70000,
+  "volumen_anual_proyectado": 660,
+  "inversion_inicial_cop": 25000000,
+  "mantenimiento_mensual_cop": 650000,
+  "as_is": {
+    "horas_humanas_media": 2.8,
+    "horas_espera_media": 42,
+    "prob_error": 0.22,
+    "prob_reproceso": 0.29,
+    "fraccion_automatizada": 0.12
+  },
+  "to_be": {
+    "horas_humanas_media": 1.12,
+    "horas_espera_media": 21,
+    "prob_error": 0.08,
+    "prob_reproceso": 0.11,
+    "fraccion_automatizada": 0.76
+  },
+  "supuestos_explicacion": "Valores para ejercicios MBA, elegidos para ilustrar calculos; cambiar con entrevistas y evidencias. No son cifras oficiales ni observadas.",
+  "fraccion_horas_monetizables": 0.7
+}

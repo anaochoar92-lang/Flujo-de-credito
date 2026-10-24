@@ -1,0 +1,7 @@
+﻿id_bpmn,pool,lane,tipo_bpmn,nombre_actividad,minutos_humanos_asis,minutos_humanos_tobe,volumen_mensual,tasa_error_asis,tasa_error_tobe,fuente_evidencia,candidata_automatizacion,riesgo_control,estado
+S_NotificarVencimiento,Sistema de seguimiento,Seguimiento,sendTask,Informar vencimiento,,,,,,,POR_EVALUAR,,NO_MEDIDO
+S_ValidarEnlace,Sistema de seguimiento,Reexpedición,task,Verificar vínculo y recibo,,,,,,,POR_EVALUAR,,NO_MEDIDO
+S_SolicitarBOGDATA,Sistema de seguimiento,Reexpedición,serviceTask,Pedir reexpedición a SDP,,,,,,,POR_EVALUAR,,NO_MEDIDO
+S_ComunicarNuevo,Sistema de seguimiento,Reexpedición,sendTask,Comunicar nuevo recibo,,,,,,,POR_EVALUAR,,NO_MEDIDO
+S_NoValida,Sistema de seguimiento,Reexpedición,task,Registrar rechazo [PROPUESTA],,,,,,,POR_EVALUAR,,NO_MEDIDO
+T_Solicitar,Titular,SIN_ASIGNAR,userTask,Solicitar reexpedición,,,,,,,POR_EVALUAR,,NO_MEDIDO

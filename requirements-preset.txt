@@ -1,0 +1,2 @@
+# Generación y lectura de YAML de Preset/Superset (no llama ninguna API).
+PyYAML>=6.0,<7

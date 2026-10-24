@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Reexpedicion_Didactica" targetNamespace="https://laboratorio.example.org/bpmn" exporter="Taller OpenCode BPMN" exporterVersion="1.0">
+  <bpmn:message id="Msg_PagoConfirmado" name="Confirmación de pago" />
+  <bpmn:message id="Msg_ReciboVencido" name="Vencimiento informado" />
+  <bpmn:message id="Msg_AvisoVencimiento" name="Aviso al titular" />
+  <bpmn:message id="Msg_SolicitudReexpedicion" name="Solicitud de reexpedición" />
+  <bpmn:message id="Msg_ConfirmacionBOGDATA" name="Recibo reexpedido" />
+  <bpmn:message id="Msg_ReciboReexpedido" name="Recibo comunicado al titular" />
+  <bpmn:collaboration id="Collaboration_Lab" name="Reexpedición de recibo — demostración AS-IS conceptual">
+    <bpmn:participant id="Participant_Sistema" name="Sistema de seguimiento" processRef="Process_Seguimiento" />
+    <bpmn:participant id="Participant_Titular" name="Titular" processRef="Process_Titular" />
+    <bpmn:messageFlow id="MF_Aviso" name="Aviso de vencimiento" sourceRef="S_NotificarVencimiento" targetRef="T_Inicio" />
+    <bpmn:messageFlow id="MF_Peticion" name="Solicita reexpedición" sourceRef="T_Solicitar" targetRef="S_RecibirSolicitud" />
+    <bpmn:messageFlow id="MF_Recibo" name="Nuevo recibo" sourceRef="S_ComunicarNuevo" targetRef="T_RecibirNuevo" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Seguimiento" name="Sistema: seguimiento del recibo" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Process_Seguimiento">
+      <bpmn:lane id="Lane_Seguimiento" name="Seguimiento">
+        <bpmn:flowNodeRef>S_Start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_Espera</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_Pago</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_FinPagado</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_Vencido</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_NotificarVencimiento</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Reexpedicion" name="Reexpedición">
+        <bpmn:flowNodeRef>S_RecibirSolicitud</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_ValidarEnlace</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_DecidirValidez</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_SolicitarBOGDATA</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_EsperarBOGDATA</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_ComunicarNuevo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_NoValida</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>S_FinNoValida</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="S_Start" name="Recibo expedido">
+      <bpmn:outgoing>F_S01</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:eventBasedGateway id="S_Espera" name="¿Pago o vencimiento?">
+      <bpmn:incoming>F_S01</bpmn:incoming>
+      <bpmn:incoming>F_S14</bpmn:incoming>
+      <bpmn:outgoing>F_S02</bpmn:outgoing>
+      <bpmn:outgoing>F_S04</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:intermediateCatchEvent id="S_Pago" name="Pago confirmado">
+      <bpmn:incoming>F_S02</bpmn:incoming>
+      <bpmn:outgoing>F_S03</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_PagoConfirmado" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="S_FinPagado" name="Fin: pagado">
+      <bpmn:incoming>F_S03</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateCatchEvent id="S_Vencido" name="Recibo vencido">
+      <bpmn:incoming>F_S04</bpmn:incoming>
+      <bpmn:outgoing>F_S05</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_ReciboVencido" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sendTask id="S_NotificarVencimiento" name="Informar vencimiento">
+      <bpmn:incoming>F_S05</bpmn:incoming>
+      <bpmn:outgoing>F_S06</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:intermediateCatchEvent id="S_RecibirSolicitud" name="Recibir solicitud">
+      <bpmn:incoming>F_S06</bpmn:incoming>
+      <bpmn:outgoing>F_S07</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_SolicitudReexpedicion" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:task id="S_ValidarEnlace" name="Verificar vínculo y recibo">
+      <bpmn:incoming>F_S07</bpmn:incoming>
+      <bpmn:outgoing>F_S08</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="S_DecidirValidez" name="¿Solicitud válida?">
+      <bpmn:incoming>F_S08</bpmn:incoming>
+      <bpmn:outgoing>F_S09</bpmn:outgoing>
+      <bpmn:outgoing>F_S10</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="S_SolicitarBOGDATA" name="Pedir reexpedición a SDP">
+      <bpmn:incoming>F_S09</bpmn:incoming>
+      <bpmn:outgoing>F_S12</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="S_EsperarBOGDATA" name="Esperar recibo nuevo">
+      <bpmn:incoming>F_S12</bpmn:incoming>
+      <bpmn:outgoing>F_S13</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_ConfirmacionBOGDATA" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sendTask id="S_ComunicarNuevo" name="Comunicar nuevo recibo">
+      <bpmn:incoming>F_S13</bpmn:incoming>
+      <bpmn:outgoing>F_S14</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:task id="S_NoValida" name="Registrar rechazo [PROPUESTA]">
+      <bpmn:incoming>F_S10</bpmn:incoming>
+      <bpmn:outgoing>F_S11</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="S_FinNoValida" name="Fin: sin reexpedición">
+      <bpmn:incoming>F_S11</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_S01" sourceRef="S_Start" targetRef="S_Espera" />
+    <bpmn:sequenceFlow id="F_S02" sourceRef="S_Espera" targetRef="S_Pago" name="Pago" />
+    <bpmn:sequenceFlow id="F_S03" sourceRef="S_Pago" targetRef="S_FinPagado" />
+    <bpmn:sequenceFlow id="F_S04" sourceRef="S_Espera" targetRef="S_Vencido" name="Vencimiento" />
+    <bpmn:sequenceFlow id="F_S05" sourceRef="S_Vencido" targetRef="S_NotificarVencimiento" />
+    <bpmn:sequenceFlow id="F_S06" sourceRef="S_NotificarVencimiento" targetRef="S_RecibirSolicitud" />
+    <bpmn:sequenceFlow id="F_S07" sourceRef="S_RecibirSolicitud" targetRef="S_ValidarEnlace" />
+    <bpmn:sequenceFlow id="F_S08" sourceRef="S_ValidarEnlace" targetRef="S_DecidirValidez" />
+    <bpmn:sequenceFlow id="F_S09" sourceRef="S_DecidirValidez" targetRef="S_SolicitarBOGDATA" name="Sí" />
+    <bpmn:sequenceFlow id="F_S10" sourceRef="S_DecidirValidez" targetRef="S_NoValida" name="No / por confirmar" />
+    <bpmn:sequenceFlow id="F_S11" sourceRef="S_NoValida" targetRef="S_FinNoValida" />
+    <bpmn:sequenceFlow id="F_S12" sourceRef="S_SolicitarBOGDATA" targetRef="S_EsperarBOGDATA" />
+    <bpmn:sequenceFlow id="F_S13" sourceRef="S_EsperarBOGDATA" targetRef="S_ComunicarNuevo" />
+    <bpmn:sequenceFlow id="F_S14" sourceRef="S_ComunicarNuevo" targetRef="S_Espera" name="Nuevo ciclo" />
+  </bpmn:process>
+  <bpmn:process id="Process_Titular" name="Titular del recibo" isExecutable="false">
+    <bpmn:startEvent id="T_Inicio" name="Recibir aviso">
+      <bpmn:outgoing>F_T01</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_AvisoVencimiento" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="T_Solicitar" name="Solicitar reexpedición">
+      <bpmn:incoming>F_T01</bpmn:incoming>
+      <bpmn:outgoing>F_T02</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateCatchEvent id="T_RecibirNuevo" name="Recibir nuevo recibo">
+      <bpmn:incoming>F_T02</bpmn:incoming>
+      <bpmn:outgoing>F_T03</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_ReciboReexpedido" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="T_Fin" name="Fin: recibo recibido">
+      <bpmn:incoming>F_T03</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_T01" sourceRef="T_Inicio" targetRef="T_Solicitar" />
+    <bpmn:sequenceFlow id="F_T02" sourceRef="T_Solicitar" targetRef="T_RecibirNuevo" />
+    <bpmn:sequenceFlow id="F_T03" sourceRef="T_RecibirNuevo" targetRef="T_Fin" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Lab">
+    <bpmndi:BPMNPlane id="BPMNPlane_Lab" bpmnElement="Collaboration_Lab">
+      <bpmndi:BPMNShape id="Participant_Sistema_di" bpmnElement="Participant_Sistema" isHorizontal="true">
+        <dc:Bounds x="70" y="90" width="2208" height="480" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_Titular_di" bpmnElement="Participant_Titular" isHorizontal="true">
+        <dc:Bounds x="70" y="650" width="896" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Seguimiento_di" bpmnElement="Lane_Seguimiento" isHorizontal="true">
+        <dc:Bounds x="100" y="90" width="2178" height="220" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Reexpedicion_di" bpmnElement="Lane_Reexpedicion" isHorizontal="true">
+        <dc:Bounds x="100" y="310" width="2178" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Start_di" bpmnElement="S_Start">
+        <dc:Bounds x="140" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Espera_di" bpmnElement="S_Espera">
+        <dc:Bounds x="340" y="155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Pago_di" bpmnElement="S_Pago">
+        <dc:Bounds x="540" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_FinPagado_di" bpmnElement="S_FinPagado">
+        <dc:Bounds x="740" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Vencido_di" bpmnElement="S_Vencido">
+        <dc:Bounds x="540" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_NotificarVencimiento_di" bpmnElement="S_NotificarVencimiento">
+        <dc:Bounds x="740" y="221" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_RecibirSolicitud_di" bpmnElement="S_RecibirSolicitud">
+        <dc:Bounds x="940" y="382" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_ValidarEnlace_di" bpmnElement="S_ValidarEnlace">
+        <dc:Bounds x="1140" y="361" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_DecidirValidez_di" bpmnElement="S_DecidirValidez">
+        <dc:Bounds x="1340" y="375" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_SolicitarBOGDATA_di" bpmnElement="S_SolicitarBOGDATA">
+        <dc:Bounds x="1540" y="361" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_EsperarBOGDATA_di" bpmnElement="S_EsperarBOGDATA">
+        <dc:Bounds x="1740" y="382" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_ComunicarNuevo_di" bpmnElement="S_ComunicarNuevo">
+        <dc:Bounds x="1940" y="361" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_NoValida_di" bpmnElement="S_NoValida">
+        <dc:Bounds x="1540" y="441" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_FinNoValida_di" bpmnElement="S_FinNoValida">
+        <dc:Bounds x="1740" y="462" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Inicio_di" bpmnElement="T_Inicio">
+        <dc:Bounds x="140" y="722" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Solicitar_di" bpmnElement="T_Solicitar">
+        <dc:Bounds x="340" y="701" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_RecibirNuevo_di" bpmnElement="T_RecibirNuevo">
+        <dc:Bounds x="540" y="722" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Fin_di" bpmnElement="T_Fin">
+        <dc:Bounds x="740" y="722" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="F_S01_di" bpmnElement="F_S01">
+        <di:waypoint x="176" y="180" />
+        <di:waypoint x="258" y="180" />
+        <di:waypoint x="258" y="180" />
+        <di:waypoint x="340" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S02_di" bpmnElement="F_S02">
+        <di:waypoint x="390" y="180" />
+        <di:waypoint x="465" y="180" />
+        <di:waypoint x="465" y="180" />
+        <di:waypoint x="540" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S03_di" bpmnElement="F_S03">
+        <di:waypoint x="576" y="180" />
+        <di:waypoint x="658" y="180" />
+        <di:waypoint x="658" y="180" />
+        <di:waypoint x="740" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S04_di" bpmnElement="F_S04">
+        <di:waypoint x="390" y="180" />
+        <di:waypoint x="465" y="180" />
+        <di:waypoint x="465" y="260" />
+        <di:waypoint x="540" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S05_di" bpmnElement="F_S05">
+        <di:waypoint x="576" y="260" />
+        <di:waypoint x="658" y="260" />
+        <di:waypoint x="658" y="260" />
+        <di:waypoint x="740" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S06_di" bpmnElement="F_S06">
+        <di:waypoint x="888" y="260" />
+        <di:waypoint x="914" y="260" />
+        <di:waypoint x="914" y="400" />
+        <di:waypoint x="940" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S07_di" bpmnElement="F_S07">
+        <di:waypoint x="976" y="400" />
+        <di:waypoint x="1058" y="400" />
+        <di:waypoint x="1058" y="400" />
+        <di:waypoint x="1140" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S08_di" bpmnElement="F_S08">
+        <di:waypoint x="1288" y="400" />
+        <di:waypoint x="1314" y="400" />
+        <di:waypoint x="1314" y="400" />
+        <di:waypoint x="1340" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S09_di" bpmnElement="F_S09">
+        <di:waypoint x="1390" y="400" />
+        <di:waypoint x="1465" y="400" />
+        <di:waypoint x="1465" y="400" />
+        <di:waypoint x="1540" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S10_di" bpmnElement="F_S10">
+        <di:waypoint x="1390" y="400" />
+        <di:waypoint x="1465" y="400" />
+        <di:waypoint x="1465" y="480" />
+        <di:waypoint x="1540" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S11_di" bpmnElement="F_S11">
+        <di:waypoint x="1688" y="480" />
+        <di:waypoint x="1714" y="480" />
+        <di:waypoint x="1714" y="480" />
+        <di:waypoint x="1740" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S12_di" bpmnElement="F_S12">
+        <di:waypoint x="1688" y="400" />
+        <di:waypoint x="1714" y="400" />
+        <di:waypoint x="1714" y="400" />
+        <di:waypoint x="1740" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S13_di" bpmnElement="F_S13">
+        <di:waypoint x="1776" y="400" />
+        <di:waypoint x="1858" y="400" />
+        <di:waypoint x="1858" y="400" />
+        <di:waypoint x="1940" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S14_di" bpmnElement="F_S14">
+        <di:waypoint x="2014" y="439" />
+        <di:waypoint x="2014" y="526" />
+        <di:waypoint x="365" y="526" />
+        <di:waypoint x="365" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T01_di" bpmnElement="F_T01">
+        <di:waypoint x="176" y="740" />
+        <di:waypoint x="258" y="740" />
+        <di:waypoint x="258" y="740" />
+        <di:waypoint x="340" y="740" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T02_di" bpmnElement="F_T02">
+        <di:waypoint x="488" y="740" />
+        <di:waypoint x="514" y="740" />
+        <di:waypoint x="514" y="740" />
+        <di:waypoint x="540" y="740" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T03_di" bpmnElement="F_T03">
+        <di:waypoint x="576" y="740" />
+        <di:waypoint x="658" y="740" />
+        <di:waypoint x="658" y="740" />
+        <di:waypoint x="740" y="740" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Aviso_di" bpmnElement="MF_Aviso">
+        <di:waypoint x="814" y="299" />
+        <di:waypoint x="814" y="823" />
+        <di:waypoint x="158" y="823" />
+        <di:waypoint x="158" y="758" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Peticion_di" bpmnElement="MF_Peticion">
+        <di:waypoint x="488" y="740" />
+        <di:waypoint x="714" y="740" />
+        <di:waypoint x="714" y="400" />
+        <di:waypoint x="940" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Recibo_di" bpmnElement="MF_Recibo">
+        <di:waypoint x="2014" y="439" />
+        <di:waypoint x="2014" y="823" />
+        <di:waypoint x="558" y="823" />
+        <di:waypoint x="558" y="758" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

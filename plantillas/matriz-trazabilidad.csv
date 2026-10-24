@@ -1,0 +1,2 @@
+REQ_ID,Fuente_SOP,PREG_ID,Patron_EARS,Requisito,Actor,Evento,Precondicion,Resultado_Observable,Estado,ASIS_TOBE,BPMN_Nodo,BPMN_Flujo,Prueba_Aceptacion
+REQ-001,,,,,,,,,Pendiente,AS-IS,,,

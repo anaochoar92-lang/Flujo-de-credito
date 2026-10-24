@@ -1,0 +1,73 @@
+{
+  "nota": "Manifiesto pedagógico; NO es un ZIP de importación Preset ni payload de la API",
+  "dashboards": [
+    {
+      "nombre": "MBA - Desempeño AS-IS / TO-BE",
+      "dataset": "preset_resumen_mensual.csv",
+      "widgets": [
+        {
+          "nombre": "Horas humanas por caso",
+          "tipo": "Bar Chart",
+          "dimension": "escenario",
+          "metrica": "AVG(horas_humanas_promedio)",
+          "unidad": "horas"
+        },
+        {
+          "nombre": "Errores por escenario",
+          "tipo": "Bar Chart",
+          "dimension": "escenario",
+          "metrica": "SUM(errores)",
+          "unidad": "casos"
+        },
+        {
+          "nombre": "Tiempo de ciclo por mes",
+          "tipo": "Bar Chart",
+          "dimension": "mes",
+          "serie": "escenario",
+          "metrica": "AVG(horas_ciclo_promedio)",
+          "unidad": "horas"
+        },
+        {
+          "nombre": "Volumen por escenario",
+          "tipo": "Big Number",
+          "metrica": "SUM(casos)",
+          "filtro": "escenario = TO-BE",
+          "unidad": "casos"
+        }
+      ]
+    },
+    {
+      "nombre": "MBA - ROI del proceso TO-BE",
+      "dataset": "preset_roi_mensual.csv",
+      "widgets": [
+        {
+          "nombre": "Beneficio operativo simulado",
+          "tipo": "Big Number",
+          "metrica": "SUM(beneficio_neto_operativo_cop)",
+          "unidad": "COP"
+        },
+        {
+          "nombre": "Horas evitadas",
+          "tipo": "Bar Chart",
+          "dimension": "mes",
+          "metrica": "SUM(ahorro_horas_total)",
+          "unidad": "horas"
+        },
+        {
+          "nombre": "Ahorro laboral mensual",
+          "tipo": "Bar Chart",
+          "dimension": "mes",
+          "metrica": "SUM(ahorro_laboral_cop)",
+          "unidad": "COP"
+        },
+        {
+          "nombre": "Costo de errores evitado",
+          "tipo": "Bar Chart",
+          "dimension": "mes",
+          "metrica": "SUM(ahorro_errores_cop)",
+          "unidad": "COP"
+        }
+      ]
+    }
+  ]
+}

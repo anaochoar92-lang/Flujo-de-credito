@@ -1,0 +1,21 @@
+{
+  "descripcion":"Plan técnico del dashboard maestro. Indicadores sintéticos; SQL expresado en términos de columnas de CSV.",
+  "datasets":{
+    "resumen":{"tabla":"mba_resumen_mensual","csv":"preset_resumen_mensual.csv","columns":["mes","escenario","casos","horas_humanas_totales","errores","horas_ciclo_promedio"]},
+    "roi":{"tabla":"mba_roi_mensual","csv":"preset_roi_mensual.csv","columns":["mes","ahorro_horas_total","ahorro_laboral_cop","ahorro_errores_cop","beneficio_neto_operativo_cop"]}
+  },
+  "dashboards":[
+    {"titulo":"MBA · 01 Desempeño AS-IS / TO-BE (sintético)","widgets":[
+      {"nombre":"Horas humanas por caso","descripcion":"Horas trabajadas/casos. Ponderada por volumen, no promedio de promedios.","dataset":"resumen","tipo":"echarts_timeseries_bar","dimension":"escenario","sql":"SUM(horas_humanas_totales) / NULLIF(SUM(casos),0)"},
+      {"nombre":"Errores por escenario","descripcion":"Recuento de casos con error.","dataset":"resumen","tipo":"echarts_timeseries_bar","dimension":"escenario","sql":"SUM(errores)"},
+      {"nombre":"Horas de ciclo por mes","descripcion":"Media mensual sintética de tiempo de ciclo, ponderada por casos.","dataset":"resumen","tipo":"echarts_timeseries_bar","dimension":"mes","serie":["escenario"],"sql":"SUM(horas_ciclo_promedio * casos) / NULLIF(SUM(casos),0)"},
+      {"nombre":"Casos analizados AS-IS y TO-BE","descripcion":"Duplicación deliberada de muestras pareadas: no representa volumen real doble.","dataset":"resumen","tipo":"big_number_total","sql":"SUM(casos)"}
+    ]},
+    {"titulo":"MBA · 02 ROI del proceso TO-BE (sintético)","widgets":[
+      {"nombre":"Beneficio neto operativo total (COP)","descripcion":"Beneficio después del mantenimiento, sin restar inversión inicial.","dataset":"roi","tipo":"big_number_total","sql":"SUM(beneficio_neto_operativo_cop)"},
+      {"nombre":"Horas humanas evitadas al mes","descripcion":"Potencial de capacidad liberada; no toda es ahorro financiero.","dataset":"roi","tipo":"echarts_timeseries_bar","dimension":"mes","sql":"SUM(ahorro_horas_total)"},
+      {"nombre":"Ahorro laboral monetizable (COP)","descripcion":"Excluye capacidad no monetizada según supuesto editable.","dataset":"roi","tipo":"echarts_timeseries_bar","dimension":"mes","sql":"SUM(ahorro_laboral_cop)"},
+      {"nombre":"Costos de error evitados (COP)","descripcion":"Solo los errores monetizables incluidos en el escenario de simulación.","dataset":"roi","tipo":"echarts_timeseries_bar","dimension":"mes","sql":"SUM(ahorro_errores_cop)"}
+    ]}
+  ]
+}

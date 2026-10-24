@@ -1,0 +1,1321 @@
+﻿id_caso,id_par,escenario,mes,actividad,tipo_tarea,horas_humanas,automatizable,intervencion_humana,fuente_datos
+CASO-0001-as_is,CASO-0001,AS-IS,2026-07,Revisar solicitud,Revision humana,0.642,Parcial,Si,SINTETICO
+CASO-0001-as_is,CASO-0001,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.822,Si,Si,SINTETICO
+CASO-0001-as_is,CASO-0001,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.745,Si,Si,SINTETICO
+CASO-0001-as_is,CASO-0001,AS-IS,2026-07,Notificar y registrar,Workflow,0.36,Si,Si,SINTETICO
+CASO-0001-to_be,CASO-0001,TO-BE,2026-07,Revisar solicitud,Revision humana,0.276,Parcial,Si,SINTETICO
+CASO-0001-to_be,CASO-0001,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.354,Si,Segun excepcion,SINTETICO
+CASO-0001-to_be,CASO-0001,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.32,Si,Segun excepcion,SINTETICO
+CASO-0001-to_be,CASO-0001,TO-BE,2026-07,Notificar y registrar,Workflow,0.155,Si,Segun excepcion,SINTETICO
+CASO-0002-as_is,CASO-0002,AS-IS,2026-07,Revisar solicitud,Revision humana,0.855,Parcial,Si,SINTETICO
+CASO-0002-as_is,CASO-0002,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.095,Si,Si,SINTETICO
+CASO-0002-as_is,CASO-0002,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.992,Si,Si,SINTETICO
+CASO-0002-as_is,CASO-0002,AS-IS,2026-07,Notificar y registrar,Workflow,0.479,Si,Si,SINTETICO
+CASO-0002-to_be,CASO-0002,TO-BE,2026-07,Revisar solicitud,Revision humana,0.334,Parcial,Si,SINTETICO
+CASO-0002-to_be,CASO-0002,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.428,Si,Segun excepcion,SINTETICO
+CASO-0002-to_be,CASO-0002,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.387,Si,Segun excepcion,SINTETICO
+CASO-0002-to_be,CASO-0002,TO-BE,2026-07,Notificar y registrar,Workflow,0.187,Si,Segun excepcion,SINTETICO
+CASO-0003-as_is,CASO-0003,AS-IS,2026-07,Revisar solicitud,Revision humana,0.814,Parcial,Si,SINTETICO
+CASO-0003-as_is,CASO-0003,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.041,Si,Si,SINTETICO
+CASO-0003-as_is,CASO-0003,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.944,Si,Si,SINTETICO
+CASO-0003-as_is,CASO-0003,AS-IS,2026-07,Notificar y registrar,Workflow,0.456,Si,Si,SINTETICO
+CASO-0003-to_be,CASO-0003,TO-BE,2026-07,Revisar solicitud,Revision humana,0.258,Parcial,Si,SINTETICO
+CASO-0003-to_be,CASO-0003,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.33,Si,Segun excepcion,SINTETICO
+CASO-0003-to_be,CASO-0003,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.299,Si,Segun excepcion,SINTETICO
+CASO-0003-to_be,CASO-0003,TO-BE,2026-07,Notificar y registrar,Workflow,0.144,Si,Segun excepcion,SINTETICO
+CASO-0004-as_is,CASO-0004,AS-IS,2026-07,Revisar solicitud,Revision humana,0.556,Parcial,Si,SINTETICO
+CASO-0004-as_is,CASO-0004,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.712,Si,Si,SINTETICO
+CASO-0004-as_is,CASO-0004,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.646,Si,Si,SINTETICO
+CASO-0004-as_is,CASO-0004,AS-IS,2026-07,Notificar y registrar,Workflow,0.312,Si,Si,SINTETICO
+CASO-0004-to_be,CASO-0004,TO-BE,2026-07,Revisar solicitud,Revision humana,0.204,Parcial,Si,SINTETICO
+CASO-0004-to_be,CASO-0004,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.262,Si,Segun excepcion,SINTETICO
+CASO-0004-to_be,CASO-0004,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.237,Si,Segun excepcion,SINTETICO
+CASO-0004-to_be,CASO-0004,TO-BE,2026-07,Notificar y registrar,Workflow,0.115,Si,Segun excepcion,SINTETICO
+CASO-0005-as_is,CASO-0005,AS-IS,2026-07,Revisar solicitud,Revision humana,0.632,Parcial,Si,SINTETICO
+CASO-0005-as_is,CASO-0005,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.809,Si,Si,SINTETICO
+CASO-0005-as_is,CASO-0005,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.733,Si,Si,SINTETICO
+CASO-0005-as_is,CASO-0005,AS-IS,2026-07,Notificar y registrar,Workflow,0.354,Si,Si,SINTETICO
+CASO-0005-to_be,CASO-0005,TO-BE,2026-07,Revisar solicitud,Revision humana,0.206,Parcial,Si,SINTETICO
+CASO-0005-to_be,CASO-0005,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.263,Si,Segun excepcion,SINTETICO
+CASO-0005-to_be,CASO-0005,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.239,Si,Segun excepcion,SINTETICO
+CASO-0005-to_be,CASO-0005,TO-BE,2026-07,Notificar y registrar,Workflow,0.115,Si,Segun excepcion,SINTETICO
+CASO-0006-as_is,CASO-0006,AS-IS,2026-07,Revisar solicitud,Revision humana,0.977,Parcial,Si,SINTETICO
+CASO-0006-as_is,CASO-0006,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.25,Si,Si,SINTETICO
+CASO-0006-as_is,CASO-0006,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.133,Si,Si,SINTETICO
+CASO-0006-as_is,CASO-0006,AS-IS,2026-07,Notificar y registrar,Workflow,0.547,Si,Si,SINTETICO
+CASO-0006-to_be,CASO-0006,TO-BE,2026-07,Revisar solicitud,Revision humana,0.368,Parcial,Si,SINTETICO
+CASO-0006-to_be,CASO-0006,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.471,Si,Segun excepcion,SINTETICO
+CASO-0006-to_be,CASO-0006,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.427,Si,Segun excepcion,SINTETICO
+CASO-0006-to_be,CASO-0006,TO-BE,2026-07,Notificar y registrar,Workflow,0.206,Si,Segun excepcion,SINTETICO
+CASO-0007-as_is,CASO-0007,AS-IS,2026-07,Revisar solicitud,Revision humana,0.856,Parcial,Si,SINTETICO
+CASO-0007-as_is,CASO-0007,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.096,Si,Si,SINTETICO
+CASO-0007-as_is,CASO-0007,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.993,Si,Si,SINTETICO
+CASO-0007-as_is,CASO-0007,AS-IS,2026-07,Notificar y registrar,Workflow,0.479,Si,Si,SINTETICO
+CASO-0007-to_be,CASO-0007,TO-BE,2026-07,Revisar solicitud,Revision humana,0.301,Parcial,Si,SINTETICO
+CASO-0007-to_be,CASO-0007,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.386,Si,Segun excepcion,SINTETICO
+CASO-0007-to_be,CASO-0007,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.35,Si,Segun excepcion,SINTETICO
+CASO-0007-to_be,CASO-0007,TO-BE,2026-07,Notificar y registrar,Workflow,0.169,Si,Segun excepcion,SINTETICO
+CASO-0008-as_is,CASO-0008,AS-IS,2026-07,Revisar solicitud,Revision humana,0.534,Parcial,Si,SINTETICO
+CASO-0008-as_is,CASO-0008,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.684,Si,Si,SINTETICO
+CASO-0008-as_is,CASO-0008,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.62,Si,Si,SINTETICO
+CASO-0008-as_is,CASO-0008,AS-IS,2026-07,Notificar y registrar,Workflow,0.299,Si,Si,SINTETICO
+CASO-0008-to_be,CASO-0008,TO-BE,2026-07,Revisar solicitud,Revision humana,0.282,Parcial,Si,SINTETICO
+CASO-0008-to_be,CASO-0008,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.361,Si,Segun excepcion,SINTETICO
+CASO-0008-to_be,CASO-0008,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.327,Si,Segun excepcion,SINTETICO
+CASO-0008-to_be,CASO-0008,TO-BE,2026-07,Notificar y registrar,Workflow,0.158,Si,Segun excepcion,SINTETICO
+CASO-0009-as_is,CASO-0009,AS-IS,2026-07,Revisar solicitud,Revision humana,0.806,Parcial,Si,SINTETICO
+CASO-0009-as_is,CASO-0009,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.031,Si,Si,SINTETICO
+CASO-0009-as_is,CASO-0009,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.935,Si,Si,SINTETICO
+CASO-0009-as_is,CASO-0009,AS-IS,2026-07,Notificar y registrar,Workflow,0.451,Si,Si,SINTETICO
+CASO-0009-to_be,CASO-0009,TO-BE,2026-07,Revisar solicitud,Revision humana,0.282,Parcial,Si,SINTETICO
+CASO-0009-to_be,CASO-0009,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.361,Si,Segun excepcion,SINTETICO
+CASO-0009-to_be,CASO-0009,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.327,Si,Segun excepcion,SINTETICO
+CASO-0009-to_be,CASO-0009,TO-BE,2026-07,Notificar y registrar,Workflow,0.158,Si,Segun excepcion,SINTETICO
+CASO-0010-as_is,CASO-0010,AS-IS,2026-07,Revisar solicitud,Revision humana,0.789,Parcial,Si,SINTETICO
+CASO-0010-as_is,CASO-0010,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.01,Si,Si,SINTETICO
+CASO-0010-as_is,CASO-0010,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.916,Si,Si,SINTETICO
+CASO-0010-as_is,CASO-0010,AS-IS,2026-07,Notificar y registrar,Workflow,0.442,Si,Si,SINTETICO
+CASO-0010-to_be,CASO-0010,TO-BE,2026-07,Revisar solicitud,Revision humana,0.254,Parcial,Si,SINTETICO
+CASO-0010-to_be,CASO-0010,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.325,Si,Segun excepcion,SINTETICO
+CASO-0010-to_be,CASO-0010,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.295,Si,Segun excepcion,SINTETICO
+CASO-0010-to_be,CASO-0010,TO-BE,2026-07,Notificar y registrar,Workflow,0.142,Si,Segun excepcion,SINTETICO
+CASO-0011-as_is,CASO-0011,AS-IS,2026-07,Revisar solicitud,Revision humana,0.711,Parcial,Si,SINTETICO
+CASO-0011-as_is,CASO-0011,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.91,Si,Si,SINTETICO
+CASO-0011-as_is,CASO-0011,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.825,Si,Si,SINTETICO
+CASO-0011-as_is,CASO-0011,AS-IS,2026-07,Notificar y registrar,Workflow,0.398,Si,Si,SINTETICO
+CASO-0011-to_be,CASO-0011,TO-BE,2026-07,Revisar solicitud,Revision humana,0.293,Parcial,Si,SINTETICO
+CASO-0011-to_be,CASO-0011,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.375,Si,Segun excepcion,SINTETICO
+CASO-0011-to_be,CASO-0011,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.34,Si,Segun excepcion,SINTETICO
+CASO-0011-to_be,CASO-0011,TO-BE,2026-07,Notificar y registrar,Workflow,0.164,Si,Segun excepcion,SINTETICO
+CASO-0012-as_is,CASO-0012,AS-IS,2026-07,Revisar solicitud,Revision humana,0.894,Parcial,Si,SINTETICO
+CASO-0012-as_is,CASO-0012,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.145,Si,Si,SINTETICO
+CASO-0012-as_is,CASO-0012,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.038,Si,Si,SINTETICO
+CASO-0012-as_is,CASO-0012,AS-IS,2026-07,Notificar y registrar,Workflow,0.501,Si,Si,SINTETICO
+CASO-0012-to_be,CASO-0012,TO-BE,2026-07,Revisar solicitud,Revision humana,0.354,Parcial,Si,SINTETICO
+CASO-0012-to_be,CASO-0012,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.453,Si,Segun excepcion,SINTETICO
+CASO-0012-to_be,CASO-0012,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.411,Si,Segun excepcion,SINTETICO
+CASO-0012-to_be,CASO-0012,TO-BE,2026-07,Notificar y registrar,Workflow,0.198,Si,Segun excepcion,SINTETICO
+CASO-0013-as_is,CASO-0013,AS-IS,2026-07,Revisar solicitud,Revision humana,0.91,Parcial,Si,SINTETICO
+CASO-0013-as_is,CASO-0013,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.164,Si,Si,SINTETICO
+CASO-0013-as_is,CASO-0013,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.055,Si,Si,SINTETICO
+CASO-0013-as_is,CASO-0013,AS-IS,2026-07,Notificar y registrar,Workflow,0.509,Si,Si,SINTETICO
+CASO-0013-to_be,CASO-0013,TO-BE,2026-07,Revisar solicitud,Revision humana,0.316,Parcial,Si,SINTETICO
+CASO-0013-to_be,CASO-0013,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.404,Si,Segun excepcion,SINTETICO
+CASO-0013-to_be,CASO-0013,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.366,Si,Segun excepcion,SINTETICO
+CASO-0013-to_be,CASO-0013,TO-BE,2026-07,Notificar y registrar,Workflow,0.177,Si,Segun excepcion,SINTETICO
+CASO-0014-as_is,CASO-0014,AS-IS,2026-07,Revisar solicitud,Revision humana,0.598,Parcial,Si,SINTETICO
+CASO-0014-as_is,CASO-0014,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.765,Si,Si,SINTETICO
+CASO-0014-as_is,CASO-0014,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.693,Si,Si,SINTETICO
+CASO-0014-as_is,CASO-0014,AS-IS,2026-07,Notificar y registrar,Workflow,0.335,Si,Si,SINTETICO
+CASO-0014-to_be,CASO-0014,TO-BE,2026-07,Revisar solicitud,Revision humana,0.24,Parcial,Si,SINTETICO
+CASO-0014-to_be,CASO-0014,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.308,Si,Segun excepcion,SINTETICO
+CASO-0014-to_be,CASO-0014,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.279,Si,Segun excepcion,SINTETICO
+CASO-0014-to_be,CASO-0014,TO-BE,2026-07,Notificar y registrar,Workflow,0.135,Si,Segun excepcion,SINTETICO
+CASO-0015-as_is,CASO-0015,AS-IS,2026-07,Revisar solicitud,Revision humana,0.626,Parcial,Si,SINTETICO
+CASO-0015-as_is,CASO-0015,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.801,Si,Si,SINTETICO
+CASO-0015-as_is,CASO-0015,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.726,Si,Si,SINTETICO
+CASO-0015-as_is,CASO-0015,AS-IS,2026-07,Notificar y registrar,Workflow,0.35,Si,Si,SINTETICO
+CASO-0015-to_be,CASO-0015,TO-BE,2026-07,Revisar solicitud,Revision humana,0.266,Parcial,Si,SINTETICO
+CASO-0015-to_be,CASO-0015,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.341,Si,Segun excepcion,SINTETICO
+CASO-0015-to_be,CASO-0015,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.309,Si,Segun excepcion,SINTETICO
+CASO-0015-to_be,CASO-0015,TO-BE,2026-07,Notificar y registrar,Workflow,0.149,Si,Segun excepcion,SINTETICO
+CASO-0016-as_is,CASO-0016,AS-IS,2026-07,Revisar solicitud,Revision humana,0.573,Parcial,Si,SINTETICO
+CASO-0016-as_is,CASO-0016,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.733,Si,Si,SINTETICO
+CASO-0016-as_is,CASO-0016,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.664,Si,Si,SINTETICO
+CASO-0016-as_is,CASO-0016,AS-IS,2026-07,Notificar y registrar,Workflow,0.321,Si,Si,SINTETICO
+CASO-0016-to_be,CASO-0016,TO-BE,2026-07,Revisar solicitud,Revision humana,0.232,Parcial,Si,SINTETICO
+CASO-0016-to_be,CASO-0016,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.297,Si,Segun excepcion,SINTETICO
+CASO-0016-to_be,CASO-0016,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.269,Si,Segun excepcion,SINTETICO
+CASO-0016-to_be,CASO-0016,TO-BE,2026-07,Notificar y registrar,Workflow,0.13,Si,Segun excepcion,SINTETICO
+CASO-0017-as_is,CASO-0017,AS-IS,2026-07,Revisar solicitud,Revision humana,0.701,Parcial,Si,SINTETICO
+CASO-0017-as_is,CASO-0017,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.897,Si,Si,SINTETICO
+CASO-0017-as_is,CASO-0017,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.813,Si,Si,SINTETICO
+CASO-0017-as_is,CASO-0017,AS-IS,2026-07,Notificar y registrar,Workflow,0.392,Si,Si,SINTETICO
+CASO-0017-to_be,CASO-0017,TO-BE,2026-07,Revisar solicitud,Revision humana,0.346,Parcial,Si,SINTETICO
+CASO-0017-to_be,CASO-0017,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.444,Si,Segun excepcion,SINTETICO
+CASO-0017-to_be,CASO-0017,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.402,Si,Segun excepcion,SINTETICO
+CASO-0017-to_be,CASO-0017,TO-BE,2026-07,Notificar y registrar,Workflow,0.194,Si,Segun excepcion,SINTETICO
+CASO-0018-as_is,CASO-0018,AS-IS,2026-07,Revisar solicitud,Revision humana,0.763,Parcial,Si,SINTETICO
+CASO-0018-as_is,CASO-0018,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.977,Si,Si,SINTETICO
+CASO-0018-as_is,CASO-0018,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.886,Si,Si,SINTETICO
+CASO-0018-as_is,CASO-0018,AS-IS,2026-07,Notificar y registrar,Workflow,0.428,Si,Si,SINTETICO
+CASO-0018-to_be,CASO-0018,TO-BE,2026-07,Revisar solicitud,Revision humana,0.327,Parcial,Si,SINTETICO
+CASO-0018-to_be,CASO-0018,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.418,Si,Segun excepcion,SINTETICO
+CASO-0018-to_be,CASO-0018,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.379,Si,Segun excepcion,SINTETICO
+CASO-0018-to_be,CASO-0018,TO-BE,2026-07,Notificar y registrar,Workflow,0.183,Si,Segun excepcion,SINTETICO
+CASO-0019-as_is,CASO-0019,AS-IS,2026-07,Revisar solicitud,Revision humana,0.686,Parcial,Si,SINTETICO
+CASO-0019-as_is,CASO-0019,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.878,Si,Si,SINTETICO
+CASO-0019-as_is,CASO-0019,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.795,Si,Si,SINTETICO
+CASO-0019-as_is,CASO-0019,AS-IS,2026-07,Notificar y registrar,Workflow,0.384,Si,Si,SINTETICO
+CASO-0019-to_be,CASO-0019,TO-BE,2026-07,Revisar solicitud,Revision humana,0.229,Parcial,Si,SINTETICO
+CASO-0019-to_be,CASO-0019,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.293,Si,Segun excepcion,SINTETICO
+CASO-0019-to_be,CASO-0019,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.265,Si,Segun excepcion,SINTETICO
+CASO-0019-to_be,CASO-0019,TO-BE,2026-07,Notificar y registrar,Workflow,0.128,Si,Segun excepcion,SINTETICO
+CASO-0020-as_is,CASO-0020,AS-IS,2026-07,Revisar solicitud,Revision humana,0.484,Parcial,Si,SINTETICO
+CASO-0020-as_is,CASO-0020,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.619,Si,Si,SINTETICO
+CASO-0020-as_is,CASO-0020,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.561,Si,Si,SINTETICO
+CASO-0020-as_is,CASO-0020,AS-IS,2026-07,Notificar y registrar,Workflow,0.271,Si,Si,SINTETICO
+CASO-0020-to_be,CASO-0020,TO-BE,2026-07,Revisar solicitud,Revision humana,0.231,Parcial,Si,SINTETICO
+CASO-0020-to_be,CASO-0020,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.296,Si,Segun excepcion,SINTETICO
+CASO-0020-to_be,CASO-0020,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.268,Si,Segun excepcion,SINTETICO
+CASO-0020-to_be,CASO-0020,TO-BE,2026-07,Notificar y registrar,Workflow,0.13,Si,Segun excepcion,SINTETICO
+CASO-0021-as_is,CASO-0021,AS-IS,2026-07,Revisar solicitud,Revision humana,0.646,Parcial,Si,SINTETICO
+CASO-0021-as_is,CASO-0021,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.828,Si,Si,SINTETICO
+CASO-0021-as_is,CASO-0021,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.75,Si,Si,SINTETICO
+CASO-0021-as_is,CASO-0021,AS-IS,2026-07,Notificar y registrar,Workflow,0.362,Si,Si,SINTETICO
+CASO-0021-to_be,CASO-0021,TO-BE,2026-07,Revisar solicitud,Revision humana,0.212,Parcial,Si,SINTETICO
+CASO-0021-to_be,CASO-0021,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.271,Si,Segun excepcion,SINTETICO
+CASO-0021-to_be,CASO-0021,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.246,Si,Segun excepcion,SINTETICO
+CASO-0021-to_be,CASO-0021,TO-BE,2026-07,Notificar y registrar,Workflow,0.119,Si,Segun excepcion,SINTETICO
+CASO-0022-as_is,CASO-0022,AS-IS,2026-07,Revisar solicitud,Revision humana,0.579,Parcial,Si,SINTETICO
+CASO-0022-as_is,CASO-0022,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.74,Si,Si,SINTETICO
+CASO-0022-as_is,CASO-0022,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.671,Si,Si,SINTETICO
+CASO-0022-as_is,CASO-0022,AS-IS,2026-07,Notificar y registrar,Workflow,0.324,Si,Si,SINTETICO
+CASO-0022-to_be,CASO-0022,TO-BE,2026-07,Revisar solicitud,Revision humana,0.297,Parcial,Si,SINTETICO
+CASO-0022-to_be,CASO-0022,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.38,Si,Segun excepcion,SINTETICO
+CASO-0022-to_be,CASO-0022,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.344,Si,Segun excepcion,SINTETICO
+CASO-0022-to_be,CASO-0022,TO-BE,2026-07,Notificar y registrar,Workflow,0.166,Si,Segun excepcion,SINTETICO
+CASO-0023-as_is,CASO-0023,AS-IS,2026-07,Revisar solicitud,Revision humana,0.739,Parcial,Si,SINTETICO
+CASO-0023-as_is,CASO-0023,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.946,Si,Si,SINTETICO
+CASO-0023-as_is,CASO-0023,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.857,Si,Si,SINTETICO
+CASO-0023-as_is,CASO-0023,AS-IS,2026-07,Notificar y registrar,Workflow,0.414,Si,Si,SINTETICO
+CASO-0023-to_be,CASO-0023,TO-BE,2026-07,Revisar solicitud,Revision humana,0.285,Parcial,Si,SINTETICO
+CASO-0023-to_be,CASO-0023,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.365,Si,Segun excepcion,SINTETICO
+CASO-0023-to_be,CASO-0023,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.331,Si,Segun excepcion,SINTETICO
+CASO-0023-to_be,CASO-0023,TO-BE,2026-07,Notificar y registrar,Workflow,0.16,Si,Segun excepcion,SINTETICO
+CASO-0024-as_is,CASO-0024,AS-IS,2026-07,Revisar solicitud,Revision humana,0.932,Parcial,Si,SINTETICO
+CASO-0024-as_is,CASO-0024,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.194,Si,Si,SINTETICO
+CASO-0024-as_is,CASO-0024,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.082,Si,Si,SINTETICO
+CASO-0024-as_is,CASO-0024,AS-IS,2026-07,Notificar y registrar,Workflow,0.522,Si,Si,SINTETICO
+CASO-0024-to_be,CASO-0024,TO-BE,2026-07,Revisar solicitud,Revision humana,0.374,Parcial,Si,SINTETICO
+CASO-0024-to_be,CASO-0024,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.479,Si,Segun excepcion,SINTETICO
+CASO-0024-to_be,CASO-0024,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.434,Si,Segun excepcion,SINTETICO
+CASO-0024-to_be,CASO-0024,TO-BE,2026-07,Notificar y registrar,Workflow,0.209,Si,Segun excepcion,SINTETICO
+CASO-0025-as_is,CASO-0025,AS-IS,2026-07,Revisar solicitud,Revision humana,0.698,Parcial,Si,SINTETICO
+CASO-0025-as_is,CASO-0025,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.894,Si,Si,SINTETICO
+CASO-0025-as_is,CASO-0025,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.81,Si,Si,SINTETICO
+CASO-0025-as_is,CASO-0025,AS-IS,2026-07,Notificar y registrar,Workflow,0.391,Si,Si,SINTETICO
+CASO-0025-to_be,CASO-0025,TO-BE,2026-07,Revisar solicitud,Revision humana,0.259,Parcial,Si,SINTETICO
+CASO-0025-to_be,CASO-0025,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.331,Si,Segun excepcion,SINTETICO
+CASO-0025-to_be,CASO-0025,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.3,Si,Segun excepcion,SINTETICO
+CASO-0025-to_be,CASO-0025,TO-BE,2026-07,Notificar y registrar,Workflow,0.145,Si,Segun excepcion,SINTETICO
+CASO-0026-as_is,CASO-0026,AS-IS,2026-07,Revisar solicitud,Revision humana,0.846,Parcial,Si,SINTETICO
+CASO-0026-as_is,CASO-0026,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.082,Si,Si,SINTETICO
+CASO-0026-as_is,CASO-0026,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.981,Si,Si,SINTETICO
+CASO-0026-as_is,CASO-0026,AS-IS,2026-07,Notificar y registrar,Workflow,0.473,Si,Si,SINTETICO
+CASO-0026-to_be,CASO-0026,TO-BE,2026-07,Revisar solicitud,Revision humana,0.306,Parcial,Si,SINTETICO
+CASO-0026-to_be,CASO-0026,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.392,Si,Segun excepcion,SINTETICO
+CASO-0026-to_be,CASO-0026,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.355,Si,Segun excepcion,SINTETICO
+CASO-0026-to_be,CASO-0026,TO-BE,2026-07,Notificar y registrar,Workflow,0.171,Si,Segun excepcion,SINTETICO
+CASO-0027-as_is,CASO-0027,AS-IS,2026-07,Revisar solicitud,Revision humana,0.764,Parcial,Si,SINTETICO
+CASO-0027-as_is,CASO-0027,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.978,Si,Si,SINTETICO
+CASO-0027-as_is,CASO-0027,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.887,Si,Si,SINTETICO
+CASO-0027-as_is,CASO-0027,AS-IS,2026-07,Notificar y registrar,Workflow,0.428,Si,Si,SINTETICO
+CASO-0027-to_be,CASO-0027,TO-BE,2026-07,Revisar solicitud,Revision humana,0.289,Parcial,Si,SINTETICO
+CASO-0027-to_be,CASO-0027,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.371,Si,Segun excepcion,SINTETICO
+CASO-0027-to_be,CASO-0027,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.336,Si,Segun excepcion,SINTETICO
+CASO-0027-to_be,CASO-0027,TO-BE,2026-07,Notificar y registrar,Workflow,0.162,Si,Segun excepcion,SINTETICO
+CASO-0028-as_is,CASO-0028,AS-IS,2026-07,Revisar solicitud,Revision humana,0.536,Parcial,Si,SINTETICO
+CASO-0028-as_is,CASO-0028,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.686,Si,Si,SINTETICO
+CASO-0028-as_is,CASO-0028,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.621,Si,Si,SINTETICO
+CASO-0028-as_is,CASO-0028,AS-IS,2026-07,Notificar y registrar,Workflow,0.3,Si,Si,SINTETICO
+CASO-0028-to_be,CASO-0028,TO-BE,2026-07,Revisar solicitud,Revision humana,0.226,Parcial,Si,SINTETICO
+CASO-0028-to_be,CASO-0028,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.289,Si,Segun excepcion,SINTETICO
+CASO-0028-to_be,CASO-0028,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.262,Si,Segun excepcion,SINTETICO
+CASO-0028-to_be,CASO-0028,TO-BE,2026-07,Notificar y registrar,Workflow,0.126,Si,Segun excepcion,SINTETICO
+CASO-0029-as_is,CASO-0029,AS-IS,2026-07,Revisar solicitud,Revision humana,0.917,Parcial,Si,SINTETICO
+CASO-0029-as_is,CASO-0029,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.174,Si,Si,SINTETICO
+CASO-0029-as_is,CASO-0029,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.064,Si,Si,SINTETICO
+CASO-0029-as_is,CASO-0029,AS-IS,2026-07,Notificar y registrar,Workflow,0.514,Si,Si,SINTETICO
+CASO-0029-to_be,CASO-0029,TO-BE,2026-07,Revisar solicitud,Revision humana,0.309,Parcial,Si,SINTETICO
+CASO-0029-to_be,CASO-0029,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.396,Si,Segun excepcion,SINTETICO
+CASO-0029-to_be,CASO-0029,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.359,Si,Segun excepcion,SINTETICO
+CASO-0029-to_be,CASO-0029,TO-BE,2026-07,Notificar y registrar,Workflow,0.173,Si,Segun excepcion,SINTETICO
+CASO-0030-as_is,CASO-0030,AS-IS,2026-07,Revisar solicitud,Revision humana,0.756,Parcial,Si,SINTETICO
+CASO-0030-as_is,CASO-0030,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.967,Si,Si,SINTETICO
+CASO-0030-as_is,CASO-0030,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.877,Si,Si,SINTETICO
+CASO-0030-as_is,CASO-0030,AS-IS,2026-07,Notificar y registrar,Workflow,0.423,Si,Si,SINTETICO
+CASO-0030-to_be,CASO-0030,TO-BE,2026-07,Revisar solicitud,Revision humana,0.354,Parcial,Si,SINTETICO
+CASO-0030-to_be,CASO-0030,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.453,Si,Segun excepcion,SINTETICO
+CASO-0030-to_be,CASO-0030,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.411,Si,Segun excepcion,SINTETICO
+CASO-0030-to_be,CASO-0030,TO-BE,2026-07,Notificar y registrar,Workflow,0.198,Si,Segun excepcion,SINTETICO
+CASO-0031-as_is,CASO-0031,AS-IS,2026-07,Revisar solicitud,Revision humana,0.527,Parcial,Si,SINTETICO
+CASO-0031-as_is,CASO-0031,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.675,Si,Si,SINTETICO
+CASO-0031-as_is,CASO-0031,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.612,Si,Si,SINTETICO
+CASO-0031-as_is,CASO-0031,AS-IS,2026-07,Notificar y registrar,Workflow,0.295,Si,Si,SINTETICO
+CASO-0031-to_be,CASO-0031,TO-BE,2026-07,Revisar solicitud,Revision humana,0.246,Parcial,Si,SINTETICO
+CASO-0031-to_be,CASO-0031,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.315,Si,Segun excepcion,SINTETICO
+CASO-0031-to_be,CASO-0031,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.285,Si,Segun excepcion,SINTETICO
+CASO-0031-to_be,CASO-0031,TO-BE,2026-07,Notificar y registrar,Workflow,0.138,Si,Segun excepcion,SINTETICO
+CASO-0032-as_is,CASO-0032,AS-IS,2026-07,Revisar solicitud,Revision humana,0.735,Parcial,Si,SINTETICO
+CASO-0032-as_is,CASO-0032,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.94,Si,Si,SINTETICO
+CASO-0032-as_is,CASO-0032,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.852,Si,Si,SINTETICO
+CASO-0032-as_is,CASO-0032,AS-IS,2026-07,Notificar y registrar,Workflow,0.411,Si,Si,SINTETICO
+CASO-0032-to_be,CASO-0032,TO-BE,2026-07,Revisar solicitud,Revision humana,0.248,Parcial,Si,SINTETICO
+CASO-0032-to_be,CASO-0032,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.317,Si,Segun excepcion,SINTETICO
+CASO-0032-to_be,CASO-0032,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.288,Si,Segun excepcion,SINTETICO
+CASO-0032-to_be,CASO-0032,TO-BE,2026-07,Notificar y registrar,Workflow,0.139,Si,Segun excepcion,SINTETICO
+CASO-0033-as_is,CASO-0033,AS-IS,2026-07,Revisar solicitud,Revision humana,0.624,Parcial,Si,SINTETICO
+CASO-0033-as_is,CASO-0033,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.799,Si,Si,SINTETICO
+CASO-0033-as_is,CASO-0033,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.724,Si,Si,SINTETICO
+CASO-0033-as_is,CASO-0033,AS-IS,2026-07,Notificar y registrar,Workflow,0.349,Si,Si,SINTETICO
+CASO-0033-to_be,CASO-0033,TO-BE,2026-07,Revisar solicitud,Revision humana,0.257,Parcial,Si,SINTETICO
+CASO-0033-to_be,CASO-0033,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.329,Si,Segun excepcion,SINTETICO
+CASO-0033-to_be,CASO-0033,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.298,Si,Segun excepcion,SINTETICO
+CASO-0033-to_be,CASO-0033,TO-BE,2026-07,Notificar y registrar,Workflow,0.144,Si,Segun excepcion,SINTETICO
+CASO-0034-as_is,CASO-0034,AS-IS,2026-07,Revisar solicitud,Revision humana,0.567,Parcial,Si,SINTETICO
+CASO-0034-as_is,CASO-0034,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.726,Si,Si,SINTETICO
+CASO-0034-as_is,CASO-0034,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.658,Si,Si,SINTETICO
+CASO-0034-as_is,CASO-0034,AS-IS,2026-07,Notificar y registrar,Workflow,0.318,Si,Si,SINTETICO
+CASO-0034-to_be,CASO-0034,TO-BE,2026-07,Revisar solicitud,Revision humana,0.267,Parcial,Si,SINTETICO
+CASO-0034-to_be,CASO-0034,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.341,Si,Segun excepcion,SINTETICO
+CASO-0034-to_be,CASO-0034,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.309,Si,Segun excepcion,SINTETICO
+CASO-0034-to_be,CASO-0034,TO-BE,2026-07,Notificar y registrar,Workflow,0.149,Si,Segun excepcion,SINTETICO
+CASO-0035-as_is,CASO-0035,AS-IS,2026-07,Revisar solicitud,Revision humana,0.549,Parcial,Si,SINTETICO
+CASO-0035-as_is,CASO-0035,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.703,Si,Si,SINTETICO
+CASO-0035-as_is,CASO-0035,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.637,Si,Si,SINTETICO
+CASO-0035-as_is,CASO-0035,AS-IS,2026-07,Notificar y registrar,Workflow,0.307,Si,Si,SINTETICO
+CASO-0035-to_be,CASO-0035,TO-BE,2026-07,Revisar solicitud,Revision humana,0.201,Parcial,Si,SINTETICO
+CASO-0035-to_be,CASO-0035,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.257,Si,Segun excepcion,SINTETICO
+CASO-0035-to_be,CASO-0035,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.233,Si,Segun excepcion,SINTETICO
+CASO-0035-to_be,CASO-0035,TO-BE,2026-07,Notificar y registrar,Workflow,0.112,Si,Segun excepcion,SINTETICO
+CASO-0036-as_is,CASO-0036,AS-IS,2026-07,Revisar solicitud,Revision humana,0.618,Parcial,Si,SINTETICO
+CASO-0036-as_is,CASO-0036,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.79,Si,Si,SINTETICO
+CASO-0036-as_is,CASO-0036,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.716,Si,Si,SINTETICO
+CASO-0036-as_is,CASO-0036,AS-IS,2026-07,Notificar y registrar,Workflow,0.346,Si,Si,SINTETICO
+CASO-0036-to_be,CASO-0036,TO-BE,2026-07,Revisar solicitud,Revision humana,0.25,Parcial,Si,SINTETICO
+CASO-0036-to_be,CASO-0036,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.32,Si,Segun excepcion,SINTETICO
+CASO-0036-to_be,CASO-0036,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.29,Si,Segun excepcion,SINTETICO
+CASO-0036-to_be,CASO-0036,TO-BE,2026-07,Notificar y registrar,Workflow,0.14,Si,Segun excepcion,SINTETICO
+CASO-0037-as_is,CASO-0037,AS-IS,2026-07,Revisar solicitud,Revision humana,0.487,Parcial,Si,SINTETICO
+CASO-0037-as_is,CASO-0037,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.623,Si,Si,SINTETICO
+CASO-0037-as_is,CASO-0037,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.565,Si,Si,SINTETICO
+CASO-0037-as_is,CASO-0037,AS-IS,2026-07,Notificar y registrar,Workflow,0.273,Si,Si,SINTETICO
+CASO-0037-to_be,CASO-0037,TO-BE,2026-07,Revisar solicitud,Revision humana,0.248,Parcial,Si,SINTETICO
+CASO-0037-to_be,CASO-0037,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.317,Si,Segun excepcion,SINTETICO
+CASO-0037-to_be,CASO-0037,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.288,Si,Segun excepcion,SINTETICO
+CASO-0037-to_be,CASO-0037,TO-BE,2026-07,Notificar y registrar,Workflow,0.139,Si,Segun excepcion,SINTETICO
+CASO-0038-as_is,CASO-0038,AS-IS,2026-07,Revisar solicitud,Revision humana,0.589,Parcial,Si,SINTETICO
+CASO-0038-as_is,CASO-0038,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.754,Si,Si,SINTETICO
+CASO-0038-as_is,CASO-0038,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.683,Si,Si,SINTETICO
+CASO-0038-as_is,CASO-0038,AS-IS,2026-07,Notificar y registrar,Workflow,0.33,Si,Si,SINTETICO
+CASO-0038-to_be,CASO-0038,TO-BE,2026-07,Revisar solicitud,Revision humana,0.288,Parcial,Si,SINTETICO
+CASO-0038-to_be,CASO-0038,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.369,Si,Segun excepcion,SINTETICO
+CASO-0038-to_be,CASO-0038,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.334,Si,Segun excepcion,SINTETICO
+CASO-0038-to_be,CASO-0038,TO-BE,2026-07,Notificar y registrar,Workflow,0.161,Si,Segun excepcion,SINTETICO
+CASO-0039-as_is,CASO-0039,AS-IS,2026-07,Revisar solicitud,Revision humana,0.988,Parcial,Si,SINTETICO
+CASO-0039-as_is,CASO-0039,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.264,Si,Si,SINTETICO
+CASO-0039-as_is,CASO-0039,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.145,Si,Si,SINTETICO
+CASO-0039-as_is,CASO-0039,AS-IS,2026-07,Notificar y registrar,Workflow,0.553,Si,Si,SINTETICO
+CASO-0039-to_be,CASO-0039,TO-BE,2026-07,Revisar solicitud,Revision humana,0.323,Parcial,Si,SINTETICO
+CASO-0039-to_be,CASO-0039,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.414,Si,Segun excepcion,SINTETICO
+CASO-0039-to_be,CASO-0039,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.375,Si,Segun excepcion,SINTETICO
+CASO-0039-to_be,CASO-0039,TO-BE,2026-07,Notificar y registrar,Workflow,0.181,Si,Segun excepcion,SINTETICO
+CASO-0040-as_is,CASO-0040,AS-IS,2026-07,Revisar solicitud,Revision humana,0.735,Parcial,Si,SINTETICO
+CASO-0040-as_is,CASO-0040,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.941,Si,Si,SINTETICO
+CASO-0040-as_is,CASO-0040,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.853,Si,Si,SINTETICO
+CASO-0040-as_is,CASO-0040,AS-IS,2026-07,Notificar y registrar,Workflow,0.412,Si,Si,SINTETICO
+CASO-0040-to_be,CASO-0040,TO-BE,2026-07,Revisar solicitud,Revision humana,0.318,Parcial,Si,SINTETICO
+CASO-0040-to_be,CASO-0040,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.407,Si,Segun excepcion,SINTETICO
+CASO-0040-to_be,CASO-0040,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.369,Si,Segun excepcion,SINTETICO
+CASO-0040-to_be,CASO-0040,TO-BE,2026-07,Notificar y registrar,Workflow,0.178,Si,Segun excepcion,SINTETICO
+CASO-0041-as_is,CASO-0041,AS-IS,2026-07,Revisar solicitud,Revision humana,0.701,Parcial,Si,SINTETICO
+CASO-0041-as_is,CASO-0041,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.898,Si,Si,SINTETICO
+CASO-0041-as_is,CASO-0041,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.813,Si,Si,SINTETICO
+CASO-0041-as_is,CASO-0041,AS-IS,2026-07,Notificar y registrar,Workflow,0.393,Si,Si,SINTETICO
+CASO-0041-to_be,CASO-0041,TO-BE,2026-07,Revisar solicitud,Revision humana,0.291,Parcial,Si,SINTETICO
+CASO-0041-to_be,CASO-0041,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.372,Si,Segun excepcion,SINTETICO
+CASO-0041-to_be,CASO-0041,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.337,Si,Segun excepcion,SINTETICO
+CASO-0041-to_be,CASO-0041,TO-BE,2026-07,Notificar y registrar,Workflow,0.163,Si,Segun excepcion,SINTETICO
+CASO-0042-as_is,CASO-0042,AS-IS,2026-07,Revisar solicitud,Revision humana,0.607,Parcial,Si,SINTETICO
+CASO-0042-as_is,CASO-0042,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.776,Si,Si,SINTETICO
+CASO-0042-as_is,CASO-0042,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.704,Si,Si,SINTETICO
+CASO-0042-as_is,CASO-0042,AS-IS,2026-07,Notificar y registrar,Workflow,0.34,Si,Si,SINTETICO
+CASO-0042-to_be,CASO-0042,TO-BE,2026-07,Revisar solicitud,Revision humana,0.309,Parcial,Si,SINTETICO
+CASO-0042-to_be,CASO-0042,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.396,Si,Segun excepcion,SINTETICO
+CASO-0042-to_be,CASO-0042,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.359,Si,Segun excepcion,SINTETICO
+CASO-0042-to_be,CASO-0042,TO-BE,2026-07,Notificar y registrar,Workflow,0.173,Si,Segun excepcion,SINTETICO
+CASO-0043-as_is,CASO-0043,AS-IS,2026-07,Revisar solicitud,Revision humana,0.692,Parcial,Si,SINTETICO
+CASO-0043-as_is,CASO-0043,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.885,Si,Si,SINTETICO
+CASO-0043-as_is,CASO-0043,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.802,Si,Si,SINTETICO
+CASO-0043-as_is,CASO-0043,AS-IS,2026-07,Notificar y registrar,Workflow,0.387,Si,Si,SINTETICO
+CASO-0043-to_be,CASO-0043,TO-BE,2026-07,Revisar solicitud,Revision humana,0.246,Parcial,Si,SINTETICO
+CASO-0043-to_be,CASO-0043,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.315,Si,Segun excepcion,SINTETICO
+CASO-0043-to_be,CASO-0043,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.285,Si,Segun excepcion,SINTETICO
+CASO-0043-to_be,CASO-0043,TO-BE,2026-07,Notificar y registrar,Workflow,0.138,Si,Segun excepcion,SINTETICO
+CASO-0044-as_is,CASO-0044,AS-IS,2026-07,Revisar solicitud,Revision humana,0.781,Parcial,Si,SINTETICO
+CASO-0044-as_is,CASO-0044,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.0,Si,Si,SINTETICO
+CASO-0044-as_is,CASO-0044,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.906,Si,Si,SINTETICO
+CASO-0044-as_is,CASO-0044,AS-IS,2026-07,Notificar y registrar,Workflow,0.438,Si,Si,SINTETICO
+CASO-0044-to_be,CASO-0044,TO-BE,2026-07,Revisar solicitud,Revision humana,0.285,Parcial,Si,SINTETICO
+CASO-0044-to_be,CASO-0044,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.365,Si,Segun excepcion,SINTETICO
+CASO-0044-to_be,CASO-0044,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.331,Si,Segun excepcion,SINTETICO
+CASO-0044-to_be,CASO-0044,TO-BE,2026-07,Notificar y registrar,Workflow,0.16,Si,Segun excepcion,SINTETICO
+CASO-0045-as_is,CASO-0045,AS-IS,2026-07,Revisar solicitud,Revision humana,0.761,Parcial,Si,SINTETICO
+CASO-0045-as_is,CASO-0045,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.975,Si,Si,SINTETICO
+CASO-0045-as_is,CASO-0045,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.883,Si,Si,SINTETICO
+CASO-0045-as_is,CASO-0045,AS-IS,2026-07,Notificar y registrar,Workflow,0.426,Si,Si,SINTETICO
+CASO-0045-to_be,CASO-0045,TO-BE,2026-07,Revisar solicitud,Revision humana,0.339,Parcial,Si,SINTETICO
+CASO-0045-to_be,CASO-0045,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.434,Si,Segun excepcion,SINTETICO
+CASO-0045-to_be,CASO-0045,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.393,Si,Segun excepcion,SINTETICO
+CASO-0045-to_be,CASO-0045,TO-BE,2026-07,Notificar y registrar,Workflow,0.19,Si,Segun excepcion,SINTETICO
+CASO-0046-as_is,CASO-0046,AS-IS,2026-07,Revisar solicitud,Revision humana,0.873,Parcial,Si,SINTETICO
+CASO-0046-as_is,CASO-0046,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.117,Si,Si,SINTETICO
+CASO-0046-as_is,CASO-0046,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.012,Si,Si,SINTETICO
+CASO-0046-as_is,CASO-0046,AS-IS,2026-07,Notificar y registrar,Workflow,0.489,Si,Si,SINTETICO
+CASO-0046-to_be,CASO-0046,TO-BE,2026-07,Revisar solicitud,Revision humana,0.325,Parcial,Si,SINTETICO
+CASO-0046-to_be,CASO-0046,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.416,Si,Segun excepcion,SINTETICO
+CASO-0046-to_be,CASO-0046,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.377,Si,Segun excepcion,SINTETICO
+CASO-0046-to_be,CASO-0046,TO-BE,2026-07,Notificar y registrar,Workflow,0.182,Si,Segun excepcion,SINTETICO
+CASO-0047-as_is,CASO-0047,AS-IS,2026-07,Revisar solicitud,Revision humana,0.553,Parcial,Si,SINTETICO
+CASO-0047-as_is,CASO-0047,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.708,Si,Si,SINTETICO
+CASO-0047-as_is,CASO-0047,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.641,Si,Si,SINTETICO
+CASO-0047-as_is,CASO-0047,AS-IS,2026-07,Notificar y registrar,Workflow,0.31,Si,Si,SINTETICO
+CASO-0047-to_be,CASO-0047,TO-BE,2026-07,Revisar solicitud,Revision humana,0.225,Parcial,Si,SINTETICO
+CASO-0047-to_be,CASO-0047,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.288,Si,Segun excepcion,SINTETICO
+CASO-0047-to_be,CASO-0047,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.261,Si,Segun excepcion,SINTETICO
+CASO-0047-to_be,CASO-0047,TO-BE,2026-07,Notificar y registrar,Workflow,0.126,Si,Segun excepcion,SINTETICO
+CASO-0048-as_is,CASO-0048,AS-IS,2026-07,Revisar solicitud,Revision humana,0.965,Parcial,Si,SINTETICO
+CASO-0048-as_is,CASO-0048,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.235,Si,Si,SINTETICO
+CASO-0048-as_is,CASO-0048,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.119,Si,Si,SINTETICO
+CASO-0048-as_is,CASO-0048,AS-IS,2026-07,Notificar y registrar,Workflow,0.54,Si,Si,SINTETICO
+CASO-0048-to_be,CASO-0048,TO-BE,2026-07,Revisar solicitud,Revision humana,0.377,Parcial,Si,SINTETICO
+CASO-0048-to_be,CASO-0048,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.482,Si,Segun excepcion,SINTETICO
+CASO-0048-to_be,CASO-0048,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.437,Si,Segun excepcion,SINTETICO
+CASO-0048-to_be,CASO-0048,TO-BE,2026-07,Notificar y registrar,Workflow,0.211,Si,Segun excepcion,SINTETICO
+CASO-0049-as_is,CASO-0049,AS-IS,2026-07,Revisar solicitud,Revision humana,0.537,Parcial,Si,SINTETICO
+CASO-0049-as_is,CASO-0049,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.688,Si,Si,SINTETICO
+CASO-0049-as_is,CASO-0049,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.623,Si,Si,SINTETICO
+CASO-0049-as_is,CASO-0049,AS-IS,2026-07,Notificar y registrar,Workflow,0.301,Si,Si,SINTETICO
+CASO-0049-to_be,CASO-0049,TO-BE,2026-07,Revisar solicitud,Revision humana,0.221,Parcial,Si,SINTETICO
+CASO-0049-to_be,CASO-0049,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.282,Si,Segun excepcion,SINTETICO
+CASO-0049-to_be,CASO-0049,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.256,Si,Segun excepcion,SINTETICO
+CASO-0049-to_be,CASO-0049,TO-BE,2026-07,Notificar y registrar,Workflow,0.123,Si,Segun excepcion,SINTETICO
+CASO-0050-as_is,CASO-0050,AS-IS,2026-07,Revisar solicitud,Revision humana,0.891,Parcial,Si,SINTETICO
+CASO-0050-as_is,CASO-0050,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.141,Si,Si,SINTETICO
+CASO-0050-as_is,CASO-0050,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.034,Si,Si,SINTETICO
+CASO-0050-as_is,CASO-0050,AS-IS,2026-07,Notificar y registrar,Workflow,0.499,Si,Si,SINTETICO
+CASO-0050-to_be,CASO-0050,TO-BE,2026-07,Revisar solicitud,Revision humana,0.344,Parcial,Si,SINTETICO
+CASO-0050-to_be,CASO-0050,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.441,Si,Segun excepcion,SINTETICO
+CASO-0050-to_be,CASO-0050,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.399,Si,Segun excepcion,SINTETICO
+CASO-0050-to_be,CASO-0050,TO-BE,2026-07,Notificar y registrar,Workflow,0.193,Si,Segun excepcion,SINTETICO
+CASO-0051-as_is,CASO-0051,AS-IS,2026-07,Revisar solicitud,Revision humana,0.601,Parcial,Si,SINTETICO
+CASO-0051-as_is,CASO-0051,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.77,Si,Si,SINTETICO
+CASO-0051-as_is,CASO-0051,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.697,Si,Si,SINTETICO
+CASO-0051-as_is,CASO-0051,AS-IS,2026-07,Notificar y registrar,Workflow,0.337,Si,Si,SINTETICO
+CASO-0051-to_be,CASO-0051,TO-BE,2026-07,Revisar solicitud,Revision humana,0.269,Parcial,Si,SINTETICO
+CASO-0051-to_be,CASO-0051,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.344,Si,Segun excepcion,SINTETICO
+CASO-0051-to_be,CASO-0051,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.312,Si,Segun excepcion,SINTETICO
+CASO-0051-to_be,CASO-0051,TO-BE,2026-07,Notificar y registrar,Workflow,0.15,Si,Segun excepcion,SINTETICO
+CASO-0052-as_is,CASO-0052,AS-IS,2026-07,Revisar solicitud,Revision humana,0.933,Parcial,Si,SINTETICO
+CASO-0052-as_is,CASO-0052,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.195,Si,Si,SINTETICO
+CASO-0052-as_is,CASO-0052,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.083,Si,Si,SINTETICO
+CASO-0052-as_is,CASO-0052,AS-IS,2026-07,Notificar y registrar,Workflow,0.523,Si,Si,SINTETICO
+CASO-0052-to_be,CASO-0052,TO-BE,2026-07,Revisar solicitud,Revision humana,0.38,Parcial,Si,SINTETICO
+CASO-0052-to_be,CASO-0052,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.486,Si,Segun excepcion,SINTETICO
+CASO-0052-to_be,CASO-0052,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.44,Si,Segun excepcion,SINTETICO
+CASO-0052-to_be,CASO-0052,TO-BE,2026-07,Notificar y registrar,Workflow,0.213,Si,Segun excepcion,SINTETICO
+CASO-0053-as_is,CASO-0053,AS-IS,2026-07,Revisar solicitud,Revision humana,0.926,Parcial,Si,SINTETICO
+CASO-0053-as_is,CASO-0053,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,1.186,Si,Si,SINTETICO
+CASO-0053-as_is,CASO-0053,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,1.075,Si,Si,SINTETICO
+CASO-0053-as_is,CASO-0053,AS-IS,2026-07,Notificar y registrar,Workflow,0.519,Si,Si,SINTETICO
+CASO-0053-to_be,CASO-0053,TO-BE,2026-07,Revisar solicitud,Revision humana,0.385,Parcial,Si,SINTETICO
+CASO-0053-to_be,CASO-0053,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.492,Si,Segun excepcion,SINTETICO
+CASO-0053-to_be,CASO-0053,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.446,Si,Segun excepcion,SINTETICO
+CASO-0053-to_be,CASO-0053,TO-BE,2026-07,Notificar y registrar,Workflow,0.215,Si,Segun excepcion,SINTETICO
+CASO-0054-as_is,CASO-0054,AS-IS,2026-07,Revisar solicitud,Revision humana,0.539,Parcial,Si,SINTETICO
+CASO-0054-as_is,CASO-0054,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.691,Si,Si,SINTETICO
+CASO-0054-as_is,CASO-0054,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.626,Si,Si,SINTETICO
+CASO-0054-as_is,CASO-0054,AS-IS,2026-07,Notificar y registrar,Workflow,0.302,Si,Si,SINTETICO
+CASO-0054-to_be,CASO-0054,TO-BE,2026-07,Revisar solicitud,Revision humana,0.225,Parcial,Si,SINTETICO
+CASO-0054-to_be,CASO-0054,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.288,Si,Segun excepcion,SINTETICO
+CASO-0054-to_be,CASO-0054,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.261,Si,Segun excepcion,SINTETICO
+CASO-0054-to_be,CASO-0054,TO-BE,2026-07,Notificar y registrar,Workflow,0.126,Si,Segun excepcion,SINTETICO
+CASO-0055-as_is,CASO-0055,AS-IS,2026-07,Revisar solicitud,Revision humana,0.573,Parcial,Si,SINTETICO
+CASO-0055-as_is,CASO-0055,AS-IS,2026-07,Cotejar soportes,IDP o revision documental,0.733,Si,Si,SINTETICO
+CASO-0055-as_is,CASO-0055,AS-IS,2026-07,Preparar liquidacion,Reglas y calculo,0.664,Si,Si,SINTETICO
+CASO-0055-as_is,CASO-0055,AS-IS,2026-07,Notificar y registrar,Workflow,0.321,Si,Si,SINTETICO
+CASO-0055-to_be,CASO-0055,TO-BE,2026-07,Revisar solicitud,Revision humana,0.254,Parcial,Si,SINTETICO
+CASO-0055-to_be,CASO-0055,TO-BE,2026-07,Cotejar soportes,IDP o revision documental,0.325,Si,Segun excepcion,SINTETICO
+CASO-0055-to_be,CASO-0055,TO-BE,2026-07,Preparar liquidacion,Reglas y calculo,0.295,Si,Segun excepcion,SINTETICO
+CASO-0055-to_be,CASO-0055,TO-BE,2026-07,Notificar y registrar,Workflow,0.142,Si,Segun excepcion,SINTETICO
+CASO-0056-as_is,CASO-0056,AS-IS,2026-08,Revisar solicitud,Revision humana,0.695,Parcial,Si,SINTETICO
+CASO-0056-as_is,CASO-0056,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.89,Si,Si,SINTETICO
+CASO-0056-as_is,CASO-0056,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.806,Si,Si,SINTETICO
+CASO-0056-as_is,CASO-0056,AS-IS,2026-08,Notificar y registrar,Workflow,0.389,Si,Si,SINTETICO
+CASO-0056-to_be,CASO-0056,TO-BE,2026-08,Revisar solicitud,Revision humana,0.299,Parcial,Si,SINTETICO
+CASO-0056-to_be,CASO-0056,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.383,Si,Segun excepcion,SINTETICO
+CASO-0056-to_be,CASO-0056,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.347,Si,Segun excepcion,SINTETICO
+CASO-0056-to_be,CASO-0056,TO-BE,2026-08,Notificar y registrar,Workflow,0.167,Si,Segun excepcion,SINTETICO
+CASO-0057-as_is,CASO-0057,AS-IS,2026-08,Revisar solicitud,Revision humana,0.892,Parcial,Si,SINTETICO
+CASO-0057-as_is,CASO-0057,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.141,Si,Si,SINTETICO
+CASO-0057-as_is,CASO-0057,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,1.034,Si,Si,SINTETICO
+CASO-0057-as_is,CASO-0057,AS-IS,2026-08,Notificar y registrar,Workflow,0.499,Si,Si,SINTETICO
+CASO-0057-to_be,CASO-0057,TO-BE,2026-08,Revisar solicitud,Revision humana,0.39,Parcial,Si,SINTETICO
+CASO-0057-to_be,CASO-0057,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.499,Si,Segun excepcion,SINTETICO
+CASO-0057-to_be,CASO-0057,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.452,Si,Segun excepcion,SINTETICO
+CASO-0057-to_be,CASO-0057,TO-BE,2026-08,Notificar y registrar,Workflow,0.218,Si,Segun excepcion,SINTETICO
+CASO-0058-as_is,CASO-0058,AS-IS,2026-08,Revisar solicitud,Revision humana,0.635,Parcial,Si,SINTETICO
+CASO-0058-as_is,CASO-0058,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.813,Si,Si,SINTETICO
+CASO-0058-as_is,CASO-0058,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.737,Si,Si,SINTETICO
+CASO-0058-as_is,CASO-0058,AS-IS,2026-08,Notificar y registrar,Workflow,0.356,Si,Si,SINTETICO
+CASO-0058-to_be,CASO-0058,TO-BE,2026-08,Revisar solicitud,Revision humana,0.251,Parcial,Si,SINTETICO
+CASO-0058-to_be,CASO-0058,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.321,Si,Segun excepcion,SINTETICO
+CASO-0058-to_be,CASO-0058,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.291,Si,Segun excepcion,SINTETICO
+CASO-0058-to_be,CASO-0058,TO-BE,2026-08,Notificar y registrar,Workflow,0.14,Si,Segun excepcion,SINTETICO
+CASO-0059-as_is,CASO-0059,AS-IS,2026-08,Revisar solicitud,Revision humana,0.519,Parcial,Si,SINTETICO
+CASO-0059-as_is,CASO-0059,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.665,Si,Si,SINTETICO
+CASO-0059-as_is,CASO-0059,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.602,Si,Si,SINTETICO
+CASO-0059-as_is,CASO-0059,AS-IS,2026-08,Notificar y registrar,Workflow,0.291,Si,Si,SINTETICO
+CASO-0059-to_be,CASO-0059,TO-BE,2026-08,Revisar solicitud,Revision humana,0.28,Parcial,Si,SINTETICO
+CASO-0059-to_be,CASO-0059,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.358,Si,Segun excepcion,SINTETICO
+CASO-0059-to_be,CASO-0059,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.324,Si,Segun excepcion,SINTETICO
+CASO-0059-to_be,CASO-0059,TO-BE,2026-08,Notificar y registrar,Workflow,0.157,Si,Segun excepcion,SINTETICO
+CASO-0060-as_is,CASO-0060,AS-IS,2026-08,Revisar solicitud,Revision humana,0.706,Parcial,Si,SINTETICO
+CASO-0060-as_is,CASO-0060,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.903,Si,Si,SINTETICO
+CASO-0060-as_is,CASO-0060,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.819,Si,Si,SINTETICO
+CASO-0060-as_is,CASO-0060,AS-IS,2026-08,Notificar y registrar,Workflow,0.395,Si,Si,SINTETICO
+CASO-0060-to_be,CASO-0060,TO-BE,2026-08,Revisar solicitud,Revision humana,0.259,Parcial,Si,SINTETICO
+CASO-0060-to_be,CASO-0060,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.331,Si,Segun excepcion,SINTETICO
+CASO-0060-to_be,CASO-0060,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.3,Si,Segun excepcion,SINTETICO
+CASO-0060-to_be,CASO-0060,TO-BE,2026-08,Notificar y registrar,Workflow,0.145,Si,Segun excepcion,SINTETICO
+CASO-0061-as_is,CASO-0061,AS-IS,2026-08,Revisar solicitud,Revision humana,0.668,Parcial,Si,SINTETICO
+CASO-0061-as_is,CASO-0061,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.855,Si,Si,SINTETICO
+CASO-0061-as_is,CASO-0061,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.775,Si,Si,SINTETICO
+CASO-0061-as_is,CASO-0061,AS-IS,2026-08,Notificar y registrar,Workflow,0.374,Si,Si,SINTETICO
+CASO-0061-to_be,CASO-0061,TO-BE,2026-08,Revisar solicitud,Revision humana,0.264,Parcial,Si,SINTETICO
+CASO-0061-to_be,CASO-0061,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.337,Si,Segun excepcion,SINTETICO
+CASO-0061-to_be,CASO-0061,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.306,Si,Segun excepcion,SINTETICO
+CASO-0061-to_be,CASO-0061,TO-BE,2026-08,Notificar y registrar,Workflow,0.148,Si,Segun excepcion,SINTETICO
+CASO-0062-as_is,CASO-0062,AS-IS,2026-08,Revisar solicitud,Revision humana,0.689,Parcial,Si,SINTETICO
+CASO-0062-as_is,CASO-0062,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.882,Si,Si,SINTETICO
+CASO-0062-as_is,CASO-0062,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.799,Si,Si,SINTETICO
+CASO-0062-as_is,CASO-0062,AS-IS,2026-08,Notificar y registrar,Workflow,0.386,Si,Si,SINTETICO
+CASO-0062-to_be,CASO-0062,TO-BE,2026-08,Revisar solicitud,Revision humana,0.213,Parcial,Si,SINTETICO
+CASO-0062-to_be,CASO-0062,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.272,Si,Segun excepcion,SINTETICO
+CASO-0062-to_be,CASO-0062,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.247,Si,Segun excepcion,SINTETICO
+CASO-0062-to_be,CASO-0062,TO-BE,2026-08,Notificar y registrar,Workflow,0.119,Si,Segun excepcion,SINTETICO
+CASO-0063-as_is,CASO-0063,AS-IS,2026-08,Revisar solicitud,Revision humana,0.627,Parcial,Si,SINTETICO
+CASO-0063-as_is,CASO-0063,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.803,Si,Si,SINTETICO
+CASO-0063-as_is,CASO-0063,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.727,Si,Si,SINTETICO
+CASO-0063-as_is,CASO-0063,AS-IS,2026-08,Notificar y registrar,Workflow,0.351,Si,Si,SINTETICO
+CASO-0063-to_be,CASO-0063,TO-BE,2026-08,Revisar solicitud,Revision humana,0.28,Parcial,Si,SINTETICO
+CASO-0063-to_be,CASO-0063,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.358,Si,Segun excepcion,SINTETICO
+CASO-0063-to_be,CASO-0063,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.325,Si,Segun excepcion,SINTETICO
+CASO-0063-to_be,CASO-0063,TO-BE,2026-08,Notificar y registrar,Workflow,0.157,Si,Segun excepcion,SINTETICO
+CASO-0064-as_is,CASO-0064,AS-IS,2026-08,Revisar solicitud,Revision humana,0.842,Parcial,Si,SINTETICO
+CASO-0064-as_is,CASO-0064,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.078,Si,Si,SINTETICO
+CASO-0064-as_is,CASO-0064,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.977,Si,Si,SINTETICO
+CASO-0064-as_is,CASO-0064,AS-IS,2026-08,Notificar y registrar,Workflow,0.472,Si,Si,SINTETICO
+CASO-0064-to_be,CASO-0064,TO-BE,2026-08,Revisar solicitud,Revision humana,0.365,Parcial,Si,SINTETICO
+CASO-0064-to_be,CASO-0064,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.467,Si,Segun excepcion,SINTETICO
+CASO-0064-to_be,CASO-0064,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.423,Si,Segun excepcion,SINTETICO
+CASO-0064-to_be,CASO-0064,TO-BE,2026-08,Notificar y registrar,Workflow,0.204,Si,Segun excepcion,SINTETICO
+CASO-0065-as_is,CASO-0065,AS-IS,2026-08,Revisar solicitud,Revision humana,0.764,Parcial,Si,SINTETICO
+CASO-0065-as_is,CASO-0065,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.978,Si,Si,SINTETICO
+CASO-0065-as_is,CASO-0065,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.886,Si,Si,SINTETICO
+CASO-0065-as_is,CASO-0065,AS-IS,2026-08,Notificar y registrar,Workflow,0.428,Si,Si,SINTETICO
+CASO-0065-to_be,CASO-0065,TO-BE,2026-08,Revisar solicitud,Revision humana,0.276,Parcial,Si,SINTETICO
+CASO-0065-to_be,CASO-0065,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.353,Si,Segun excepcion,SINTETICO
+CASO-0065-to_be,CASO-0065,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.32,Si,Segun excepcion,SINTETICO
+CASO-0065-to_be,CASO-0065,TO-BE,2026-08,Notificar y registrar,Workflow,0.155,Si,Segun excepcion,SINTETICO
+CASO-0066-as_is,CASO-0066,AS-IS,2026-08,Revisar solicitud,Revision humana,0.693,Parcial,Si,SINTETICO
+CASO-0066-as_is,CASO-0066,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.887,Si,Si,SINTETICO
+CASO-0066-as_is,CASO-0066,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.804,Si,Si,SINTETICO
+CASO-0066-as_is,CASO-0066,AS-IS,2026-08,Notificar y registrar,Workflow,0.388,Si,Si,SINTETICO
+CASO-0066-to_be,CASO-0066,TO-BE,2026-08,Revisar solicitud,Revision humana,0.282,Parcial,Si,SINTETICO
+CASO-0066-to_be,CASO-0066,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.361,Si,Segun excepcion,SINTETICO
+CASO-0066-to_be,CASO-0066,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.327,Si,Segun excepcion,SINTETICO
+CASO-0066-to_be,CASO-0066,TO-BE,2026-08,Notificar y registrar,Workflow,0.158,Si,Segun excepcion,SINTETICO
+CASO-0067-as_is,CASO-0067,AS-IS,2026-08,Revisar solicitud,Revision humana,0.587,Parcial,Si,SINTETICO
+CASO-0067-as_is,CASO-0067,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.751,Si,Si,SINTETICO
+CASO-0067-as_is,CASO-0067,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.681,Si,Si,SINTETICO
+CASO-0067-as_is,CASO-0067,AS-IS,2026-08,Notificar y registrar,Workflow,0.329,Si,Si,SINTETICO
+CASO-0067-to_be,CASO-0067,TO-BE,2026-08,Revisar solicitud,Revision humana,0.278,Parcial,Si,SINTETICO
+CASO-0067-to_be,CASO-0067,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.356,Si,Segun excepcion,SINTETICO
+CASO-0067-to_be,CASO-0067,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.322,Si,Segun excepcion,SINTETICO
+CASO-0067-to_be,CASO-0067,TO-BE,2026-08,Notificar y registrar,Workflow,0.156,Si,Segun excepcion,SINTETICO
+CASO-0068-as_is,CASO-0068,AS-IS,2026-08,Revisar solicitud,Revision humana,0.969,Parcial,Si,SINTETICO
+CASO-0068-as_is,CASO-0068,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.24,Si,Si,SINTETICO
+CASO-0068-as_is,CASO-0068,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,1.124,Si,Si,SINTETICO
+CASO-0068-as_is,CASO-0068,AS-IS,2026-08,Notificar y registrar,Workflow,0.543,Si,Si,SINTETICO
+CASO-0068-to_be,CASO-0068,TO-BE,2026-08,Revisar solicitud,Revision humana,0.369,Parcial,Si,SINTETICO
+CASO-0068-to_be,CASO-0068,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.472,Si,Segun excepcion,SINTETICO
+CASO-0068-to_be,CASO-0068,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.428,Si,Segun excepcion,SINTETICO
+CASO-0068-to_be,CASO-0068,TO-BE,2026-08,Notificar y registrar,Workflow,0.207,Si,Segun excepcion,SINTETICO
+CASO-0069-as_is,CASO-0069,AS-IS,2026-08,Revisar solicitud,Revision humana,0.517,Parcial,Si,SINTETICO
+CASO-0069-as_is,CASO-0069,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.661,Si,Si,SINTETICO
+CASO-0069-as_is,CASO-0069,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.599,Si,Si,SINTETICO
+CASO-0069-as_is,CASO-0069,AS-IS,2026-08,Notificar y registrar,Workflow,0.289,Si,Si,SINTETICO
+CASO-0069-to_be,CASO-0069,TO-BE,2026-08,Revisar solicitud,Revision humana,0.234,Parcial,Si,SINTETICO
+CASO-0069-to_be,CASO-0069,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.299,Si,Segun excepcion,SINTETICO
+CASO-0069-to_be,CASO-0069,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.271,Si,Segun excepcion,SINTETICO
+CASO-0069-to_be,CASO-0069,TO-BE,2026-08,Notificar y registrar,Workflow,0.131,Si,Segun excepcion,SINTETICO
+CASO-0070-as_is,CASO-0070,AS-IS,2026-08,Revisar solicitud,Revision humana,0.757,Parcial,Si,SINTETICO
+CASO-0070-as_is,CASO-0070,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.97,Si,Si,SINTETICO
+CASO-0070-as_is,CASO-0070,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.879,Si,Si,SINTETICO
+CASO-0070-as_is,CASO-0070,AS-IS,2026-08,Notificar y registrar,Workflow,0.424,Si,Si,SINTETICO
+CASO-0070-to_be,CASO-0070,TO-BE,2026-08,Revisar solicitud,Revision humana,0.389,Parcial,Si,SINTETICO
+CASO-0070-to_be,CASO-0070,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.497,Si,Segun excepcion,SINTETICO
+CASO-0070-to_be,CASO-0070,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.451,Si,Segun excepcion,SINTETICO
+CASO-0070-to_be,CASO-0070,TO-BE,2026-08,Notificar y registrar,Workflow,0.218,Si,Segun excepcion,SINTETICO
+CASO-0071-as_is,CASO-0071,AS-IS,2026-08,Revisar solicitud,Revision humana,0.885,Parcial,Si,SINTETICO
+CASO-0071-as_is,CASO-0071,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.132,Si,Si,SINTETICO
+CASO-0071-as_is,CASO-0071,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,1.026,Si,Si,SINTETICO
+CASO-0071-as_is,CASO-0071,AS-IS,2026-08,Notificar y registrar,Workflow,0.495,Si,Si,SINTETICO
+CASO-0071-to_be,CASO-0071,TO-BE,2026-08,Revisar solicitud,Revision humana,0.358,Parcial,Si,SINTETICO
+CASO-0071-to_be,CASO-0071,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.458,Si,Segun excepcion,SINTETICO
+CASO-0071-to_be,CASO-0071,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.415,Si,Segun excepcion,SINTETICO
+CASO-0071-to_be,CASO-0071,TO-BE,2026-08,Notificar y registrar,Workflow,0.2,Si,Segun excepcion,SINTETICO
+CASO-0072-as_is,CASO-0072,AS-IS,2026-08,Revisar solicitud,Revision humana,0.767,Parcial,Si,SINTETICO
+CASO-0072-as_is,CASO-0072,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.982,Si,Si,SINTETICO
+CASO-0072-as_is,CASO-0072,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.89,Si,Si,SINTETICO
+CASO-0072-as_is,CASO-0072,AS-IS,2026-08,Notificar y registrar,Workflow,0.43,Si,Si,SINTETICO
+CASO-0072-to_be,CASO-0072,TO-BE,2026-08,Revisar solicitud,Revision humana,0.263,Parcial,Si,SINTETICO
+CASO-0072-to_be,CASO-0072,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.336,Si,Segun excepcion,SINTETICO
+CASO-0072-to_be,CASO-0072,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.305,Si,Segun excepcion,SINTETICO
+CASO-0072-to_be,CASO-0072,TO-BE,2026-08,Notificar y registrar,Workflow,0.147,Si,Segun excepcion,SINTETICO
+CASO-0073-as_is,CASO-0073,AS-IS,2026-08,Revisar solicitud,Revision humana,0.839,Parcial,Si,SINTETICO
+CASO-0073-as_is,CASO-0073,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.074,Si,Si,SINTETICO
+CASO-0073-as_is,CASO-0073,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.973,Si,Si,SINTETICO
+CASO-0073-as_is,CASO-0073,AS-IS,2026-08,Notificar y registrar,Workflow,0.47,Si,Si,SINTETICO
+CASO-0073-to_be,CASO-0073,TO-BE,2026-08,Revisar solicitud,Revision humana,0.306,Parcial,Si,SINTETICO
+CASO-0073-to_be,CASO-0073,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.392,Si,Segun excepcion,SINTETICO
+CASO-0073-to_be,CASO-0073,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.356,Si,Segun excepcion,SINTETICO
+CASO-0073-to_be,CASO-0073,TO-BE,2026-08,Notificar y registrar,Workflow,0.172,Si,Segun excepcion,SINTETICO
+CASO-0074-as_is,CASO-0074,AS-IS,2026-08,Revisar solicitud,Revision humana,0.821,Parcial,Si,SINTETICO
+CASO-0074-as_is,CASO-0074,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.05,Si,Si,SINTETICO
+CASO-0074-as_is,CASO-0074,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.952,Si,Si,SINTETICO
+CASO-0074-as_is,CASO-0074,AS-IS,2026-08,Notificar y registrar,Workflow,0.459,Si,Si,SINTETICO
+CASO-0074-to_be,CASO-0074,TO-BE,2026-08,Revisar solicitud,Revision humana,0.28,Parcial,Si,SINTETICO
+CASO-0074-to_be,CASO-0074,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.358,Si,Segun excepcion,SINTETICO
+CASO-0074-to_be,CASO-0074,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.325,Si,Segun excepcion,SINTETICO
+CASO-0074-to_be,CASO-0074,TO-BE,2026-08,Notificar y registrar,Workflow,0.157,Si,Segun excepcion,SINTETICO
+CASO-0075-as_is,CASO-0075,AS-IS,2026-08,Revisar solicitud,Revision humana,0.658,Parcial,Si,SINTETICO
+CASO-0075-as_is,CASO-0075,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.843,Si,Si,SINTETICO
+CASO-0075-as_is,CASO-0075,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.764,Si,Si,SINTETICO
+CASO-0075-as_is,CASO-0075,AS-IS,2026-08,Notificar y registrar,Workflow,0.369,Si,Si,SINTETICO
+CASO-0075-to_be,CASO-0075,TO-BE,2026-08,Revisar solicitud,Revision humana,0.273,Parcial,Si,SINTETICO
+CASO-0075-to_be,CASO-0075,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.349,Si,Segun excepcion,SINTETICO
+CASO-0075-to_be,CASO-0075,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.316,Si,Segun excepcion,SINTETICO
+CASO-0075-to_be,CASO-0075,TO-BE,2026-08,Notificar y registrar,Workflow,0.153,Si,Segun excepcion,SINTETICO
+CASO-0076-as_is,CASO-0076,AS-IS,2026-08,Revisar solicitud,Revision humana,0.769,Parcial,Si,SINTETICO
+CASO-0076-as_is,CASO-0076,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.984,Si,Si,SINTETICO
+CASO-0076-as_is,CASO-0076,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.892,Si,Si,SINTETICO
+CASO-0076-as_is,CASO-0076,AS-IS,2026-08,Notificar y registrar,Workflow,0.431,Si,Si,SINTETICO
+CASO-0076-to_be,CASO-0076,TO-BE,2026-08,Revisar solicitud,Revision humana,0.301,Parcial,Si,SINTETICO
+CASO-0076-to_be,CASO-0076,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.385,Si,Segun excepcion,SINTETICO
+CASO-0076-to_be,CASO-0076,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.349,Si,Segun excepcion,SINTETICO
+CASO-0076-to_be,CASO-0076,TO-BE,2026-08,Notificar y registrar,Workflow,0.168,Si,Segun excepcion,SINTETICO
+CASO-0077-as_is,CASO-0077,AS-IS,2026-08,Revisar solicitud,Revision humana,0.93,Parcial,Si,SINTETICO
+CASO-0077-as_is,CASO-0077,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.19,Si,Si,SINTETICO
+CASO-0077-as_is,CASO-0077,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,1.079,Si,Si,SINTETICO
+CASO-0077-as_is,CASO-0077,AS-IS,2026-08,Notificar y registrar,Workflow,0.521,Si,Si,SINTETICO
+CASO-0077-to_be,CASO-0077,TO-BE,2026-08,Revisar solicitud,Revision humana,0.308,Parcial,Si,SINTETICO
+CASO-0077-to_be,CASO-0077,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.395,Si,Segun excepcion,SINTETICO
+CASO-0077-to_be,CASO-0077,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.358,Si,Segun excepcion,SINTETICO
+CASO-0077-to_be,CASO-0077,TO-BE,2026-08,Notificar y registrar,Workflow,0.173,Si,Segun excepcion,SINTETICO
+CASO-0078-as_is,CASO-0078,AS-IS,2026-08,Revisar solicitud,Revision humana,0.78,Parcial,Si,SINTETICO
+CASO-0078-as_is,CASO-0078,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.998,Si,Si,SINTETICO
+CASO-0078-as_is,CASO-0078,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.905,Si,Si,SINTETICO
+CASO-0078-as_is,CASO-0078,AS-IS,2026-08,Notificar y registrar,Workflow,0.437,Si,Si,SINTETICO
+CASO-0078-to_be,CASO-0078,TO-BE,2026-08,Revisar solicitud,Revision humana,0.26,Parcial,Si,SINTETICO
+CASO-0078-to_be,CASO-0078,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.333,Si,Segun excepcion,SINTETICO
+CASO-0078-to_be,CASO-0078,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.302,Si,Segun excepcion,SINTETICO
+CASO-0078-to_be,CASO-0078,TO-BE,2026-08,Notificar y registrar,Workflow,0.146,Si,Segun excepcion,SINTETICO
+CASO-0079-as_is,CASO-0079,AS-IS,2026-08,Revisar solicitud,Revision humana,0.669,Parcial,Si,SINTETICO
+CASO-0079-as_is,CASO-0079,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.856,Si,Si,SINTETICO
+CASO-0079-as_is,CASO-0079,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.776,Si,Si,SINTETICO
+CASO-0079-as_is,CASO-0079,AS-IS,2026-08,Notificar y registrar,Workflow,0.374,Si,Si,SINTETICO
+CASO-0079-to_be,CASO-0079,TO-BE,2026-08,Revisar solicitud,Revision humana,0.263,Parcial,Si,SINTETICO
+CASO-0079-to_be,CASO-0079,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.337,Si,Segun excepcion,SINTETICO
+CASO-0079-to_be,CASO-0079,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.305,Si,Segun excepcion,SINTETICO
+CASO-0079-to_be,CASO-0079,TO-BE,2026-08,Notificar y registrar,Workflow,0.147,Si,Segun excepcion,SINTETICO
+CASO-0080-as_is,CASO-0080,AS-IS,2026-08,Revisar solicitud,Revision humana,0.773,Parcial,Si,SINTETICO
+CASO-0080-as_is,CASO-0080,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.989,Si,Si,SINTETICO
+CASO-0080-as_is,CASO-0080,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.897,Si,Si,SINTETICO
+CASO-0080-as_is,CASO-0080,AS-IS,2026-08,Notificar y registrar,Workflow,0.433,Si,Si,SINTETICO
+CASO-0080-to_be,CASO-0080,TO-BE,2026-08,Revisar solicitud,Revision humana,0.367,Parcial,Si,SINTETICO
+CASO-0080-to_be,CASO-0080,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.47,Si,Segun excepcion,SINTETICO
+CASO-0080-to_be,CASO-0080,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.426,Si,Segun excepcion,SINTETICO
+CASO-0080-to_be,CASO-0080,TO-BE,2026-08,Notificar y registrar,Workflow,0.206,Si,Segun excepcion,SINTETICO
+CASO-0081-as_is,CASO-0081,AS-IS,2026-08,Revisar solicitud,Revision humana,0.763,Parcial,Si,SINTETICO
+CASO-0081-as_is,CASO-0081,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.977,Si,Si,SINTETICO
+CASO-0081-as_is,CASO-0081,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.885,Si,Si,SINTETICO
+CASO-0081-as_is,CASO-0081,AS-IS,2026-08,Notificar y registrar,Workflow,0.427,Si,Si,SINTETICO
+CASO-0081-to_be,CASO-0081,TO-BE,2026-08,Revisar solicitud,Revision humana,0.284,Parcial,Si,SINTETICO
+CASO-0081-to_be,CASO-0081,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.363,Si,Segun excepcion,SINTETICO
+CASO-0081-to_be,CASO-0081,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.329,Si,Segun excepcion,SINTETICO
+CASO-0081-to_be,CASO-0081,TO-BE,2026-08,Notificar y registrar,Workflow,0.159,Si,Segun excepcion,SINTETICO
+CASO-0082-as_is,CASO-0082,AS-IS,2026-08,Revisar solicitud,Revision humana,0.512,Parcial,Si,SINTETICO
+CASO-0082-as_is,CASO-0082,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.655,Si,Si,SINTETICO
+CASO-0082-as_is,CASO-0082,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.594,Si,Si,SINTETICO
+CASO-0082-as_is,CASO-0082,AS-IS,2026-08,Notificar y registrar,Workflow,0.287,Si,Si,SINTETICO
+CASO-0082-to_be,CASO-0082,TO-BE,2026-08,Revisar solicitud,Revision humana,0.192,Parcial,Si,SINTETICO
+CASO-0082-to_be,CASO-0082,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.245,Si,Segun excepcion,SINTETICO
+CASO-0082-to_be,CASO-0082,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.222,Si,Segun excepcion,SINTETICO
+CASO-0082-to_be,CASO-0082,TO-BE,2026-08,Notificar y registrar,Workflow,0.107,Si,Segun excepcion,SINTETICO
+CASO-0083-as_is,CASO-0083,AS-IS,2026-08,Revisar solicitud,Revision humana,0.682,Parcial,Si,SINTETICO
+CASO-0083-as_is,CASO-0083,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.873,Si,Si,SINTETICO
+CASO-0083-as_is,CASO-0083,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.791,Si,Si,SINTETICO
+CASO-0083-as_is,CASO-0083,AS-IS,2026-08,Notificar y registrar,Workflow,0.382,Si,Si,SINTETICO
+CASO-0083-to_be,CASO-0083,TO-BE,2026-08,Revisar solicitud,Revision humana,0.265,Parcial,Si,SINTETICO
+CASO-0083-to_be,CASO-0083,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.34,Si,Segun excepcion,SINTETICO
+CASO-0083-to_be,CASO-0083,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.308,Si,Segun excepcion,SINTETICO
+CASO-0083-to_be,CASO-0083,TO-BE,2026-08,Notificar y registrar,Workflow,0.149,Si,Segun excepcion,SINTETICO
+CASO-0084-as_is,CASO-0084,AS-IS,2026-08,Revisar solicitud,Revision humana,0.805,Parcial,Si,SINTETICO
+CASO-0084-as_is,CASO-0084,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.03,Si,Si,SINTETICO
+CASO-0084-as_is,CASO-0084,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.934,Si,Si,SINTETICO
+CASO-0084-as_is,CASO-0084,AS-IS,2026-08,Notificar y registrar,Workflow,0.451,Si,Si,SINTETICO
+CASO-0084-to_be,CASO-0084,TO-BE,2026-08,Revisar solicitud,Revision humana,0.398,Parcial,Si,SINTETICO
+CASO-0084-to_be,CASO-0084,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.509,Si,Segun excepcion,SINTETICO
+CASO-0084-to_be,CASO-0084,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.461,Si,Segun excepcion,SINTETICO
+CASO-0084-to_be,CASO-0084,TO-BE,2026-08,Notificar y registrar,Workflow,0.223,Si,Segun excepcion,SINTETICO
+CASO-0085-as_is,CASO-0085,AS-IS,2026-08,Revisar solicitud,Revision humana,0.639,Parcial,Si,SINTETICO
+CASO-0085-as_is,CASO-0085,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.819,Si,Si,SINTETICO
+CASO-0085-as_is,CASO-0085,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.742,Si,Si,SINTETICO
+CASO-0085-as_is,CASO-0085,AS-IS,2026-08,Notificar y registrar,Workflow,0.358,Si,Si,SINTETICO
+CASO-0085-to_be,CASO-0085,TO-BE,2026-08,Revisar solicitud,Revision humana,0.256,Parcial,Si,SINTETICO
+CASO-0085-to_be,CASO-0085,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.327,Si,Segun excepcion,SINTETICO
+CASO-0085-to_be,CASO-0085,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.297,Si,Segun excepcion,SINTETICO
+CASO-0085-to_be,CASO-0085,TO-BE,2026-08,Notificar y registrar,Workflow,0.143,Si,Segun excepcion,SINTETICO
+CASO-0086-as_is,CASO-0086,AS-IS,2026-08,Revisar solicitud,Revision humana,0.655,Parcial,Si,SINTETICO
+CASO-0086-as_is,CASO-0086,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.838,Si,Si,SINTETICO
+CASO-0086-as_is,CASO-0086,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.76,Si,Si,SINTETICO
+CASO-0086-as_is,CASO-0086,AS-IS,2026-08,Notificar y registrar,Workflow,0.367,Si,Si,SINTETICO
+CASO-0086-to_be,CASO-0086,TO-BE,2026-08,Revisar solicitud,Revision humana,0.247,Parcial,Si,SINTETICO
+CASO-0086-to_be,CASO-0086,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.316,Si,Segun excepcion,SINTETICO
+CASO-0086-to_be,CASO-0086,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.286,Si,Segun excepcion,SINTETICO
+CASO-0086-to_be,CASO-0086,TO-BE,2026-08,Notificar y registrar,Workflow,0.138,Si,Segun excepcion,SINTETICO
+CASO-0087-as_is,CASO-0087,AS-IS,2026-08,Revisar solicitud,Revision humana,0.69,Parcial,Si,SINTETICO
+CASO-0087-as_is,CASO-0087,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.883,Si,Si,SINTETICO
+CASO-0087-as_is,CASO-0087,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.8,Si,Si,SINTETICO
+CASO-0087-as_is,CASO-0087,AS-IS,2026-08,Notificar y registrar,Workflow,0.386,Si,Si,SINTETICO
+CASO-0087-to_be,CASO-0087,TO-BE,2026-08,Revisar solicitud,Revision humana,0.258,Parcial,Si,SINTETICO
+CASO-0087-to_be,CASO-0087,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.33,Si,Segun excepcion,SINTETICO
+CASO-0087-to_be,CASO-0087,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.299,Si,Segun excepcion,SINTETICO
+CASO-0087-to_be,CASO-0087,TO-BE,2026-08,Notificar y registrar,Workflow,0.144,Si,Segun excepcion,SINTETICO
+CASO-0088-as_is,CASO-0088,AS-IS,2026-08,Revisar solicitud,Revision humana,0.852,Parcial,Si,SINTETICO
+CASO-0088-as_is,CASO-0088,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.09,Si,Si,SINTETICO
+CASO-0088-as_is,CASO-0088,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.988,Si,Si,SINTETICO
+CASO-0088-as_is,CASO-0088,AS-IS,2026-08,Notificar y registrar,Workflow,0.477,Si,Si,SINTETICO
+CASO-0088-to_be,CASO-0088,TO-BE,2026-08,Revisar solicitud,Revision humana,0.304,Parcial,Si,SINTETICO
+CASO-0088-to_be,CASO-0088,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.389,Si,Segun excepcion,SINTETICO
+CASO-0088-to_be,CASO-0088,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.353,Si,Segun excepcion,SINTETICO
+CASO-0088-to_be,CASO-0088,TO-BE,2026-08,Notificar y registrar,Workflow,0.17,Si,Segun excepcion,SINTETICO
+CASO-0089-as_is,CASO-0089,AS-IS,2026-08,Revisar solicitud,Revision humana,0.687,Parcial,Si,SINTETICO
+CASO-0089-as_is,CASO-0089,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.88,Si,Si,SINTETICO
+CASO-0089-as_is,CASO-0089,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.797,Si,Si,SINTETICO
+CASO-0089-as_is,CASO-0089,AS-IS,2026-08,Notificar y registrar,Workflow,0.385,Si,Si,SINTETICO
+CASO-0089-to_be,CASO-0089,TO-BE,2026-08,Revisar solicitud,Revision humana,0.248,Parcial,Si,SINTETICO
+CASO-0089-to_be,CASO-0089,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.317,Si,Segun excepcion,SINTETICO
+CASO-0089-to_be,CASO-0089,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.287,Si,Segun excepcion,SINTETICO
+CASO-0089-to_be,CASO-0089,TO-BE,2026-08,Notificar y registrar,Workflow,0.139,Si,Segun excepcion,SINTETICO
+CASO-0090-as_is,CASO-0090,AS-IS,2026-08,Revisar solicitud,Revision humana,0.811,Parcial,Si,SINTETICO
+CASO-0090-as_is,CASO-0090,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.038,Si,Si,SINTETICO
+CASO-0090-as_is,CASO-0090,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.94,Si,Si,SINTETICO
+CASO-0090-as_is,CASO-0090,AS-IS,2026-08,Notificar y registrar,Workflow,0.454,Si,Si,SINTETICO
+CASO-0090-to_be,CASO-0090,TO-BE,2026-08,Revisar solicitud,Revision humana,0.36,Parcial,Si,SINTETICO
+CASO-0090-to_be,CASO-0090,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.461,Si,Segun excepcion,SINTETICO
+CASO-0090-to_be,CASO-0090,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.418,Si,Segun excepcion,SINTETICO
+CASO-0090-to_be,CASO-0090,TO-BE,2026-08,Notificar y registrar,Workflow,0.202,Si,Segun excepcion,SINTETICO
+CASO-0091-as_is,CASO-0091,AS-IS,2026-08,Revisar solicitud,Revision humana,0.914,Parcial,Si,SINTETICO
+CASO-0091-as_is,CASO-0091,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.17,Si,Si,SINTETICO
+CASO-0091-as_is,CASO-0091,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,1.06,Si,Si,SINTETICO
+CASO-0091-as_is,CASO-0091,AS-IS,2026-08,Notificar y registrar,Workflow,0.512,Si,Si,SINTETICO
+CASO-0091-to_be,CASO-0091,TO-BE,2026-08,Revisar solicitud,Revision humana,0.293,Parcial,Si,SINTETICO
+CASO-0091-to_be,CASO-0091,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.375,Si,Segun excepcion,SINTETICO
+CASO-0091-to_be,CASO-0091,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.34,Si,Segun excepcion,SINTETICO
+CASO-0091-to_be,CASO-0091,TO-BE,2026-08,Notificar y registrar,Workflow,0.164,Si,Segun excepcion,SINTETICO
+CASO-0092-as_is,CASO-0092,AS-IS,2026-08,Revisar solicitud,Revision humana,0.744,Parcial,Si,SINTETICO
+CASO-0092-as_is,CASO-0092,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.952,Si,Si,SINTETICO
+CASO-0092-as_is,CASO-0092,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.862,Si,Si,SINTETICO
+CASO-0092-as_is,CASO-0092,AS-IS,2026-08,Notificar y registrar,Workflow,0.416,Si,Si,SINTETICO
+CASO-0092-to_be,CASO-0092,TO-BE,2026-08,Revisar solicitud,Revision humana,0.238,Parcial,Si,SINTETICO
+CASO-0092-to_be,CASO-0092,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.304,Si,Segun excepcion,SINTETICO
+CASO-0092-to_be,CASO-0092,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.276,Si,Segun excepcion,SINTETICO
+CASO-0092-to_be,CASO-0092,TO-BE,2026-08,Notificar y registrar,Workflow,0.133,Si,Segun excepcion,SINTETICO
+CASO-0093-as_is,CASO-0093,AS-IS,2026-08,Revisar solicitud,Revision humana,0.791,Parcial,Si,SINTETICO
+CASO-0093-as_is,CASO-0093,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.012,Si,Si,SINTETICO
+CASO-0093-as_is,CASO-0093,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.917,Si,Si,SINTETICO
+CASO-0093-as_is,CASO-0093,AS-IS,2026-08,Notificar y registrar,Workflow,0.443,Si,Si,SINTETICO
+CASO-0093-to_be,CASO-0093,TO-BE,2026-08,Revisar solicitud,Revision humana,0.364,Parcial,Si,SINTETICO
+CASO-0093-to_be,CASO-0093,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.466,Si,Segun excepcion,SINTETICO
+CASO-0093-to_be,CASO-0093,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.423,Si,Segun excepcion,SINTETICO
+CASO-0093-to_be,CASO-0093,TO-BE,2026-08,Notificar y registrar,Workflow,0.204,Si,Segun excepcion,SINTETICO
+CASO-0094-as_is,CASO-0094,AS-IS,2026-08,Revisar solicitud,Revision humana,0.673,Parcial,Si,SINTETICO
+CASO-0094-as_is,CASO-0094,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.861,Si,Si,SINTETICO
+CASO-0094-as_is,CASO-0094,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.781,Si,Si,SINTETICO
+CASO-0094-as_is,CASO-0094,AS-IS,2026-08,Notificar y registrar,Workflow,0.377,Si,Si,SINTETICO
+CASO-0094-to_be,CASO-0094,TO-BE,2026-08,Revisar solicitud,Revision humana,0.236,Parcial,Si,SINTETICO
+CASO-0094-to_be,CASO-0094,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.302,Si,Segun excepcion,SINTETICO
+CASO-0094-to_be,CASO-0094,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.274,Si,Segun excepcion,SINTETICO
+CASO-0094-to_be,CASO-0094,TO-BE,2026-08,Notificar y registrar,Workflow,0.132,Si,Segun excepcion,SINTETICO
+CASO-0095-as_is,CASO-0095,AS-IS,2026-08,Revisar solicitud,Revision humana,0.536,Parcial,Si,SINTETICO
+CASO-0095-as_is,CASO-0095,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.686,Si,Si,SINTETICO
+CASO-0095-as_is,CASO-0095,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.622,Si,Si,SINTETICO
+CASO-0095-as_is,CASO-0095,AS-IS,2026-08,Notificar y registrar,Workflow,0.3,Si,Si,SINTETICO
+CASO-0095-to_be,CASO-0095,TO-BE,2026-08,Revisar solicitud,Revision humana,0.202,Parcial,Si,SINTETICO
+CASO-0095-to_be,CASO-0095,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.258,Si,Segun excepcion,SINTETICO
+CASO-0095-to_be,CASO-0095,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.234,Si,Segun excepcion,SINTETICO
+CASO-0095-to_be,CASO-0095,TO-BE,2026-08,Notificar y registrar,Workflow,0.113,Si,Segun excepcion,SINTETICO
+CASO-0096-as_is,CASO-0096,AS-IS,2026-08,Revisar solicitud,Revision humana,0.791,Parcial,Si,SINTETICO
+CASO-0096-as_is,CASO-0096,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.013,Si,Si,SINTETICO
+CASO-0096-as_is,CASO-0096,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.918,Si,Si,SINTETICO
+CASO-0096-as_is,CASO-0096,AS-IS,2026-08,Notificar y registrar,Workflow,0.443,Si,Si,SINTETICO
+CASO-0096-to_be,CASO-0096,TO-BE,2026-08,Revisar solicitud,Revision humana,0.28,Parcial,Si,SINTETICO
+CASO-0096-to_be,CASO-0096,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.358,Si,Segun excepcion,SINTETICO
+CASO-0096-to_be,CASO-0096,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.325,Si,Segun excepcion,SINTETICO
+CASO-0096-to_be,CASO-0096,TO-BE,2026-08,Notificar y registrar,Workflow,0.157,Si,Segun excepcion,SINTETICO
+CASO-0097-as_is,CASO-0097,AS-IS,2026-08,Revisar solicitud,Revision humana,0.549,Parcial,Si,SINTETICO
+CASO-0097-as_is,CASO-0097,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.703,Si,Si,SINTETICO
+CASO-0097-as_is,CASO-0097,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.637,Si,Si,SINTETICO
+CASO-0097-as_is,CASO-0097,AS-IS,2026-08,Notificar y registrar,Workflow,0.307,Si,Si,SINTETICO
+CASO-0097-to_be,CASO-0097,TO-BE,2026-08,Revisar solicitud,Revision humana,0.282,Parcial,Si,SINTETICO
+CASO-0097-to_be,CASO-0097,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.361,Si,Segun excepcion,SINTETICO
+CASO-0097-to_be,CASO-0097,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.327,Si,Segun excepcion,SINTETICO
+CASO-0097-to_be,CASO-0097,TO-BE,2026-08,Notificar y registrar,Workflow,0.158,Si,Segun excepcion,SINTETICO
+CASO-0098-as_is,CASO-0098,AS-IS,2026-08,Revisar solicitud,Revision humana,0.746,Parcial,Si,SINTETICO
+CASO-0098-as_is,CASO-0098,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.955,Si,Si,SINTETICO
+CASO-0098-as_is,CASO-0098,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.866,Si,Si,SINTETICO
+CASO-0098-as_is,CASO-0098,AS-IS,2026-08,Notificar y registrar,Workflow,0.418,Si,Si,SINTETICO
+CASO-0098-to_be,CASO-0098,TO-BE,2026-08,Revisar solicitud,Revision humana,0.336,Parcial,Si,SINTETICO
+CASO-0098-to_be,CASO-0098,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.429,Si,Segun excepcion,SINTETICO
+CASO-0098-to_be,CASO-0098,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.389,Si,Segun excepcion,SINTETICO
+CASO-0098-to_be,CASO-0098,TO-BE,2026-08,Notificar y registrar,Workflow,0.188,Si,Segun excepcion,SINTETICO
+CASO-0099-as_is,CASO-0099,AS-IS,2026-08,Revisar solicitud,Revision humana,0.589,Parcial,Si,SINTETICO
+CASO-0099-as_is,CASO-0099,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.754,Si,Si,SINTETICO
+CASO-0099-as_is,CASO-0099,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.684,Si,Si,SINTETICO
+CASO-0099-as_is,CASO-0099,AS-IS,2026-08,Notificar y registrar,Workflow,0.33,Si,Si,SINTETICO
+CASO-0099-to_be,CASO-0099,TO-BE,2026-08,Revisar solicitud,Revision humana,0.263,Parcial,Si,SINTETICO
+CASO-0099-to_be,CASO-0099,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.337,Si,Segun excepcion,SINTETICO
+CASO-0099-to_be,CASO-0099,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.305,Si,Segun excepcion,SINTETICO
+CASO-0099-to_be,CASO-0099,TO-BE,2026-08,Notificar y registrar,Workflow,0.147,Si,Segun excepcion,SINTETICO
+CASO-0100-as_is,CASO-0100,AS-IS,2026-08,Revisar solicitud,Revision humana,0.589,Parcial,Si,SINTETICO
+CASO-0100-as_is,CASO-0100,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.754,Si,Si,SINTETICO
+CASO-0100-as_is,CASO-0100,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.684,Si,Si,SINTETICO
+CASO-0100-as_is,CASO-0100,AS-IS,2026-08,Notificar y registrar,Workflow,0.33,Si,Si,SINTETICO
+CASO-0100-to_be,CASO-0100,TO-BE,2026-08,Revisar solicitud,Revision humana,0.225,Parcial,Si,SINTETICO
+CASO-0100-to_be,CASO-0100,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.288,Si,Segun excepcion,SINTETICO
+CASO-0100-to_be,CASO-0100,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.261,Si,Segun excepcion,SINTETICO
+CASO-0100-to_be,CASO-0100,TO-BE,2026-08,Notificar y registrar,Workflow,0.126,Si,Segun excepcion,SINTETICO
+CASO-0101-as_is,CASO-0101,AS-IS,2026-08,Revisar solicitud,Revision humana,0.738,Parcial,Si,SINTETICO
+CASO-0101-as_is,CASO-0101,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.945,Si,Si,SINTETICO
+CASO-0101-as_is,CASO-0101,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.856,Si,Si,SINTETICO
+CASO-0101-as_is,CASO-0101,AS-IS,2026-08,Notificar y registrar,Workflow,0.413,Si,Si,SINTETICO
+CASO-0101-to_be,CASO-0101,TO-BE,2026-08,Revisar solicitud,Revision humana,0.308,Parcial,Si,SINTETICO
+CASO-0101-to_be,CASO-0101,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.395,Si,Segun excepcion,SINTETICO
+CASO-0101-to_be,CASO-0101,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.358,Si,Segun excepcion,SINTETICO
+CASO-0101-to_be,CASO-0101,TO-BE,2026-08,Notificar y registrar,Workflow,0.173,Si,Segun excepcion,SINTETICO
+CASO-0102-as_is,CASO-0102,AS-IS,2026-08,Revisar solicitud,Revision humana,0.796,Parcial,Si,SINTETICO
+CASO-0102-as_is,CASO-0102,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.019,Si,Si,SINTETICO
+CASO-0102-as_is,CASO-0102,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.923,Si,Si,SINTETICO
+CASO-0102-as_is,CASO-0102,AS-IS,2026-08,Notificar y registrar,Workflow,0.446,Si,Si,SINTETICO
+CASO-0102-to_be,CASO-0102,TO-BE,2026-08,Revisar solicitud,Revision humana,0.295,Parcial,Si,SINTETICO
+CASO-0102-to_be,CASO-0102,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.378,Si,Segun excepcion,SINTETICO
+CASO-0102-to_be,CASO-0102,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.342,Si,Segun excepcion,SINTETICO
+CASO-0102-to_be,CASO-0102,TO-BE,2026-08,Notificar y registrar,Workflow,0.165,Si,Segun excepcion,SINTETICO
+CASO-0103-as_is,CASO-0103,AS-IS,2026-08,Revisar solicitud,Revision humana,0.674,Parcial,Si,SINTETICO
+CASO-0103-as_is,CASO-0103,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.862,Si,Si,SINTETICO
+CASO-0103-as_is,CASO-0103,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.782,Si,Si,SINTETICO
+CASO-0103-as_is,CASO-0103,AS-IS,2026-08,Notificar y registrar,Workflow,0.377,Si,Si,SINTETICO
+CASO-0103-to_be,CASO-0103,TO-BE,2026-08,Revisar solicitud,Revision humana,0.272,Parcial,Si,SINTETICO
+CASO-0103-to_be,CASO-0103,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.348,Si,Segun excepcion,SINTETICO
+CASO-0103-to_be,CASO-0103,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.315,Si,Segun excepcion,SINTETICO
+CASO-0103-to_be,CASO-0103,TO-BE,2026-08,Notificar y registrar,Workflow,0.152,Si,Segun excepcion,SINTETICO
+CASO-0104-as_is,CASO-0104,AS-IS,2026-08,Revisar solicitud,Revision humana,0.627,Parcial,Si,SINTETICO
+CASO-0104-as_is,CASO-0104,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.803,Si,Si,SINTETICO
+CASO-0104-as_is,CASO-0104,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.728,Si,Si,SINTETICO
+CASO-0104-as_is,CASO-0104,AS-IS,2026-08,Notificar y registrar,Workflow,0.351,Si,Si,SINTETICO
+CASO-0104-to_be,CASO-0104,TO-BE,2026-08,Revisar solicitud,Revision humana,0.217,Parcial,Si,SINTETICO
+CASO-0104-to_be,CASO-0104,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.278,Si,Segun excepcion,SINTETICO
+CASO-0104-to_be,CASO-0104,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.252,Si,Segun excepcion,SINTETICO
+CASO-0104-to_be,CASO-0104,TO-BE,2026-08,Notificar y registrar,Workflow,0.122,Si,Segun excepcion,SINTETICO
+CASO-0105-as_is,CASO-0105,AS-IS,2026-08,Revisar solicitud,Revision humana,0.59,Parcial,Si,SINTETICO
+CASO-0105-as_is,CASO-0105,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.755,Si,Si,SINTETICO
+CASO-0105-as_is,CASO-0105,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.684,Si,Si,SINTETICO
+CASO-0105-as_is,CASO-0105,AS-IS,2026-08,Notificar y registrar,Workflow,0.33,Si,Si,SINTETICO
+CASO-0105-to_be,CASO-0105,TO-BE,2026-08,Revisar solicitud,Revision humana,0.269,Parcial,Si,SINTETICO
+CASO-0105-to_be,CASO-0105,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.344,Si,Segun excepcion,SINTETICO
+CASO-0105-to_be,CASO-0105,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.312,Si,Segun excepcion,SINTETICO
+CASO-0105-to_be,CASO-0105,TO-BE,2026-08,Notificar y registrar,Workflow,0.151,Si,Segun excepcion,SINTETICO
+CASO-0106-as_is,CASO-0106,AS-IS,2026-08,Revisar solicitud,Revision humana,0.884,Parcial,Si,SINTETICO
+CASO-0106-as_is,CASO-0106,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.132,Si,Si,SINTETICO
+CASO-0106-as_is,CASO-0106,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,1.026,Si,Si,SINTETICO
+CASO-0106-as_is,CASO-0106,AS-IS,2026-08,Notificar y registrar,Workflow,0.495,Si,Si,SINTETICO
+CASO-0106-to_be,CASO-0106,TO-BE,2026-08,Revisar solicitud,Revision humana,0.333,Parcial,Si,SINTETICO
+CASO-0106-to_be,CASO-0106,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.426,Si,Segun excepcion,SINTETICO
+CASO-0106-to_be,CASO-0106,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.386,Si,Segun excepcion,SINTETICO
+CASO-0106-to_be,CASO-0106,TO-BE,2026-08,Notificar y registrar,Workflow,0.186,Si,Segun excepcion,SINTETICO
+CASO-0107-as_is,CASO-0107,AS-IS,2026-08,Revisar solicitud,Revision humana,0.792,Parcial,Si,SINTETICO
+CASO-0107-as_is,CASO-0107,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,1.014,Si,Si,SINTETICO
+CASO-0107-as_is,CASO-0107,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.919,Si,Si,SINTETICO
+CASO-0107-as_is,CASO-0107,AS-IS,2026-08,Notificar y registrar,Workflow,0.444,Si,Si,SINTETICO
+CASO-0107-to_be,CASO-0107,TO-BE,2026-08,Revisar solicitud,Revision humana,0.398,Parcial,Si,SINTETICO
+CASO-0107-to_be,CASO-0107,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.509,Si,Segun excepcion,SINTETICO
+CASO-0107-to_be,CASO-0107,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.461,Si,Segun excepcion,SINTETICO
+CASO-0107-to_be,CASO-0107,TO-BE,2026-08,Notificar y registrar,Workflow,0.223,Si,Segun excepcion,SINTETICO
+CASO-0108-as_is,CASO-0108,AS-IS,2026-08,Revisar solicitud,Revision humana,0.607,Parcial,Si,SINTETICO
+CASO-0108-as_is,CASO-0108,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.777,Si,Si,SINTETICO
+CASO-0108-as_is,CASO-0108,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.704,Si,Si,SINTETICO
+CASO-0108-as_is,CASO-0108,AS-IS,2026-08,Notificar y registrar,Workflow,0.34,Si,Si,SINTETICO
+CASO-0108-to_be,CASO-0108,TO-BE,2026-08,Revisar solicitud,Revision humana,0.293,Parcial,Si,SINTETICO
+CASO-0108-to_be,CASO-0108,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.376,Si,Segun excepcion,SINTETICO
+CASO-0108-to_be,CASO-0108,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.34,Si,Segun excepcion,SINTETICO
+CASO-0108-to_be,CASO-0108,TO-BE,2026-08,Notificar y registrar,Workflow,0.164,Si,Segun excepcion,SINTETICO
+CASO-0109-as_is,CASO-0109,AS-IS,2026-08,Revisar solicitud,Revision humana,0.538,Parcial,Si,SINTETICO
+CASO-0109-as_is,CASO-0109,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.689,Si,Si,SINTETICO
+CASO-0109-as_is,CASO-0109,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.624,Si,Si,SINTETICO
+CASO-0109-as_is,CASO-0109,AS-IS,2026-08,Notificar y registrar,Workflow,0.301,Si,Si,SINTETICO
+CASO-0109-to_be,CASO-0109,TO-BE,2026-08,Revisar solicitud,Revision humana,0.27,Parcial,Si,SINTETICO
+CASO-0109-to_be,CASO-0109,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.346,Si,Segun excepcion,SINTETICO
+CASO-0109-to_be,CASO-0109,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.313,Si,Segun excepcion,SINTETICO
+CASO-0109-to_be,CASO-0109,TO-BE,2026-08,Notificar y registrar,Workflow,0.151,Si,Segun excepcion,SINTETICO
+CASO-0110-as_is,CASO-0110,AS-IS,2026-08,Revisar solicitud,Revision humana,0.676,Parcial,Si,SINTETICO
+CASO-0110-as_is,CASO-0110,AS-IS,2026-08,Cotejar soportes,IDP o revision documental,0.866,Si,Si,SINTETICO
+CASO-0110-as_is,CASO-0110,AS-IS,2026-08,Preparar liquidacion,Reglas y calculo,0.784,Si,Si,SINTETICO
+CASO-0110-as_is,CASO-0110,AS-IS,2026-08,Notificar y registrar,Workflow,0.379,Si,Si,SINTETICO
+CASO-0110-to_be,CASO-0110,TO-BE,2026-08,Revisar solicitud,Revision humana,0.263,Parcial,Si,SINTETICO
+CASO-0110-to_be,CASO-0110,TO-BE,2026-08,Cotejar soportes,IDP o revision documental,0.337,Si,Segun excepcion,SINTETICO
+CASO-0110-to_be,CASO-0110,TO-BE,2026-08,Preparar liquidacion,Reglas y calculo,0.305,Si,Segun excepcion,SINTETICO
+CASO-0110-to_be,CASO-0110,TO-BE,2026-08,Notificar y registrar,Workflow,0.147,Si,Segun excepcion,SINTETICO
+CASO-0111-as_is,CASO-0111,AS-IS,2026-09,Revisar solicitud,Revision humana,0.516,Parcial,Si,SINTETICO
+CASO-0111-as_is,CASO-0111,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.661,Si,Si,SINTETICO
+CASO-0111-as_is,CASO-0111,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.599,Si,Si,SINTETICO
+CASO-0111-as_is,CASO-0111,AS-IS,2026-09,Notificar y registrar,Workflow,0.289,Si,Si,SINTETICO
+CASO-0111-to_be,CASO-0111,TO-BE,2026-09,Revisar solicitud,Revision humana,0.212,Parcial,Si,SINTETICO
+CASO-0111-to_be,CASO-0111,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.272,Si,Segun excepcion,SINTETICO
+CASO-0111-to_be,CASO-0111,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.246,Si,Segun excepcion,SINTETICO
+CASO-0111-to_be,CASO-0111,TO-BE,2026-09,Notificar y registrar,Workflow,0.119,Si,Segun excepcion,SINTETICO
+CASO-0112-as_is,CASO-0112,AS-IS,2026-09,Revisar solicitud,Revision humana,0.647,Parcial,Si,SINTETICO
+CASO-0112-as_is,CASO-0112,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.828,Si,Si,SINTETICO
+CASO-0112-as_is,CASO-0112,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.751,Si,Si,SINTETICO
+CASO-0112-as_is,CASO-0112,AS-IS,2026-09,Notificar y registrar,Workflow,0.362,Si,Si,SINTETICO
+CASO-0112-to_be,CASO-0112,TO-BE,2026-09,Revisar solicitud,Revision humana,0.264,Parcial,Si,SINTETICO
+CASO-0112-to_be,CASO-0112,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.338,Si,Segun excepcion,SINTETICO
+CASO-0112-to_be,CASO-0112,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.306,Si,Segun excepcion,SINTETICO
+CASO-0112-to_be,CASO-0112,TO-BE,2026-09,Notificar y registrar,Workflow,0.148,Si,Segun excepcion,SINTETICO
+CASO-0113-as_is,CASO-0113,AS-IS,2026-09,Revisar solicitud,Revision humana,0.634,Parcial,Si,SINTETICO
+CASO-0113-as_is,CASO-0113,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.812,Si,Si,SINTETICO
+CASO-0113-as_is,CASO-0113,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.735,Si,Si,SINTETICO
+CASO-0113-as_is,CASO-0113,AS-IS,2026-09,Notificar y registrar,Workflow,0.355,Si,Si,SINTETICO
+CASO-0113-to_be,CASO-0113,TO-BE,2026-09,Revisar solicitud,Revision humana,0.236,Parcial,Si,SINTETICO
+CASO-0113-to_be,CASO-0113,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.302,Si,Segun excepcion,SINTETICO
+CASO-0113-to_be,CASO-0113,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.274,Si,Segun excepcion,SINTETICO
+CASO-0113-to_be,CASO-0113,TO-BE,2026-09,Notificar y registrar,Workflow,0.132,Si,Segun excepcion,SINTETICO
+CASO-0114-as_is,CASO-0114,AS-IS,2026-09,Revisar solicitud,Revision humana,0.889,Parcial,Si,SINTETICO
+CASO-0114-as_is,CASO-0114,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.138,Si,Si,SINTETICO
+CASO-0114-as_is,CASO-0114,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.031,Si,Si,SINTETICO
+CASO-0114-as_is,CASO-0114,AS-IS,2026-09,Notificar y registrar,Workflow,0.498,Si,Si,SINTETICO
+CASO-0114-to_be,CASO-0114,TO-BE,2026-09,Revisar solicitud,Revision humana,0.295,Parcial,Si,SINTETICO
+CASO-0114-to_be,CASO-0114,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.378,Si,Segun excepcion,SINTETICO
+CASO-0114-to_be,CASO-0114,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.342,Si,Segun excepcion,SINTETICO
+CASO-0114-to_be,CASO-0114,TO-BE,2026-09,Notificar y registrar,Workflow,0.165,Si,Segun excepcion,SINTETICO
+CASO-0115-as_is,CASO-0115,AS-IS,2026-09,Revisar solicitud,Revision humana,0.782,Parcial,Si,SINTETICO
+CASO-0115-as_is,CASO-0115,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.001,Si,Si,SINTETICO
+CASO-0115-as_is,CASO-0115,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.907,Si,Si,SINTETICO
+CASO-0115-as_is,CASO-0115,AS-IS,2026-09,Notificar y registrar,Workflow,0.438,Si,Si,SINTETICO
+CASO-0115-to_be,CASO-0115,TO-BE,2026-09,Revisar solicitud,Revision humana,0.339,Parcial,Si,SINTETICO
+CASO-0115-to_be,CASO-0115,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.434,Si,Segun excepcion,SINTETICO
+CASO-0115-to_be,CASO-0115,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.393,Si,Segun excepcion,SINTETICO
+CASO-0115-to_be,CASO-0115,TO-BE,2026-09,Notificar y registrar,Workflow,0.19,Si,Segun excepcion,SINTETICO
+CASO-0116-as_is,CASO-0116,AS-IS,2026-09,Revisar solicitud,Revision humana,0.576,Parcial,Si,SINTETICO
+CASO-0116-as_is,CASO-0116,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.738,Si,Si,SINTETICO
+CASO-0116-as_is,CASO-0116,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.668,Si,Si,SINTETICO
+CASO-0116-as_is,CASO-0116,AS-IS,2026-09,Notificar y registrar,Workflow,0.323,Si,Si,SINTETICO
+CASO-0116-to_be,CASO-0116,TO-BE,2026-09,Revisar solicitud,Revision humana,0.234,Parcial,Si,SINTETICO
+CASO-0116-to_be,CASO-0116,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.3,Si,Segun excepcion,SINTETICO
+CASO-0116-to_be,CASO-0116,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.271,Si,Segun excepcion,SINTETICO
+CASO-0116-to_be,CASO-0116,TO-BE,2026-09,Notificar y registrar,Workflow,0.131,Si,Segun excepcion,SINTETICO
+CASO-0117-as_is,CASO-0117,AS-IS,2026-09,Revisar solicitud,Revision humana,0.844,Parcial,Si,SINTETICO
+CASO-0117-as_is,CASO-0117,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.081,Si,Si,SINTETICO
+CASO-0117-as_is,CASO-0117,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.979,Si,Si,SINTETICO
+CASO-0117-as_is,CASO-0117,AS-IS,2026-09,Notificar y registrar,Workflow,0.473,Si,Si,SINTETICO
+CASO-0117-to_be,CASO-0117,TO-BE,2026-09,Revisar solicitud,Revision humana,0.368,Parcial,Si,SINTETICO
+CASO-0117-to_be,CASO-0117,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.471,Si,Segun excepcion,SINTETICO
+CASO-0117-to_be,CASO-0117,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.427,Si,Segun excepcion,SINTETICO
+CASO-0117-to_be,CASO-0117,TO-BE,2026-09,Notificar y registrar,Workflow,0.206,Si,Segun excepcion,SINTETICO
+CASO-0118-as_is,CASO-0118,AS-IS,2026-09,Revisar solicitud,Revision humana,0.733,Parcial,Si,SINTETICO
+CASO-0118-as_is,CASO-0118,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.938,Si,Si,SINTETICO
+CASO-0118-as_is,CASO-0118,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.85,Si,Si,SINTETICO
+CASO-0118-as_is,CASO-0118,AS-IS,2026-09,Notificar y registrar,Workflow,0.41,Si,Si,SINTETICO
+CASO-0118-to_be,CASO-0118,TO-BE,2026-09,Revisar solicitud,Revision humana,0.308,Parcial,Si,SINTETICO
+CASO-0118-to_be,CASO-0118,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.395,Si,Segun excepcion,SINTETICO
+CASO-0118-to_be,CASO-0118,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.358,Si,Segun excepcion,SINTETICO
+CASO-0118-to_be,CASO-0118,TO-BE,2026-09,Notificar y registrar,Workflow,0.173,Si,Segun excepcion,SINTETICO
+CASO-0119-as_is,CASO-0119,AS-IS,2026-09,Revisar solicitud,Revision humana,0.942,Parcial,Si,SINTETICO
+CASO-0119-as_is,CASO-0119,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.205,Si,Si,SINTETICO
+CASO-0119-as_is,CASO-0119,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.092,Si,Si,SINTETICO
+CASO-0119-as_is,CASO-0119,AS-IS,2026-09,Notificar y registrar,Workflow,0.527,Si,Si,SINTETICO
+CASO-0119-to_be,CASO-0119,TO-BE,2026-09,Revisar solicitud,Revision humana,0.298,Parcial,Si,SINTETICO
+CASO-0119-to_be,CASO-0119,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.381,Si,Segun excepcion,SINTETICO
+CASO-0119-to_be,CASO-0119,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.345,Si,Segun excepcion,SINTETICO
+CASO-0119-to_be,CASO-0119,TO-BE,2026-09,Notificar y registrar,Workflow,0.167,Si,Segun excepcion,SINTETICO
+CASO-0120-as_is,CASO-0120,AS-IS,2026-09,Revisar solicitud,Revision humana,0.675,Parcial,Si,SINTETICO
+CASO-0120-as_is,CASO-0120,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.864,Si,Si,SINTETICO
+CASO-0120-as_is,CASO-0120,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.783,Si,Si,SINTETICO
+CASO-0120-as_is,CASO-0120,AS-IS,2026-09,Notificar y registrar,Workflow,0.378,Si,Si,SINTETICO
+CASO-0120-to_be,CASO-0120,TO-BE,2026-09,Revisar solicitud,Revision humana,0.324,Parcial,Si,SINTETICO
+CASO-0120-to_be,CASO-0120,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.415,Si,Segun excepcion,SINTETICO
+CASO-0120-to_be,CASO-0120,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.376,Si,Segun excepcion,SINTETICO
+CASO-0120-to_be,CASO-0120,TO-BE,2026-09,Notificar y registrar,Workflow,0.182,Si,Segun excepcion,SINTETICO
+CASO-0121-as_is,CASO-0121,AS-IS,2026-09,Revisar solicitud,Revision humana,0.605,Parcial,Si,SINTETICO
+CASO-0121-as_is,CASO-0121,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.774,Si,Si,SINTETICO
+CASO-0121-as_is,CASO-0121,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.702,Si,Si,SINTETICO
+CASO-0121-as_is,CASO-0121,AS-IS,2026-09,Notificar y registrar,Workflow,0.339,Si,Si,SINTETICO
+CASO-0121-to_be,CASO-0121,TO-BE,2026-09,Revisar solicitud,Revision humana,0.274,Parcial,Si,SINTETICO
+CASO-0121-to_be,CASO-0121,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.351,Si,Segun excepcion,SINTETICO
+CASO-0121-to_be,CASO-0121,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.318,Si,Segun excepcion,SINTETICO
+CASO-0121-to_be,CASO-0121,TO-BE,2026-09,Notificar y registrar,Workflow,0.154,Si,Segun excepcion,SINTETICO
+CASO-0122-as_is,CASO-0122,AS-IS,2026-09,Revisar solicitud,Revision humana,0.777,Parcial,Si,SINTETICO
+CASO-0122-as_is,CASO-0122,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.995,Si,Si,SINTETICO
+CASO-0122-as_is,CASO-0122,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.902,Si,Si,SINTETICO
+CASO-0122-as_is,CASO-0122,AS-IS,2026-09,Notificar y registrar,Workflow,0.435,Si,Si,SINTETICO
+CASO-0122-to_be,CASO-0122,TO-BE,2026-09,Revisar solicitud,Revision humana,0.319,Parcial,Si,SINTETICO
+CASO-0122-to_be,CASO-0122,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.409,Si,Segun excepcion,SINTETICO
+CASO-0122-to_be,CASO-0122,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.37,Si,Segun excepcion,SINTETICO
+CASO-0122-to_be,CASO-0122,TO-BE,2026-09,Notificar y registrar,Workflow,0.179,Si,Segun excepcion,SINTETICO
+CASO-0123-as_is,CASO-0123,AS-IS,2026-09,Revisar solicitud,Revision humana,0.818,Parcial,Si,SINTETICO
+CASO-0123-as_is,CASO-0123,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.047,Si,Si,SINTETICO
+CASO-0123-as_is,CASO-0123,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.949,Si,Si,SINTETICO
+CASO-0123-as_is,CASO-0123,AS-IS,2026-09,Notificar y registrar,Workflow,0.458,Si,Si,SINTETICO
+CASO-0123-to_be,CASO-0123,TO-BE,2026-09,Revisar solicitud,Revision humana,0.375,Parcial,Si,SINTETICO
+CASO-0123-to_be,CASO-0123,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.48,Si,Segun excepcion,SINTETICO
+CASO-0123-to_be,CASO-0123,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.435,Si,Segun excepcion,SINTETICO
+CASO-0123-to_be,CASO-0123,TO-BE,2026-09,Notificar y registrar,Workflow,0.21,Si,Segun excepcion,SINTETICO
+CASO-0124-as_is,CASO-0124,AS-IS,2026-09,Revisar solicitud,Revision humana,0.875,Parcial,Si,SINTETICO
+CASO-0124-as_is,CASO-0124,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.12,Si,Si,SINTETICO
+CASO-0124-as_is,CASO-0124,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.015,Si,Si,SINTETICO
+CASO-0124-as_is,CASO-0124,AS-IS,2026-09,Notificar y registrar,Workflow,0.49,Si,Si,SINTETICO
+CASO-0124-to_be,CASO-0124,TO-BE,2026-09,Revisar solicitud,Revision humana,0.361,Parcial,Si,SINTETICO
+CASO-0124-to_be,CASO-0124,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.462,Si,Segun excepcion,SINTETICO
+CASO-0124-to_be,CASO-0124,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.419,Si,Segun excepcion,SINTETICO
+CASO-0124-to_be,CASO-0124,TO-BE,2026-09,Notificar y registrar,Workflow,0.202,Si,Segun excepcion,SINTETICO
+CASO-0125-as_is,CASO-0125,AS-IS,2026-09,Revisar solicitud,Revision humana,0.887,Parcial,Si,SINTETICO
+CASO-0125-as_is,CASO-0125,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.136,Si,Si,SINTETICO
+CASO-0125-as_is,CASO-0125,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.029,Si,Si,SINTETICO
+CASO-0125-as_is,CASO-0125,AS-IS,2026-09,Notificar y registrar,Workflow,0.497,Si,Si,SINTETICO
+CASO-0125-to_be,CASO-0125,TO-BE,2026-09,Revisar solicitud,Revision humana,0.301,Parcial,Si,SINTETICO
+CASO-0125-to_be,CASO-0125,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.385,Si,Segun excepcion,SINTETICO
+CASO-0125-to_be,CASO-0125,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.349,Si,Segun excepcion,SINTETICO
+CASO-0125-to_be,CASO-0125,TO-BE,2026-09,Notificar y registrar,Workflow,0.168,Si,Segun excepcion,SINTETICO
+CASO-0126-as_is,CASO-0126,AS-IS,2026-09,Revisar solicitud,Revision humana,0.555,Parcial,Si,SINTETICO
+CASO-0126-as_is,CASO-0126,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.71,Si,Si,SINTETICO
+CASO-0126-as_is,CASO-0126,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.644,Si,Si,SINTETICO
+CASO-0126-as_is,CASO-0126,AS-IS,2026-09,Notificar y registrar,Workflow,0.311,Si,Si,SINTETICO
+CASO-0126-to_be,CASO-0126,TO-BE,2026-09,Revisar solicitud,Revision humana,0.213,Parcial,Si,SINTETICO
+CASO-0126-to_be,CASO-0126,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.272,Si,Segun excepcion,SINTETICO
+CASO-0126-to_be,CASO-0126,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.247,Si,Segun excepcion,SINTETICO
+CASO-0126-to_be,CASO-0126,TO-BE,2026-09,Notificar y registrar,Workflow,0.119,Si,Segun excepcion,SINTETICO
+CASO-0127-as_is,CASO-0127,AS-IS,2026-09,Revisar solicitud,Revision humana,0.758,Parcial,Si,SINTETICO
+CASO-0127-as_is,CASO-0127,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.97,Si,Si,SINTETICO
+CASO-0127-as_is,CASO-0127,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.879,Si,Si,SINTETICO
+CASO-0127-as_is,CASO-0127,AS-IS,2026-09,Notificar y registrar,Workflow,0.424,Si,Si,SINTETICO
+CASO-0127-to_be,CASO-0127,TO-BE,2026-09,Revisar solicitud,Revision humana,0.326,Parcial,Si,SINTETICO
+CASO-0127-to_be,CASO-0127,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.417,Si,Segun excepcion,SINTETICO
+CASO-0127-to_be,CASO-0127,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.378,Si,Segun excepcion,SINTETICO
+CASO-0127-to_be,CASO-0127,TO-BE,2026-09,Notificar y registrar,Workflow,0.183,Si,Segun excepcion,SINTETICO
+CASO-0128-as_is,CASO-0128,AS-IS,2026-09,Revisar solicitud,Revision humana,0.722,Parcial,Si,SINTETICO
+CASO-0128-as_is,CASO-0128,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.924,Si,Si,SINTETICO
+CASO-0128-as_is,CASO-0128,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.838,Si,Si,SINTETICO
+CASO-0128-as_is,CASO-0128,AS-IS,2026-09,Notificar y registrar,Workflow,0.404,Si,Si,SINTETICO
+CASO-0128-to_be,CASO-0128,TO-BE,2026-09,Revisar solicitud,Revision humana,0.316,Parcial,Si,SINTETICO
+CASO-0128-to_be,CASO-0128,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.405,Si,Segun excepcion,SINTETICO
+CASO-0128-to_be,CASO-0128,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.367,Si,Segun excepcion,SINTETICO
+CASO-0128-to_be,CASO-0128,TO-BE,2026-09,Notificar y registrar,Workflow,0.177,Si,Segun excepcion,SINTETICO
+CASO-0129-as_is,CASO-0129,AS-IS,2026-09,Revisar solicitud,Revision humana,0.556,Parcial,Si,SINTETICO
+CASO-0129-as_is,CASO-0129,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.712,Si,Si,SINTETICO
+CASO-0129-as_is,CASO-0129,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.645,Si,Si,SINTETICO
+CASO-0129-as_is,CASO-0129,AS-IS,2026-09,Notificar y registrar,Workflow,0.311,Si,Si,SINTETICO
+CASO-0129-to_be,CASO-0129,TO-BE,2026-09,Revisar solicitud,Revision humana,0.243,Parcial,Si,SINTETICO
+CASO-0129-to_be,CASO-0129,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.312,Si,Segun excepcion,SINTETICO
+CASO-0129-to_be,CASO-0129,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.282,Si,Segun excepcion,SINTETICO
+CASO-0129-to_be,CASO-0129,TO-BE,2026-09,Notificar y registrar,Workflow,0.136,Si,Segun excepcion,SINTETICO
+CASO-0130-as_is,CASO-0130,AS-IS,2026-09,Revisar solicitud,Revision humana,0.742,Parcial,Si,SINTETICO
+CASO-0130-as_is,CASO-0130,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.95,Si,Si,SINTETICO
+CASO-0130-as_is,CASO-0130,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.861,Si,Si,SINTETICO
+CASO-0130-as_is,CASO-0130,AS-IS,2026-09,Notificar y registrar,Workflow,0.416,Si,Si,SINTETICO
+CASO-0130-to_be,CASO-0130,TO-BE,2026-09,Revisar solicitud,Revision humana,0.314,Parcial,Si,SINTETICO
+CASO-0130-to_be,CASO-0130,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.401,Si,Segun excepcion,SINTETICO
+CASO-0130-to_be,CASO-0130,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.364,Si,Segun excepcion,SINTETICO
+CASO-0130-to_be,CASO-0130,TO-BE,2026-09,Notificar y registrar,Workflow,0.176,Si,Segun excepcion,SINTETICO
+CASO-0131-as_is,CASO-0131,AS-IS,2026-09,Revisar solicitud,Revision humana,0.864,Parcial,Si,SINTETICO
+CASO-0131-as_is,CASO-0131,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.106,Si,Si,SINTETICO
+CASO-0131-as_is,CASO-0131,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.003,Si,Si,SINTETICO
+CASO-0131-as_is,CASO-0131,AS-IS,2026-09,Notificar y registrar,Workflow,0.484,Si,Si,SINTETICO
+CASO-0131-to_be,CASO-0131,TO-BE,2026-09,Revisar solicitud,Revision humana,0.335,Parcial,Si,SINTETICO
+CASO-0131-to_be,CASO-0131,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.428,Si,Segun excepcion,SINTETICO
+CASO-0131-to_be,CASO-0131,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.388,Si,Segun excepcion,SINTETICO
+CASO-0131-to_be,CASO-0131,TO-BE,2026-09,Notificar y registrar,Workflow,0.187,Si,Segun excepcion,SINTETICO
+CASO-0132-as_is,CASO-0132,AS-IS,2026-09,Revisar solicitud,Revision humana,0.646,Parcial,Si,SINTETICO
+CASO-0132-as_is,CASO-0132,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.827,Si,Si,SINTETICO
+CASO-0132-as_is,CASO-0132,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.749,Si,Si,SINTETICO
+CASO-0132-as_is,CASO-0132,AS-IS,2026-09,Notificar y registrar,Workflow,0.362,Si,Si,SINTETICO
+CASO-0132-to_be,CASO-0132,TO-BE,2026-09,Revisar solicitud,Revision humana,0.307,Parcial,Si,SINTETICO
+CASO-0132-to_be,CASO-0132,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.393,Si,Segun excepcion,SINTETICO
+CASO-0132-to_be,CASO-0132,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.356,Si,Segun excepcion,SINTETICO
+CASO-0132-to_be,CASO-0132,TO-BE,2026-09,Notificar y registrar,Workflow,0.172,Si,Segun excepcion,SINTETICO
+CASO-0133-as_is,CASO-0133,AS-IS,2026-09,Revisar solicitud,Revision humana,0.51,Parcial,Si,SINTETICO
+CASO-0133-as_is,CASO-0133,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.653,Si,Si,SINTETICO
+CASO-0133-as_is,CASO-0133,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.592,Si,Si,SINTETICO
+CASO-0133-as_is,CASO-0133,AS-IS,2026-09,Notificar y registrar,Workflow,0.286,Si,Si,SINTETICO
+CASO-0133-to_be,CASO-0133,TO-BE,2026-09,Revisar solicitud,Revision humana,0.249,Parcial,Si,SINTETICO
+CASO-0133-to_be,CASO-0133,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.319,Si,Segun excepcion,SINTETICO
+CASO-0133-to_be,CASO-0133,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.289,Si,Segun excepcion,SINTETICO
+CASO-0133-to_be,CASO-0133,TO-BE,2026-09,Notificar y registrar,Workflow,0.139,Si,Segun excepcion,SINTETICO
+CASO-0134-as_is,CASO-0134,AS-IS,2026-09,Revisar solicitud,Revision humana,0.922,Parcial,Si,SINTETICO
+CASO-0134-as_is,CASO-0134,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.18,Si,Si,SINTETICO
+CASO-0134-as_is,CASO-0134,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.07,Si,Si,SINTETICO
+CASO-0134-as_is,CASO-0134,AS-IS,2026-09,Notificar y registrar,Workflow,0.516,Si,Si,SINTETICO
+CASO-0134-to_be,CASO-0134,TO-BE,2026-09,Revisar solicitud,Revision humana,0.334,Parcial,Si,SINTETICO
+CASO-0134-to_be,CASO-0134,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.428,Si,Segun excepcion,SINTETICO
+CASO-0134-to_be,CASO-0134,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.388,Si,Segun excepcion,SINTETICO
+CASO-0134-to_be,CASO-0134,TO-BE,2026-09,Notificar y registrar,Workflow,0.187,Si,Segun excepcion,SINTETICO
+CASO-0135-as_is,CASO-0135,AS-IS,2026-09,Revisar solicitud,Revision humana,0.656,Parcial,Si,SINTETICO
+CASO-0135-as_is,CASO-0135,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.84,Si,Si,SINTETICO
+CASO-0135-as_is,CASO-0135,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.761,Si,Si,SINTETICO
+CASO-0135-as_is,CASO-0135,AS-IS,2026-09,Notificar y registrar,Workflow,0.368,Si,Si,SINTETICO
+CASO-0135-to_be,CASO-0135,TO-BE,2026-09,Revisar solicitud,Revision humana,0.308,Parcial,Si,SINTETICO
+CASO-0135-to_be,CASO-0135,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.395,Si,Segun excepcion,SINTETICO
+CASO-0135-to_be,CASO-0135,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.358,Si,Segun excepcion,SINTETICO
+CASO-0135-to_be,CASO-0135,TO-BE,2026-09,Notificar y registrar,Workflow,0.173,Si,Segun excepcion,SINTETICO
+CASO-0136-as_is,CASO-0136,AS-IS,2026-09,Revisar solicitud,Revision humana,0.897,Parcial,Si,SINTETICO
+CASO-0136-as_is,CASO-0136,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.149,Si,Si,SINTETICO
+CASO-0136-as_is,CASO-0136,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.041,Si,Si,SINTETICO
+CASO-0136-as_is,CASO-0136,AS-IS,2026-09,Notificar y registrar,Workflow,0.503,Si,Si,SINTETICO
+CASO-0136-to_be,CASO-0136,TO-BE,2026-09,Revisar solicitud,Revision humana,0.303,Parcial,Si,SINTETICO
+CASO-0136-to_be,CASO-0136,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.388,Si,Segun excepcion,SINTETICO
+CASO-0136-to_be,CASO-0136,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.352,Si,Segun excepcion,SINTETICO
+CASO-0136-to_be,CASO-0136,TO-BE,2026-09,Notificar y registrar,Workflow,0.17,Si,Segun excepcion,SINTETICO
+CASO-0137-as_is,CASO-0137,AS-IS,2026-09,Revisar solicitud,Revision humana,0.845,Parcial,Si,SINTETICO
+CASO-0137-as_is,CASO-0137,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.081,Si,Si,SINTETICO
+CASO-0137-as_is,CASO-0137,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.98,Si,Si,SINTETICO
+CASO-0137-as_is,CASO-0137,AS-IS,2026-09,Notificar y registrar,Workflow,0.473,Si,Si,SINTETICO
+CASO-0137-to_be,CASO-0137,TO-BE,2026-09,Revisar solicitud,Revision humana,0.345,Parcial,Si,SINTETICO
+CASO-0137-to_be,CASO-0137,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.441,Si,Segun excepcion,SINTETICO
+CASO-0137-to_be,CASO-0137,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.4,Si,Segun excepcion,SINTETICO
+CASO-0137-to_be,CASO-0137,TO-BE,2026-09,Notificar y registrar,Workflow,0.193,Si,Segun excepcion,SINTETICO
+CASO-0138-as_is,CASO-0138,AS-IS,2026-09,Revisar solicitud,Revision humana,0.582,Parcial,Si,SINTETICO
+CASO-0138-as_is,CASO-0138,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.744,Si,Si,SINTETICO
+CASO-0138-as_is,CASO-0138,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.675,Si,Si,SINTETICO
+CASO-0138-as_is,CASO-0138,AS-IS,2026-09,Notificar y registrar,Workflow,0.326,Si,Si,SINTETICO
+CASO-0138-to_be,CASO-0138,TO-BE,2026-09,Revisar solicitud,Revision humana,0.298,Parcial,Si,SINTETICO
+CASO-0138-to_be,CASO-0138,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.382,Si,Segun excepcion,SINTETICO
+CASO-0138-to_be,CASO-0138,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.346,Si,Segun excepcion,SINTETICO
+CASO-0138-to_be,CASO-0138,TO-BE,2026-09,Notificar y registrar,Workflow,0.167,Si,Segun excepcion,SINTETICO
+CASO-0139-as_is,CASO-0139,AS-IS,2026-09,Revisar solicitud,Revision humana,0.6,Parcial,Si,SINTETICO
+CASO-0139-as_is,CASO-0139,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.768,Si,Si,SINTETICO
+CASO-0139-as_is,CASO-0139,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.696,Si,Si,SINTETICO
+CASO-0139-as_is,CASO-0139,AS-IS,2026-09,Notificar y registrar,Workflow,0.336,Si,Si,SINTETICO
+CASO-0139-to_be,CASO-0139,TO-BE,2026-09,Revisar solicitud,Revision humana,0.227,Parcial,Si,SINTETICO
+CASO-0139-to_be,CASO-0139,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.291,Si,Segun excepcion,SINTETICO
+CASO-0139-to_be,CASO-0139,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.263,Si,Segun excepcion,SINTETICO
+CASO-0139-to_be,CASO-0139,TO-BE,2026-09,Notificar y registrar,Workflow,0.127,Si,Segun excepcion,SINTETICO
+CASO-0140-as_is,CASO-0140,AS-IS,2026-09,Revisar solicitud,Revision humana,0.703,Parcial,Si,SINTETICO
+CASO-0140-as_is,CASO-0140,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.9,Si,Si,SINTETICO
+CASO-0140-as_is,CASO-0140,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.815,Si,Si,SINTETICO
+CASO-0140-as_is,CASO-0140,AS-IS,2026-09,Notificar y registrar,Workflow,0.394,Si,Si,SINTETICO
+CASO-0140-to_be,CASO-0140,TO-BE,2026-09,Revisar solicitud,Revision humana,0.271,Parcial,Si,SINTETICO
+CASO-0140-to_be,CASO-0140,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.347,Si,Segun excepcion,SINTETICO
+CASO-0140-to_be,CASO-0140,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.314,Si,Segun excepcion,SINTETICO
+CASO-0140-to_be,CASO-0140,TO-BE,2026-09,Notificar y registrar,Workflow,0.152,Si,Segun excepcion,SINTETICO
+CASO-0141-as_is,CASO-0141,AS-IS,2026-09,Revisar solicitud,Revision humana,0.995,Parcial,Si,SINTETICO
+CASO-0141-as_is,CASO-0141,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.273,Si,Si,SINTETICO
+CASO-0141-as_is,CASO-0141,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.154,Si,Si,SINTETICO
+CASO-0141-as_is,CASO-0141,AS-IS,2026-09,Notificar y registrar,Workflow,0.557,Si,Si,SINTETICO
+CASO-0141-to_be,CASO-0141,TO-BE,2026-09,Revisar solicitud,Revision humana,0.318,Parcial,Si,SINTETICO
+CASO-0141-to_be,CASO-0141,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.406,Si,Segun excepcion,SINTETICO
+CASO-0141-to_be,CASO-0141,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.368,Si,Segun excepcion,SINTETICO
+CASO-0141-to_be,CASO-0141,TO-BE,2026-09,Notificar y registrar,Workflow,0.178,Si,Segun excepcion,SINTETICO
+CASO-0142-as_is,CASO-0142,AS-IS,2026-09,Revisar solicitud,Revision humana,0.575,Parcial,Si,SINTETICO
+CASO-0142-as_is,CASO-0142,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.735,Si,Si,SINTETICO
+CASO-0142-as_is,CASO-0142,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.666,Si,Si,SINTETICO
+CASO-0142-as_is,CASO-0142,AS-IS,2026-09,Notificar y registrar,Workflow,0.322,Si,Si,SINTETICO
+CASO-0142-to_be,CASO-0142,TO-BE,2026-09,Revisar solicitud,Revision humana,0.262,Parcial,Si,SINTETICO
+CASO-0142-to_be,CASO-0142,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.335,Si,Segun excepcion,SINTETICO
+CASO-0142-to_be,CASO-0142,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.304,Si,Segun excepcion,SINTETICO
+CASO-0142-to_be,CASO-0142,TO-BE,2026-09,Notificar y registrar,Workflow,0.147,Si,Segun excepcion,SINTETICO
+CASO-0143-as_is,CASO-0143,AS-IS,2026-09,Revisar solicitud,Revision humana,0.893,Parcial,Si,SINTETICO
+CASO-0143-as_is,CASO-0143,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.143,Si,Si,SINTETICO
+CASO-0143-as_is,CASO-0143,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,1.036,Si,Si,SINTETICO
+CASO-0143-as_is,CASO-0143,AS-IS,2026-09,Notificar y registrar,Workflow,0.5,Si,Si,SINTETICO
+CASO-0143-to_be,CASO-0143,TO-BE,2026-09,Revisar solicitud,Revision humana,0.302,Parcial,Si,SINTETICO
+CASO-0143-to_be,CASO-0143,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.387,Si,Segun excepcion,SINTETICO
+CASO-0143-to_be,CASO-0143,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.351,Si,Segun excepcion,SINTETICO
+CASO-0143-to_be,CASO-0143,TO-BE,2026-09,Notificar y registrar,Workflow,0.169,Si,Segun excepcion,SINTETICO
+CASO-0144-as_is,CASO-0144,AS-IS,2026-09,Revisar solicitud,Revision humana,0.758,Parcial,Si,SINTETICO
+CASO-0144-as_is,CASO-0144,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.971,Si,Si,SINTETICO
+CASO-0144-as_is,CASO-0144,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.88,Si,Si,SINTETICO
+CASO-0144-as_is,CASO-0144,AS-IS,2026-09,Notificar y registrar,Workflow,0.425,Si,Si,SINTETICO
+CASO-0144-to_be,CASO-0144,TO-BE,2026-09,Revisar solicitud,Revision humana,0.305,Parcial,Si,SINTETICO
+CASO-0144-to_be,CASO-0144,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.391,Si,Segun excepcion,SINTETICO
+CASO-0144-to_be,CASO-0144,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.354,Si,Segun excepcion,SINTETICO
+CASO-0144-to_be,CASO-0144,TO-BE,2026-09,Notificar y registrar,Workflow,0.171,Si,Segun excepcion,SINTETICO
+CASO-0145-as_is,CASO-0145,AS-IS,2026-09,Revisar solicitud,Revision humana,0.669,Parcial,Si,SINTETICO
+CASO-0145-as_is,CASO-0145,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.856,Si,Si,SINTETICO
+CASO-0145-as_is,CASO-0145,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.776,Si,Si,SINTETICO
+CASO-0145-as_is,CASO-0145,AS-IS,2026-09,Notificar y registrar,Workflow,0.374,Si,Si,SINTETICO
+CASO-0145-to_be,CASO-0145,TO-BE,2026-09,Revisar solicitud,Revision humana,0.268,Parcial,Si,SINTETICO
+CASO-0145-to_be,CASO-0145,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.342,Si,Segun excepcion,SINTETICO
+CASO-0145-to_be,CASO-0145,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.31,Si,Segun excepcion,SINTETICO
+CASO-0145-to_be,CASO-0145,TO-BE,2026-09,Notificar y registrar,Workflow,0.15,Si,Segun excepcion,SINTETICO
+CASO-0146-as_is,CASO-0146,AS-IS,2026-09,Revisar solicitud,Revision humana,0.618,Parcial,Si,SINTETICO
+CASO-0146-as_is,CASO-0146,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.791,Si,Si,SINTETICO
+CASO-0146-as_is,CASO-0146,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.717,Si,Si,SINTETICO
+CASO-0146-as_is,CASO-0146,AS-IS,2026-09,Notificar y registrar,Workflow,0.346,Si,Si,SINTETICO
+CASO-0146-to_be,CASO-0146,TO-BE,2026-09,Revisar solicitud,Revision humana,0.258,Parcial,Si,SINTETICO
+CASO-0146-to_be,CASO-0146,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.33,Si,Segun excepcion,SINTETICO
+CASO-0146-to_be,CASO-0146,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.299,Si,Segun excepcion,SINTETICO
+CASO-0146-to_be,CASO-0146,TO-BE,2026-09,Notificar y registrar,Workflow,0.144,Si,Segun excepcion,SINTETICO
+CASO-0147-as_is,CASO-0147,AS-IS,2026-09,Revisar solicitud,Revision humana,0.591,Parcial,Si,SINTETICO
+CASO-0147-as_is,CASO-0147,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.757,Si,Si,SINTETICO
+CASO-0147-as_is,CASO-0147,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.686,Si,Si,SINTETICO
+CASO-0147-as_is,CASO-0147,AS-IS,2026-09,Notificar y registrar,Workflow,0.331,Si,Si,SINTETICO
+CASO-0147-to_be,CASO-0147,TO-BE,2026-09,Revisar solicitud,Revision humana,0.28,Parcial,Si,SINTETICO
+CASO-0147-to_be,CASO-0147,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.358,Si,Segun excepcion,SINTETICO
+CASO-0147-to_be,CASO-0147,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.325,Si,Segun excepcion,SINTETICO
+CASO-0147-to_be,CASO-0147,TO-BE,2026-09,Notificar y registrar,Workflow,0.157,Si,Segun excepcion,SINTETICO
+CASO-0148-as_is,CASO-0148,AS-IS,2026-09,Revisar solicitud,Revision humana,0.64,Parcial,Si,SINTETICO
+CASO-0148-as_is,CASO-0148,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.819,Si,Si,SINTETICO
+CASO-0148-as_is,CASO-0148,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.742,Si,Si,SINTETICO
+CASO-0148-as_is,CASO-0148,AS-IS,2026-09,Notificar y registrar,Workflow,0.358,Si,Si,SINTETICO
+CASO-0148-to_be,CASO-0148,TO-BE,2026-09,Revisar solicitud,Revision humana,0.255,Parcial,Si,SINTETICO
+CASO-0148-to_be,CASO-0148,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.326,Si,Segun excepcion,SINTETICO
+CASO-0148-to_be,CASO-0148,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.296,Si,Segun excepcion,SINTETICO
+CASO-0148-to_be,CASO-0148,TO-BE,2026-09,Notificar y registrar,Workflow,0.143,Si,Segun excepcion,SINTETICO
+CASO-0149-as_is,CASO-0149,AS-IS,2026-09,Revisar solicitud,Revision humana,0.692,Parcial,Si,SINTETICO
+CASO-0149-as_is,CASO-0149,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.885,Si,Si,SINTETICO
+CASO-0149-as_is,CASO-0149,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.802,Si,Si,SINTETICO
+CASO-0149-as_is,CASO-0149,AS-IS,2026-09,Notificar y registrar,Workflow,0.387,Si,Si,SINTETICO
+CASO-0149-to_be,CASO-0149,TO-BE,2026-09,Revisar solicitud,Revision humana,0.251,Parcial,Si,SINTETICO
+CASO-0149-to_be,CASO-0149,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.321,Si,Segun excepcion,SINTETICO
+CASO-0149-to_be,CASO-0149,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.291,Si,Segun excepcion,SINTETICO
+CASO-0149-to_be,CASO-0149,TO-BE,2026-09,Notificar y registrar,Workflow,0.141,Si,Segun excepcion,SINTETICO
+CASO-0150-as_is,CASO-0150,AS-IS,2026-09,Revisar solicitud,Revision humana,0.65,Parcial,Si,SINTETICO
+CASO-0150-as_is,CASO-0150,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.832,Si,Si,SINTETICO
+CASO-0150-as_is,CASO-0150,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.754,Si,Si,SINTETICO
+CASO-0150-as_is,CASO-0150,AS-IS,2026-09,Notificar y registrar,Workflow,0.364,Si,Si,SINTETICO
+CASO-0150-to_be,CASO-0150,TO-BE,2026-09,Revisar solicitud,Revision humana,0.211,Parcial,Si,SINTETICO
+CASO-0150-to_be,CASO-0150,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.27,Si,Segun excepcion,SINTETICO
+CASO-0150-to_be,CASO-0150,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.244,Si,Segun excepcion,SINTETICO
+CASO-0150-to_be,CASO-0150,TO-BE,2026-09,Notificar y registrar,Workflow,0.118,Si,Segun excepcion,SINTETICO
+CASO-0151-as_is,CASO-0151,AS-IS,2026-09,Revisar solicitud,Revision humana,0.838,Parcial,Si,SINTETICO
+CASO-0151-as_is,CASO-0151,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.073,Si,Si,SINTETICO
+CASO-0151-as_is,CASO-0151,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.972,Si,Si,SINTETICO
+CASO-0151-as_is,CASO-0151,AS-IS,2026-09,Notificar y registrar,Workflow,0.469,Si,Si,SINTETICO
+CASO-0151-to_be,CASO-0151,TO-BE,2026-09,Revisar solicitud,Revision humana,0.319,Parcial,Si,SINTETICO
+CASO-0151-to_be,CASO-0151,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.409,Si,Segun excepcion,SINTETICO
+CASO-0151-to_be,CASO-0151,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.37,Si,Segun excepcion,SINTETICO
+CASO-0151-to_be,CASO-0151,TO-BE,2026-09,Notificar y registrar,Workflow,0.179,Si,Segun excepcion,SINTETICO
+CASO-0152-as_is,CASO-0152,AS-IS,2026-09,Revisar solicitud,Revision humana,0.659,Parcial,Si,SINTETICO
+CASO-0152-as_is,CASO-0152,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.843,Si,Si,SINTETICO
+CASO-0152-as_is,CASO-0152,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.764,Si,Si,SINTETICO
+CASO-0152-as_is,CASO-0152,AS-IS,2026-09,Notificar y registrar,Workflow,0.369,Si,Si,SINTETICO
+CASO-0152-to_be,CASO-0152,TO-BE,2026-09,Revisar solicitud,Revision humana,0.241,Parcial,Si,SINTETICO
+CASO-0152-to_be,CASO-0152,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.308,Si,Segun excepcion,SINTETICO
+CASO-0152-to_be,CASO-0152,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.28,Si,Segun excepcion,SINTETICO
+CASO-0152-to_be,CASO-0152,TO-BE,2026-09,Notificar y registrar,Workflow,0.135,Si,Segun excepcion,SINTETICO
+CASO-0153-as_is,CASO-0153,AS-IS,2026-09,Revisar solicitud,Revision humana,0.564,Parcial,Si,SINTETICO
+CASO-0153-as_is,CASO-0153,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.722,Si,Si,SINTETICO
+CASO-0153-as_is,CASO-0153,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.654,Si,Si,SINTETICO
+CASO-0153-as_is,CASO-0153,AS-IS,2026-09,Notificar y registrar,Workflow,0.316,Si,Si,SINTETICO
+CASO-0153-to_be,CASO-0153,TO-BE,2026-09,Revisar solicitud,Revision humana,0.229,Parcial,Si,SINTETICO
+CASO-0153-to_be,CASO-0153,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.293,Si,Segun excepcion,SINTETICO
+CASO-0153-to_be,CASO-0153,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.266,Si,Segun excepcion,SINTETICO
+CASO-0153-to_be,CASO-0153,TO-BE,2026-09,Notificar y registrar,Workflow,0.128,Si,Segun excepcion,SINTETICO
+CASO-0154-as_is,CASO-0154,AS-IS,2026-09,Revisar solicitud,Revision humana,0.775,Parcial,Si,SINTETICO
+CASO-0154-as_is,CASO-0154,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.992,Si,Si,SINTETICO
+CASO-0154-as_is,CASO-0154,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.899,Si,Si,SINTETICO
+CASO-0154-as_is,CASO-0154,AS-IS,2026-09,Notificar y registrar,Workflow,0.434,Si,Si,SINTETICO
+CASO-0154-to_be,CASO-0154,TO-BE,2026-09,Revisar solicitud,Revision humana,0.299,Parcial,Si,SINTETICO
+CASO-0154-to_be,CASO-0154,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.382,Si,Segun excepcion,SINTETICO
+CASO-0154-to_be,CASO-0154,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.347,Si,Segun excepcion,SINTETICO
+CASO-0154-to_be,CASO-0154,TO-BE,2026-09,Notificar y registrar,Workflow,0.167,Si,Segun excepcion,SINTETICO
+CASO-0155-as_is,CASO-0155,AS-IS,2026-09,Revisar solicitud,Revision humana,0.853,Parcial,Si,SINTETICO
+CASO-0155-as_is,CASO-0155,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.092,Si,Si,SINTETICO
+CASO-0155-as_is,CASO-0155,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.989,Si,Si,SINTETICO
+CASO-0155-as_is,CASO-0155,AS-IS,2026-09,Notificar y registrar,Workflow,0.478,Si,Si,SINTETICO
+CASO-0155-to_be,CASO-0155,TO-BE,2026-09,Revisar solicitud,Revision humana,0.311,Parcial,Si,SINTETICO
+CASO-0155-to_be,CASO-0155,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.398,Si,Segun excepcion,SINTETICO
+CASO-0155-to_be,CASO-0155,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.361,Si,Segun excepcion,SINTETICO
+CASO-0155-to_be,CASO-0155,TO-BE,2026-09,Notificar y registrar,Workflow,0.174,Si,Segun excepcion,SINTETICO
+CASO-0156-as_is,CASO-0156,AS-IS,2026-09,Revisar solicitud,Revision humana,0.575,Parcial,Si,SINTETICO
+CASO-0156-as_is,CASO-0156,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.735,Si,Si,SINTETICO
+CASO-0156-as_is,CASO-0156,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.666,Si,Si,SINTETICO
+CASO-0156-as_is,CASO-0156,AS-IS,2026-09,Notificar y registrar,Workflow,0.322,Si,Si,SINTETICO
+CASO-0156-to_be,CASO-0156,TO-BE,2026-09,Revisar solicitud,Revision humana,0.265,Parcial,Si,SINTETICO
+CASO-0156-to_be,CASO-0156,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.339,Si,Segun excepcion,SINTETICO
+CASO-0156-to_be,CASO-0156,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.307,Si,Segun excepcion,SINTETICO
+CASO-0156-to_be,CASO-0156,TO-BE,2026-09,Notificar y registrar,Workflow,0.148,Si,Segun excepcion,SINTETICO
+CASO-0157-as_is,CASO-0157,AS-IS,2026-09,Revisar solicitud,Revision humana,0.787,Parcial,Si,SINTETICO
+CASO-0157-as_is,CASO-0157,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.008,Si,Si,SINTETICO
+CASO-0157-as_is,CASO-0157,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.913,Si,Si,SINTETICO
+CASO-0157-as_is,CASO-0157,AS-IS,2026-09,Notificar y registrar,Workflow,0.441,Si,Si,SINTETICO
+CASO-0157-to_be,CASO-0157,TO-BE,2026-09,Revisar solicitud,Revision humana,0.323,Parcial,Si,SINTETICO
+CASO-0157-to_be,CASO-0157,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.413,Si,Segun excepcion,SINTETICO
+CASO-0157-to_be,CASO-0157,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.374,Si,Segun excepcion,SINTETICO
+CASO-0157-to_be,CASO-0157,TO-BE,2026-09,Notificar y registrar,Workflow,0.181,Si,Segun excepcion,SINTETICO
+CASO-0158-as_is,CASO-0158,AS-IS,2026-09,Revisar solicitud,Revision humana,0.694,Parcial,Si,SINTETICO
+CASO-0158-as_is,CASO-0158,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.888,Si,Si,SINTETICO
+CASO-0158-as_is,CASO-0158,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.805,Si,Si,SINTETICO
+CASO-0158-as_is,CASO-0158,AS-IS,2026-09,Notificar y registrar,Workflow,0.389,Si,Si,SINTETICO
+CASO-0158-to_be,CASO-0158,TO-BE,2026-09,Revisar solicitud,Revision humana,0.287,Parcial,Si,SINTETICO
+CASO-0158-to_be,CASO-0158,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.368,Si,Segun excepcion,SINTETICO
+CASO-0158-to_be,CASO-0158,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.333,Si,Segun excepcion,SINTETICO
+CASO-0158-to_be,CASO-0158,TO-BE,2026-09,Notificar y registrar,Workflow,0.161,Si,Segun excepcion,SINTETICO
+CASO-0159-as_is,CASO-0159,AS-IS,2026-09,Revisar solicitud,Revision humana,0.825,Parcial,Si,SINTETICO
+CASO-0159-as_is,CASO-0159,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.056,Si,Si,SINTETICO
+CASO-0159-as_is,CASO-0159,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.957,Si,Si,SINTETICO
+CASO-0159-as_is,CASO-0159,AS-IS,2026-09,Notificar y registrar,Workflow,0.462,Si,Si,SINTETICO
+CASO-0159-to_be,CASO-0159,TO-BE,2026-09,Revisar solicitud,Revision humana,0.356,Parcial,Si,SINTETICO
+CASO-0159-to_be,CASO-0159,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.455,Si,Segun excepcion,SINTETICO
+CASO-0159-to_be,CASO-0159,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.413,Si,Segun excepcion,SINTETICO
+CASO-0159-to_be,CASO-0159,TO-BE,2026-09,Notificar y registrar,Workflow,0.199,Si,Segun excepcion,SINTETICO
+CASO-0160-as_is,CASO-0160,AS-IS,2026-09,Revisar solicitud,Revision humana,0.59,Parcial,Si,SINTETICO
+CASO-0160-as_is,CASO-0160,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.755,Si,Si,SINTETICO
+CASO-0160-as_is,CASO-0160,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.684,Si,Si,SINTETICO
+CASO-0160-as_is,CASO-0160,AS-IS,2026-09,Notificar y registrar,Workflow,0.33,Si,Si,SINTETICO
+CASO-0160-to_be,CASO-0160,TO-BE,2026-09,Revisar solicitud,Revision humana,0.287,Parcial,Si,SINTETICO
+CASO-0160-to_be,CASO-0160,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.368,Si,Segun excepcion,SINTETICO
+CASO-0160-to_be,CASO-0160,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.333,Si,Segun excepcion,SINTETICO
+CASO-0160-to_be,CASO-0160,TO-BE,2026-09,Notificar y registrar,Workflow,0.161,Si,Segun excepcion,SINTETICO
+CASO-0161-as_is,CASO-0161,AS-IS,2026-09,Revisar solicitud,Revision humana,0.705,Parcial,Si,SINTETICO
+CASO-0161-as_is,CASO-0161,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.902,Si,Si,SINTETICO
+CASO-0161-as_is,CASO-0161,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.818,Si,Si,SINTETICO
+CASO-0161-as_is,CASO-0161,AS-IS,2026-09,Notificar y registrar,Workflow,0.395,Si,Si,SINTETICO
+CASO-0161-to_be,CASO-0161,TO-BE,2026-09,Revisar solicitud,Revision humana,0.351,Parcial,Si,SINTETICO
+CASO-0161-to_be,CASO-0161,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.45,Si,Segun excepcion,SINTETICO
+CASO-0161-to_be,CASO-0161,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.407,Si,Segun excepcion,SINTETICO
+CASO-0161-to_be,CASO-0161,TO-BE,2026-09,Notificar y registrar,Workflow,0.197,Si,Segun excepcion,SINTETICO
+CASO-0162-as_is,CASO-0162,AS-IS,2026-09,Revisar solicitud,Revision humana,0.648,Parcial,Si,SINTETICO
+CASO-0162-as_is,CASO-0162,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.829,Si,Si,SINTETICO
+CASO-0162-as_is,CASO-0162,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.751,Si,Si,SINTETICO
+CASO-0162-as_is,CASO-0162,AS-IS,2026-09,Notificar y registrar,Workflow,0.363,Si,Si,SINTETICO
+CASO-0162-to_be,CASO-0162,TO-BE,2026-09,Revisar solicitud,Revision humana,0.236,Parcial,Si,SINTETICO
+CASO-0162-to_be,CASO-0162,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.302,Si,Segun excepcion,SINTETICO
+CASO-0162-to_be,CASO-0162,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.274,Si,Segun excepcion,SINTETICO
+CASO-0162-to_be,CASO-0162,TO-BE,2026-09,Notificar y registrar,Workflow,0.132,Si,Segun excepcion,SINTETICO
+CASO-0163-as_is,CASO-0163,AS-IS,2026-09,Revisar solicitud,Revision humana,0.501,Parcial,Si,SINTETICO
+CASO-0163-as_is,CASO-0163,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,0.642,Si,Si,SINTETICO
+CASO-0163-as_is,CASO-0163,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.582,Si,Si,SINTETICO
+CASO-0163-as_is,CASO-0163,AS-IS,2026-09,Notificar y registrar,Workflow,0.281,Si,Si,SINTETICO
+CASO-0163-to_be,CASO-0163,TO-BE,2026-09,Revisar solicitud,Revision humana,0.198,Parcial,Si,SINTETICO
+CASO-0163-to_be,CASO-0163,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.253,Si,Segun excepcion,SINTETICO
+CASO-0163-to_be,CASO-0163,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.23,Si,Segun excepcion,SINTETICO
+CASO-0163-to_be,CASO-0163,TO-BE,2026-09,Notificar y registrar,Workflow,0.111,Si,Segun excepcion,SINTETICO
+CASO-0164-as_is,CASO-0164,AS-IS,2026-09,Revisar solicitud,Revision humana,0.832,Parcial,Si,SINTETICO
+CASO-0164-as_is,CASO-0164,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.064,Si,Si,SINTETICO
+CASO-0164-as_is,CASO-0164,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.965,Si,Si,SINTETICO
+CASO-0164-as_is,CASO-0164,AS-IS,2026-09,Notificar y registrar,Workflow,0.466,Si,Si,SINTETICO
+CASO-0164-to_be,CASO-0164,TO-BE,2026-09,Revisar solicitud,Revision humana,0.303,Parcial,Si,SINTETICO
+CASO-0164-to_be,CASO-0164,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.388,Si,Segun excepcion,SINTETICO
+CASO-0164-to_be,CASO-0164,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.352,Si,Segun excepcion,SINTETICO
+CASO-0164-to_be,CASO-0164,TO-BE,2026-09,Notificar y registrar,Workflow,0.17,Si,Segun excepcion,SINTETICO
+CASO-0165-as_is,CASO-0165,AS-IS,2026-09,Revisar solicitud,Revision humana,0.793,Parcial,Si,SINTETICO
+CASO-0165-as_is,CASO-0165,AS-IS,2026-09,Cotejar soportes,IDP o revision documental,1.015,Si,Si,SINTETICO
+CASO-0165-as_is,CASO-0165,AS-IS,2026-09,Preparar liquidacion,Reglas y calculo,0.92,Si,Si,SINTETICO
+CASO-0165-as_is,CASO-0165,AS-IS,2026-09,Notificar y registrar,Workflow,0.444,Si,Si,SINTETICO
+CASO-0165-to_be,CASO-0165,TO-BE,2026-09,Revisar solicitud,Revision humana,0.271,Parcial,Si,SINTETICO
+CASO-0165-to_be,CASO-0165,TO-BE,2026-09,Cotejar soportes,IDP o revision documental,0.347,Si,Segun excepcion,SINTETICO
+CASO-0165-to_be,CASO-0165,TO-BE,2026-09,Preparar liquidacion,Reglas y calculo,0.314,Si,Segun excepcion,SINTETICO
+CASO-0165-to_be,CASO-0165,TO-BE,2026-09,Notificar y registrar,Workflow,0.152,Si,Segun excepcion,SINTETICO
