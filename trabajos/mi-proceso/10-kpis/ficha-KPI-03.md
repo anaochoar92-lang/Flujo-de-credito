@@ -7,7 +7,7 @@
 **Numerador:** solicitudes con `cerrada_vencimiento = 1`. **Denominador:** solicitudes con `entro_a_expediente = 1`. **Unidad:** %.
 **Granularidad:** solicitud-escenario. **Dimensiones:** `mes` (de aceptación), `temporada`, `escenario`, `ruta`. **Periodicidad:** mensual.
 **Campos CSV mínimos y tipos:** `solicitud_id`, `mes`, `temporada`, `escenario`, `ruta`, `entro_a_expediente` (0/1), `cerrada_vencimiento` (0/1), `temporizador` (texto: carga, correccion, papel).
-**Fuente / linaje / método de registro:** TO-BE: Camunda, llegada a `END_VENCIDA` y temporizador que la disparó. AS-IS: [PENDIENTE KPI-Q2b].
+**Fuente / linaje / método de registro:** TO-BE: Camunda, llegada a `END_VENCIDA` y temporizador que la disparó. AS-IS: **sistema de solicitudes de crédito** (tiene fecha de inicio y fecha de fin, KPI-Q2b) [PENDIENTE ronda 10: si guarda fechas por etapa y estados].
 **Línea base:** 10 % (40 de 400 por mes de feria), declarado (PREG-014; AS-07 confirmado). **Meta TO-BE:** ≤ 5 %. Propuesta pendiente del acuerdo del Gerente. **Evidencia:** entrevista PREG-014, ronda 7.
 **Responsable de medición:** IT. **Regla de calidad:** `cerrada_vencimiento = 1` implica `sobre_enviado = 0`. Los casos se asignan al **mes de aceptación** aunque el cierre ocurra el mes siguiente.
 **Visualización en Preset:** barras por `mes` con series `escenario`; corte por `temporizador`.

@@ -4,7 +4,7 @@
 **Objetivo clave:** disminuir el tiempo del tramo de expediente, de 12 a 6 días hábiles.
 **Dueño de los KPI:** Gerente de crédito (KPI-Q1).
 
-> Las líneas base son **estimaciones declaradas** (Excel de la fuente y entrevista), **no mediciones**. Las metas son **propuestas** pendientes del acuerdo del Gerente de crédito. Comparar AS-IS estimado con TO-BE estimado es un *business case*, no una prueba de causalidad.
+> Las líneas base son **estimaciones declaradas** (Excel de la fuente y entrevista), **no mediciones**. Las metas son **propuestas** que se dejan así y se validarán con el Gerente de crédito (ronda 9). Comparar AS-IS estimado con TO-BE estimado es un *business case*, no una prueba de causalidad.
 
 ## 1. KPI
 | ID | KPI | Fórmula | Unidad | Línea base AS-IS (estimada) | Meta TO-BE (propuesta) | Ficha |
@@ -36,7 +36,7 @@
 | Escenario | Fuente propuesta | Estado |
 |---|---|---|
 | **TO-BE** | **Camunda 8.10** registra solo la fecha y hora de inicio y fin de cada tarea y evento de cada instancia (historial en Operate u Optimize, o exportación). Nadie tiene que digitar fechas | Propuesta. Requiere que IT habilite la exportación del historial |
-| **AS-IS** | No se sabe si hoy existe un sistema que guarde la fecha de aceptación, la salida del sobre, las devoluciones y los cierres. Mientras tanto se usan las **estimaciones declaradas** de la fuente y la entrevista | [PENDIENTE KPI-Q2b] |
+| **AS-IS** | **Sistema de solicitudes de crédito**: todo el proceso se tramita ahí y cada solicitud tiene **fecha de inicio y fecha de fin** (KPI-Q2b). Falta saber si guarda fechas por etapa (aceptación, salida del sobre), devoluciones y estado final | Confirmado en parte. [PENDIENTE ronda 10] |
 | **Datos para el taller** | CSV **sintéticos** construidos con esas estimaciones (paso 13, `09-datos/`). Sin datos personales | Siguiente paso |
 
 ## 5. Trazabilidad

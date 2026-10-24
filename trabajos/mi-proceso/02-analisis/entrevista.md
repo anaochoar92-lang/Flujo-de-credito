@@ -152,3 +152,8 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | KPI-Q4 | **Interpretación:** ¿el expediente termina cuando el sobre sale a Desembolso o cuando se desembolsa? ¿Las solicitudes que pasan a la ruta en papel cuentan en el mismo promedio? | Si las de papel se excluyen, el promedio mejora aunque el proceso no. | Define el inicio, el fin y la población del KPI principal. | — | PENDIENTE |
 
 **Resultado ronda 9:** catálogo y fichas en `10-kpis/`. Queda KPI-Q2b (¿existe hoy un sistema con fechas de aceptación, salida del sobre, devoluciones y cierres?) y el acuerdo de metas con el Gerente de crédito.
+
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| KPI-Q2b | ¿Existe hoy un sistema donde queden las fechas del AS-IS? | «Sí, todo ese proceso se hace por medio de solicitudes de crédito, donde se tiene una fecha de inicio y una fecha de fin.» | Confirmado por entrevistado |
+| KPI-Q3b | ¿Las metas quedan como propuesta para validar con el Gerente de crédito? | «Sí.» | Confirmado por entrevistado |

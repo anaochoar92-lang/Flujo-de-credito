@@ -7,7 +7,7 @@
 **Numerador:** solicitudes con `devuelta = 1`. **Denominador:** solicitudes con `llego_a_verificacion = 1`. **Unidad:** %.
 **Granularidad:** solicitud-escenario. **Dimensiones:** `mes`, `temporada`, `escenario`, `ruta`. **Periodicidad:** mensual.
 **Campos CSV mínimos y tipos:** `solicitud_id`, `mes`, `temporada`, `escenario`, `ruta`, `llego_a_verificacion` (0/1), `devuelta` (0/1), `n_devoluciones` (entero), `motivo_devolucion` (texto: vencido, ilegible, no cuadra).
-**Fuente / linaje / método de registro:** TO-BE: Camunda, variable `expedienteOk = false` en `TB_ACT_VERIF` (o `documentacionOk = false` en `ACT_008` por la ruta en papel). AS-IS: [PENDIENTE KPI-Q2b]; REQ-017 sigue pendiente de si el motivo se registra.
+**Fuente / linaje / método de registro:** TO-BE: Camunda, variable `expedienteOk = false` en `TB_ACT_VERIF` (o `documentacionOk = false` en `ACT_008` por la ruta en papel). AS-IS: **sistema de solicitudes de crédito** (tiene fecha de inicio y fecha de fin, KPI-Q2b) [PENDIENTE ronda 10: si guarda fechas por etapa y estados]; REQ-017 sigue pendiente de si el motivo se registra.
 **Línea base:** 20 % (80 de 400 por mes de feria), declarado (PREG-014, DG-3). **Meta TO-BE:** ≤ 5 %. Propuesta pendiente del acuerdo del Gerente. **Evidencia:** entrevista PREG-014, DG-3, PRIO-2.
 **Responsable de medición:** IT (historial de Camunda); Despacho registra el motivo. **Regla de calidad:** `devuelta = 1` exige `llego_a_verificacion = 1` y un motivo; `n_devoluciones ≥ devuelta`.
 **Visualización en Preset:** barras por `mes` con series `escenario`; barras apiladas por `motivo_devolucion`.
