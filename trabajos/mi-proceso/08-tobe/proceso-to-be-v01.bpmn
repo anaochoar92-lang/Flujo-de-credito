@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_FlujoCredito_TOBE" targetNamespace="https://laboratorio.example.org/bpmn" exporter="Taller OpenCode BPMN (Node.js)" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_FlujoCredito_TOBE" targetNamespace="https://laboratorio.example.org/bpmn" exporter="Taller OpenCode BPMN (Node.js)" exporterVersion="1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
   <bpmn:message id="Msg_Enlace" name="Correo con enlace al portal" />
   <bpmn:error id="Err_Portal" name="Portal no disponible o cliente sin acceso" />
   <bpmn:collaboration id="Collaboration_Lab" name="Flujo de crédito preaprobado Expomóvil — TO-BE PROPUESTA v01 (NO APROBADO)">

@@ -64,3 +64,11 @@ Con `TMR_T02` se resuelve el riesgo del punto 6 de la lista (la unión ya no pue
 
 ## 6. Cómo abrirlo
 Camunda Desktop Modeler → *File → Open File…* → `trabajos/mi-proceso/08-tobe/proceso-to-be-v01.bpmn`.
+
+## 7. v02 preparada para Camunda 8.10 — 2026-10-24
+`proceso-to-be-v02.bpmn` se modificó **en su lugar** para desplegarlo en Camunda 8.10, con el ID `Process_Credito_TOBE`. Además de la configuración técnica, tiene tres cambios de diseño aprobados:
+- **Subproceso `SUB_T01`** «Recibir y validar documentos en el portal». Ahora el plazo `TMR_T01` corre una sola vez desde el envío del enlace (TB-1). A la salida, la decisión `TB_GW_CARGA` manda los casos con intentos agotados a la ruta en papel.
+- **`ERR_T01` cambió a `MSG_T01`**: la falla del portal la reporta IT por mensaje (TB-9).
+- **`TB_ACT_RECOGER`** pasó de tarea manual a tarea de usuario, para que el mensajero registre `recogidaLograda`.
+
+`proceso-to-be-v01.bpmn` solo se marcó como diagrama de Camunda 8.10. Detalle completo: `06-revision/despliegue-camunda-8.10.md`. **No regenerar desde `modelo-v02.json`.**

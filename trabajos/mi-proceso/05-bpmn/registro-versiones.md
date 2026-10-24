@@ -26,3 +26,9 @@ node scripts/crear_bpmn.js trabajos/mi-proceso/04-modelo/especificacion.json tra
 node scripts/validar_bpmn.js trabajos/mi-proceso/05-bpmn/proceso-vNN.bpmn --json trabajos/mi-proceso/05-bpmn/validacion-vNN.json
 ```
 El generador no sobrescribe un archivo que ya existe.
+
+## v02 preparada para Camunda 8.10 — 2026-10-24
+- `proceso-v02.bpmn` se modificó **en su lugar**, por decisión del equipo, para poder desplegarlo en Camunda 8.10. El proceso ahora es ejecutable, con ID `Process_Credito_ASIS`, tareas de usuario de Camunda, condiciones FEEL, temporizador `P14D` y tipo de trabajo en `SVC_001`. El flujo del proceso no cambió.
+- `proceso-v01.bpmn` solo se marcó como diagrama de Camunda 8.10 y no se puede desplegar.
+- Detalle, variables y verificación: `06-revision/despliegue-camunda-8.10.md`.
+- **No regenerar desde `04-modelo/especificacion-v02.json`**: el JSON ya no coincide con el XML.

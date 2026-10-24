@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_FlujoCredito_ASIS" targetNamespace="https://laboratorio.example.org/bpmn" exporter="Taller OpenCode BPMN (Node.js)" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_FlujoCredito_ASIS" targetNamespace="https://laboratorio.example.org/bpmn" exporter="Taller OpenCode BPMN (Node.js)" exporterVersion="1.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
   <bpmn:collaboration id="Collaboration_Lab" name="Flujo de crédito Expomóvil — AS-IS — BORRADOR v02">
-    <bpmn:participant id="Participant_Process_Credito" name="Banco — solicitud de crédito Expomóvil" processRef="Process_Credito" />
+    <bpmn:participant id="Participant_Process_Credito" name="Banco — solicitud de crédito Expomóvil" processRef="Process_Credito_ASIS" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_Credito" name="Banco — solicitud de crédito Expomóvil" isExecutable="false">
-    <bpmn:laneSet id="LaneSet_Process_Credito">
+  <bpmn:process id="Process_Credito_ASIS" name="Banco — solicitud de crédito Expomóvil" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_Process_Credito_ASIS">
       <bpmn:lane id="Lane_Negocio" name="Persona de Negocio">
         <bpmn:flowNodeRef>EVT_001</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ACT_001</bpmn:flowNodeRef>
@@ -45,11 +45,17 @@
       <bpmn:outgoing>F_001</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:userTask id="ACT_001" name="Crear solicitud">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_001</bpmn:incoming>
       <bpmn:incoming>F_005</bpmn:incoming>
       <bpmn:outgoing>F_002</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="ACT_002" name="Evaluar solicitud">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_002</bpmn:incoming>
       <bpmn:outgoing>F_003</bpmn:outgoing>
     </bpmn:userTask>
@@ -63,6 +69,9 @@
       <bpmn:incoming>F_006</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:userTask id="ACT_003" name="Analizar crédito">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_004</bpmn:incoming>
       <bpmn:incoming>F_015</bpmn:incoming>
       <bpmn:outgoing>F_007</bpmn:outgoing>
@@ -76,6 +85,9 @@
       <bpmn:incoming>F_009</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:userTask id="ACT_004" name="Informar decisión al cliente">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_008</bpmn:incoming>
       <bpmn:outgoing>F_010</bpmn:outgoing>
     </bpmn:userTask>
@@ -93,10 +105,16 @@
       <bpmn:outgoing>F_014</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:userTask id="ACT_005" name="Modificar datos del crédito">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_013</bpmn:incoming>
       <bpmn:outgoing>F_015</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="ACT_006" name="Recopilar expediente">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_014</bpmn:incoming>
       <bpmn:incoming>F_018</bpmn:incoming>
       <bpmn:incoming>F_024</bpmn:incoming>
@@ -104,9 +122,14 @@
     </bpmn:userTask>
     <bpmn:boundaryEvent id="TMR_001" name="10 días hábiles sin expediente completo" attachedToRef="ACT_006">
       <bpmn:outgoing>F_019</bpmn:outgoing>
-      <bpmn:timerEventDefinition />
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:serviceTask id="SVC_001" name="Cerrar solicitud automáticamente">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="cerrar-solicitud" />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_019</bpmn:incoming>
       <bpmn:outgoing>F_020</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -119,10 +142,16 @@
       <bpmn:outgoing>F_018</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:userTask id="ACT_007" name="Escanear documentación">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_017</bpmn:incoming>
       <bpmn:outgoing>F_021</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="ACT_008" name="Verificar y autorizar expediente (Despacho)">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_021</bpmn:incoming>
       <bpmn:outgoing>F_022</bpmn:outgoing>
     </bpmn:userTask>
@@ -132,6 +161,9 @@
       <bpmn:outgoing>F_024</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:userTask id="ACT_009" name="Desembolsar crédito y gestionar post-desembolso">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
       <bpmn:incoming>F_023</bpmn:incoming>
       <bpmn:outgoing>F_025</bpmn:outgoing>
     </bpmn:userTask>
@@ -141,27 +173,53 @@
     <bpmn:sequenceFlow id="F_001" sourceRef="EVT_001" targetRef="ACT_001" />
     <bpmn:sequenceFlow id="F_002" sourceRef="ACT_001" targetRef="ACT_002" name="Enviar a Riesgo" />
     <bpmn:sequenceFlow id="F_003" sourceRef="ACT_002" targetRef="GW_001" />
-    <bpmn:sequenceFlow id="F_004" sourceRef="GW_001" targetRef="ACT_003" name="Apto" />
-    <bpmn:sequenceFlow id="F_005" sourceRef="GW_001" targetRef="ACT_001" name="Corregir datos" />
-    <bpmn:sequenceFlow id="F_006" sourceRef="GW_001" targetRef="END_RECH_RIESGO" name="Rechazar" />
+    <bpmn:sequenceFlow id="F_004" sourceRef="GW_001" targetRef="ACT_003" name="Apto">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoRiesgo = "apto"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_005" sourceRef="GW_001" targetRef="ACT_001" name="Corregir datos">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoRiesgo = "corregir"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_006" sourceRef="GW_001" targetRef="END_RECH_RIESGO" name="Rechazar">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoRiesgo = "rechazar"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_007" sourceRef="ACT_003" targetRef="GW_002" />
-    <bpmn:sequenceFlow id="F_008" sourceRef="GW_002" targetRef="ACT_004" name="Aprobar (con o sin condiciones)" />
-    <bpmn:sequenceFlow id="F_009" sourceRef="GW_002" targetRef="END_RECHAZADA" name="Rechazar" />
+    <bpmn:sequenceFlow id="F_008" sourceRef="GW_002" targetRef="ACT_004" name="Aprobar (con o sin condiciones)">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=decisionAnalisis = "aprobar"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_009" sourceRef="GW_002" targetRef="END_RECHAZADA" name="Rechazar">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=decisionAnalisis = "rechazar"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_010" sourceRef="ACT_004" targetRef="GW_003" />
-    <bpmn:sequenceFlow id="F_011" sourceRef="GW_003" targetRef="END_NO_ACEPTA" name="No acepta" />
-    <bpmn:sequenceFlow id="F_012" sourceRef="GW_003" targetRef="GW_004" name="Acepta" />
-    <bpmn:sequenceFlow id="F_013" sourceRef="GW_004" targetRef="ACT_005" name="Con condiciones" />
-    <bpmn:sequenceFlow id="F_014" sourceRef="GW_004" targetRef="ACT_006" name="Sin condiciones" />
+    <bpmn:sequenceFlow id="F_011" sourceRef="GW_003" targetRef="END_NO_ACEPTA" name="No acepta">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=clienteAcepta = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_012" sourceRef="GW_003" targetRef="GW_004" name="Acepta">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=clienteAcepta = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_013" sourceRef="GW_004" targetRef="ACT_005" name="Con condiciones">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=conCondiciones = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_014" sourceRef="GW_004" targetRef="ACT_006" name="Sin condiciones">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=conCondiciones = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_015" sourceRef="ACT_005" targetRef="ACT_003" name="Volver a análisis" />
     <bpmn:sequenceFlow id="F_016" sourceRef="ACT_006" targetRef="GW_005" />
-    <bpmn:sequenceFlow id="F_017" sourceRef="GW_005" targetRef="ACT_007" name="Completa" />
-    <bpmn:sequenceFlow id="F_018" sourceRef="GW_005" targetRef="ACT_006" name="Incompleta: seguir recopilando" />
+    <bpmn:sequenceFlow id="F_017" sourceRef="GW_005" targetRef="ACT_007" name="Completa">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=documentacionCompleta = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_018" sourceRef="GW_005" targetRef="ACT_006" name="Incompleta: seguir recopilando">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=documentacionCompleta = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_019" sourceRef="TMR_001" targetRef="SVC_001" />
     <bpmn:sequenceFlow id="F_020" sourceRef="SVC_001" targetRef="END_VENCIDA" />
     <bpmn:sequenceFlow id="F_021" sourceRef="ACT_007" targetRef="ACT_008" name="Enviar a Despacho" />
     <bpmn:sequenceFlow id="F_022" sourceRef="ACT_008" targetRef="GW_006" />
-    <bpmn:sequenceFlow id="F_023" sourceRef="GW_006" targetRef="ACT_009" name="OK: enviar sobre" />
-    <bpmn:sequenceFlow id="F_024" sourceRef="GW_006" targetRef="ACT_006" name="Falta, no cuadra o documentos con más de 1 mes" />
+    <bpmn:sequenceFlow id="F_023" sourceRef="GW_006" targetRef="ACT_009" name="OK: enviar sobre">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=documentacionOk = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_024" sourceRef="GW_006" targetRef="ACT_006" name="Falta, no cuadra o documentos con más de 1 mes">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=documentacionOk = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="F_025" sourceRef="ACT_009" targetRef="END_DESEMBOLSADO" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Lab">
