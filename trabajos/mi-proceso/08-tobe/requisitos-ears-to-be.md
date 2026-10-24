@@ -24,6 +24,9 @@
 | REQ-TOBE-014 | Ubicuo | El portal deberá mostrar al cliente el **estado de su solicitud** en cada hito: enlace enviado, documentos validados, en verificación, originales recogidos, desembolso. | CV-3; OPP-03 | Propuesta (paquete A) |
 | REQ-TOBE-015 | Ubicuo | El área de **IT del banco** será la responsable de la operación y disponibilidad del portal. | TB-4 | Confirmado por entrevistado |
 | REQ-TOBE-016 | Por evento | Cuando se programe la recogida de originales (REQ-TOBE-009), el sistema deberá informar y cobrar al cliente la **comisión del servicio de recogida**, que presta un tercero, de modo que el servicio no genere costo para el banco. | ROI-7 (ronda 13) | Confirmado por entrevistado. [PENDIENTE: monto de la comisión y si hay alternativa gratuita en sucursal] |
+| REQ-TOBE-017 | Por estado | Mientras el expediente digital no tenga los documentos válidos, el sistema deberá enviar al cliente un **recordatorio por correo los días hábiles 3 y 6** desde la aceptación. | Ronda 14, medida 1 | Confirmado (propuesta). BPMN v03: `TMR_REC` → `TB_SND_RECORDAR` |
+| REQ-TOBE-018 | Por estado | Si el día hábil 8 el expediente digital sigue sin documentos válidos, el sistema deberá asignar al **Analista** una tarea para **llamar al cliente** y enviar un último aviso. | Ronda 14, medida 1 | Confirmado (propuesta). BPMN v03: `TMR_LLAM` → `TB_ACT_LLAMAR` |
+| REQ-TOBE-019 | Por evento | Cuando se cree la solicitud, el sistema deberá entregar al cliente la **lista de los 4 documentos** obligatorios, para que los reúna durante el análisis. | Ronda 14, medida 2 | Confirmado (propuesta). BPMN v03: `ACT_001` |
 
 ## 2. Procedimientos humanos (PROC-TOBE-*)
 | ID | Procedimiento | Fuente | Estado |
@@ -32,6 +35,7 @@
 | PROC-TOBE-002 | El Analista (Despacho) verificará que el expediente digital «cuadre». Si algo no cuadra, pedirá al cliente el documento corregido por el portal. | PROC-008; PROC-010 | Propuesta. La corrección reinicia los 10 días hábiles (TB-5, confirmado) |
 | PROC-TOBE-003 | El mensajero certificado, **operado por un tercero**, recogerá los originales en la casa del cliente y los entregará a Legal. | DG-4; ROI-7 | Confirmado por entrevistado |
 | PROC-TOBE-004 | Legal escaneará los originales recogidos y enviará el sobre físico a Desembolso. | PRIO-3; RN-01 | Confirmado por entrevistado |
+| PROC-TOBE-005 | En la feria, cuando el cliente acepte la decisión, un **asesor de Negocio** le ayudará a cargar en el stand, desde una tableta, los documentos que ya traiga. | Ronda 14, medida 2 | Confirmado (propuesta). BPMN v03: `CL_CARGAR` |
 
 ## 3. Requisitos AS-IS que cambian
 | AS-IS | Qué pasa en el TO-BE |

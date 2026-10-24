@@ -1,4 +1,18 @@
-# Revisión en Camunda Modeler — TO-BE v01 y v02
+# Revisión en Camunda Modeler — TO-BE v01, v02 y v03
+
+## Cambios v03 (ronda 14) — versión vigente
+**Archivos:** `proceso-to-be-v03.bpmn` · `validacion-to-be-v03.json` → **0 errores, 6 advertencias**: las 2 de siempre más 4 del mismo falso positivo (`TB_END_REC`, `TB_ACT_LLAMAR`, `TB_END_LLAM` y la tarea de recordatorio solo se alcanzan desde eventos de tiempo). Se creó copiando la v02 (Camunda 8.10) y **agregando** elementos; la v02 no se modificó. No se volvió a correr `bpmnlint` de Camunda.
+| Cambio | Elemento | Fuente |
+|---|---|---|
+| Recordatorio por correo los días hábiles 3 y 6 (temporizador **que no interrumpe** el subproceso, `R2/P4D` [PROPUESTA TÉCNICA]) | `TMR_REC` → `TB_SND_RECORDAR` (tipo `enviar-correo-recordatorio`) → `TB_END_REC` | REQ-TOBE-017 |
+| Día hábil 8: el Analista llama al cliente (`P11D` [PROPUESTA TÉCNICA]) | `TMR_LLAM` → `TB_ACT_LLAMAR` → `TB_END_LLAM`; mensaje `MF_Llamada` al cliente | REQ-TOBE-018 |
+| Lista de documentos al crear la solicitud | `ACT_001` (nombre y documentación) | REQ-TOBE-019 |
+| Carga asistida en el stand | `CL_CARGAR` (nombre y documentación) | PROC-TOBE-005 |
+
+Por revisar en Camunda: que `R2/P4D` y `P11D` se aproximen bien a días hábiles (mismo criterio que `P14D`) y que IT atienda el tipo de trabajo nuevo `enviar-correo-recordatorio`.
+
+---
+
 
 ## Cambios v02 (ronda 8) — versión vigente
 **Archivos:** `proceso-to-be-v02.bpmn` · `modelo-v02.json` · `validacion-to-be-v02.json` → **0 errores, 12 advertencias** (las mismas de la v01). La v01 se conserva.

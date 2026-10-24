@@ -22,7 +22,8 @@ const PLAZO = 10;          // REQ-012
 
 const AS_IS = { p_cierre: 0.10, p_devolucion: 0.20, recopilar: 5, escanear: 3, verificar: 4 }; // PREG-007, PREG-014
 const TO_BE = {            // HIPÓTESIS H-1 a H-6 (priorización y propuesta TO-BE)
-  p_papel_falla: 0.05, p_papel_agotado: 0.10, p_cierre_digital: 0.05,
+  p_papel_falla: 0.05, p_papel_agotado: 0.10, p_cierre_digital: 0.025, // H-2b: 5 % → 2,5 % con recordatorios, llamada y carga asistida (ronda 14)
+ 
   p_devolucion: 0.05, p_recogida_fallida: 0.05,
   carga: 2, verificar: 1, pedir: 2, recoger: 1, escanear: 3, recopilar_orig: 2,
 };
@@ -33,7 +34,10 @@ function mulberry32(a) {
   return () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a);
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
-const rnd = mulberry32(20261024);
+// Una secuencia común (fecha, destino) y una propia por solicitud y escenario: así cambiar
+// una hipótesis del TO-BE no altera los datos del AS-IS.
+const comun = mulberry32(20261024);
+let rnd = comun;
 const pick = (pares, u) => { let acc = 0; for (const [v, p] of pares) { acc += p; if (u < acc) return v; } return pares[pares.length - 1][0]; };
 // Duración en días hábiles: base −1 / 0 / +1 con probabilidad 25 / 50 / 25 %, mínimo 1
 const dur = (base) => { const u = rnd(); return Math.max(1, base + (u < 0.25 ? -1 : u < 0.75 ? 0 : 1)); };
@@ -118,12 +122,14 @@ for (let m = 1; m <= 12; m++) {
   const temporada = MESES_FERIA.includes(m) ? 'feria' : 'no feria';
   const diasMes = new Date(Date.UTC(ANIO, m, 0)).getUTCDate();
   for (let i = 0; i < SOLICITUDES[temporada]; i++) {
+    rnd = comun;
     const idPar = `SOL-${String(++n).padStart(5, '0')}`;
     let inicio; do { inicio = new Date(Date.UTC(ANIO, m - 1, 1 + Math.floor(rnd() * diasMes))); } while (!esHabil(inicio));
     const entra = rnd() < P_EXPEDIENTE;
     const destino = entra ? null : pick(P_NO_LLEGA, rnd());
     for (const escenario of ['AS-IS', 'TO-BE']) {
       const idCaso = `${idPar}-${escenario === 'AS-IS' ? 'asis' : 'tobe'}`;
+      rnd = mulberry32(20261024 + 2 * n + (escenario === 'TO-BE' ? 1 : 0));
       const base = { id_caso: idCaso, id_par: idPar, escenario, mes, temporada, fecha_inicio: iso(inicio), fuente_datos: 'SINTETICO' };
       if (!entra) {
         const dias = P_NO_LLEGA.find(([e]) => e === destino)[2];

@@ -193,3 +193,10 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | ROI-8 | ¿Qué opción genera más ROI? | «Escoge la opción que más ROI genere.» → Opción 3 (+19,5 % base) | Confirmado |
 
 **Resultado ronda 13:** BPMN TO-BE v02 y datos sin cambios (el mensajero sigue). Nuevo REQ-TOBE-016 (comisión) y PROC-TOBE-003 ajustado. ROI sin cambio respecto a la ronda 12: el mensajero ya costaba 0 al banco en la Opción 3.
+
+## Ronda 14 — 2026-10-24 (pérdida de créditos)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| CRED-1 | ¿Cómo reducir la pérdida de créditos por vencimiento? Propuestas: (1) recordatorios y llamada; (2) lista de documentos al crear la solicitud y carga asistida en el stand; (3) ayuda antes de agotar intentos; (4) disponibilidad del portal exigida a IT; (5) prórroga | «Sí, hazlo con las medidas 1 y 2 y súbelo a GitHub.» | Confirmado: medidas 1 y 2 |
+
+**Resultado ronda 14:** BPMN TO-BE v03, REQ-TOBE-017 a 019, PROC-TOBE-005, hipótesis H-2b. Créditos perdidos en el TO-BE: 148 → 91 al año; créditos que dejan de perderse frente al AS-IS: 245. ROI base +16,7 %.

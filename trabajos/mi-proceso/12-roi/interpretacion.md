@@ -15,13 +15,15 @@
 ## 2. Comparación de opciones (hoja `Opciones`, escenario base)
 | | Modelo original | Opción 1 | Opción 2 | **Opción 3 (adoptada)** |
 |---|---|---|---|---|
-| Beneficio en caja | RD$ 351.619 | RD$ 351.619 | RD$ 1.373.785 | **RD$ 1.373.785** |
-| Mensajero (costo para el banco) | RD$ 1.020.000 | 0 | 0 | **0** |
+| Beneficio en caja | RD$ 335.987 | RD$ 335.987 | RD$ 1.342.177 | **RD$ 1.342.177** |
+| Mensajero (costo para el banco) | RD$ 1.072.800 | 0 | 0 | **0** |
 | Mantenimiento | RD$ 700.000 | RD$ 700.000 | RD$ 700.000 | **RD$ 150.000** |
 | Inversión | RD$ 3.500.000 | RD$ 3.500.000 | RD$ 3.500.000 | **RD$ 1.000.000** |
-| Beneficio neto anual | −RD$ 1.368.381 | −RD$ 348.381 | RD$ 673.785 | **RD$ 1.223.785** |
-| **ROI año 1** | −93,3 % | −91,6 % | −67,3 % | **+19,5 %** |
-| Meses de recuperación | No se recupera | No se recupera | 62 | **≈ 10** |
+| Beneficio neto anual | −RD$ 1.436.813 | −RD$ 364.013 | RD$ 642.177 | **RD$ 1.192.177** |
+| **ROI año 1** | −93,6 % | −92,0 % | −68,0 % | **+16,7 %** |
+| Meses de recuperación | No se recupera | No se recupera | 65 | **≈ 10** |
+
+Cifras de la ronda 14: datos regenerados con las medidas 1 y 2 (H-2b) y con una secuencia aleatoria propia por escenario (ver `09-datos/diccionario.md`).
 
 ## 3. Sensibilidad del modelo adoptado (hoja `ROI`)
 | | Conservador | Base | Optimista |
@@ -29,19 +31,32 @@
 | Horas de trabajo por actividad | la mitad | H-R1 | 1,5 veces |
 | % del tiempo liberado convertido en caja | 50 % | 100 % | 100 % |
 | Inversión / mantenimiento | RD$ 1,5 M / 20 % | RD$ 1 M / 15 % | RD$ 0,7 M / 10 % |
-| Beneficio total en caja | RD$ 431.351 | RD$ 1.373.785 | RD$ 2.060.677 |
-| Beneficio neto anual | RD$ 131.351 | RD$ 1.223.785 | RD$ 1.990.677 |
-| **ROI año 1** | **−76,0 %** | **+19,5 %** | **+167,6 %** |
-| Meses de recuperación | 137 | 9,8 | 4,2 |
-| ROI si no se ejecuta la Opción 2 (referencia) | −90,2 % | −69,4 % | −31,5 % |
+| Beneficio total en caja | RD$ 419.541 | RD$ 1.342.177 | RD$ 2.013.265 |
+| Beneficio neto anual | RD$ 119.541 | RD$ 1.192.177 | RD$ 1.943.265 |
+| **ROI año 1** | **−76,7 %** | **+16,7 %** | **+161,5 %** |
+| Meses de recuperación | 151 | 10,1 | 4,3 |
+| ROI si no se ejecuta la Opción 2 (referencia) | −90,7 % | −70,8 % | −34,5 % |
 
-**Flujo mensual (base):** el acumulado pasa de −RD$ 1.000.000 (mes 0) a **+RD$ 223.785** al mes 12.
+**Flujo mensual (base):** el acumulado pasa de −RD$ 1.000.000 (mes 0) a **+RD$ 192.177** al mes 12.
+
+## 3b. Medidas 1 y 2 contra la pérdida de créditos (ronda 14)
+| Créditos cerrados por vencimiento al año | AS-IS | TO-BE sin medidas | **TO-BE con medidas 1 y 2** |
+|---|---|---|---|
+| En el portal (el cliente no carga en 10 días) | — | 111 | **54** |
+| En papel por intentos agotados | — | 26 | 26 |
+| En papel por falla del portal | — | 11 | 11 |
+| En papel (AS-IS) | 336 | — | — |
+| **Total** | **336** | **148** | **91** |
+| **Créditos que dejan de perderse frente al AS-IS** | | 188 | **245** |
+
+Las medidas (recordatorios los días hábiles 3 y 6, llamada el día 8, lista de documentos al crear la solicitud y carga asistida en el stand) recuperan **≈ 57 créditos más al año**. Es la **HIPÓTESIS H-2b**: la mitad de los cierres en el portal se evitan.
+Efecto en el ROI en caja: **ninguno directo**, porque el margen por crédito no se cuenta (ROI-5). Al contrario, cada crédito que no se pierde agrega trabajo de verificación y escaneo, y el ahorro de horas baja un poco. El costo de las llamadas y de la asistencia en el stand tampoco se modeló: se estima menor a RD$ 20.000 al año (≈ 0,25 h por llamada, unas 270 llamadas).
 
 ## 4. Lectura
 1. **El ROI es positivo en el escenario base**, pero **no en el conservador**. El resultado depende sobre todo de dos cosas que hoy son supuestos: las horas reales de trabajo por expediente y que la gerencia **de verdad** no reponga los ≈ 2,7 puestos.
 2. **La Opción 2 es la que más mueve el resultado.** Sin ella, incluso con la versión mínima, el ROI base es −69 %: el ahorro en personal temporal de feria no basta.
-3. **Cobrar el mensajero al cliente** ahorra al banco RD$ 1,02 millones al año sin quitar la recogida a domicilio, que es la que acorta la rama de originales (≈ 4 días) y evita cierres por vencimiento. Riesgo: la comisión puede desanimar a algunos clientes; conviene ofrecer como respaldo gratuito la entrega de originales en sucursal y medir cuántos la eligen.
-4. **El beneficio más grande sigue sin contarse:** ≈ 153 créditos al año que dejan de perderse por vencimiento. Con cualquier margen por crédito, el ROI sube más.
+3. **Cobrar el mensajero al cliente** ahorra al banco ≈ RD$ 1,07 millones al año sin quitar la recogida a domicilio, que es la que acorta la rama de originales (≈ 4 días) y evita cierres por vencimiento. Riesgo: la comisión puede desanimar a algunos clientes; conviene ofrecer como respaldo gratuito la entrega de originales en sucursal y medir cuántos la eligen.
+4. **El beneficio más grande sigue sin contarse:** ≈ 245 créditos al año que dejan de perderse por vencimiento (con las medidas 1 y 2). Con cualquier margen por crédito, el ROI sube más.
 5. Las horas liberadas son caja **solo** si se ejecuta la decisión de no reponer o reasignar puestos. Si no, vuelven a ser capacidad.
 
 ## 5. Decisiones que habilita

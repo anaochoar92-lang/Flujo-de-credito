@@ -1,0 +1,40 @@
+{
+  "archivo": "trabajos/mi-proceso/08-tobe/proceso-to-be-v03.bpmn",
+  "errores": [],
+  "advertencias": [
+    "Process_Credito_TOBE: nodo no alcanzable desde el inicio: SVC_001 (Cerrar solicitud automáticamente)",
+    "Process_Credito_TOBE: nodo no alcanzable desde el inicio: END_VENCIDA (Solicitud cerrada por expediente incompleto)",
+    "Process_Credito_TOBE: nodo no alcanzable desde el inicio: TB_SND_RECORDAR (Enviar recordatorio al cliente [PROPUESTA])",
+    "Process_Credito_TOBE: nodo no alcanzable desde el inicio: TB_END_REC (Recordatorio enviado)",
+    "Process_Credito_TOBE: nodo no alcanzable desde el inicio: TB_ACT_LLAMAR (Llamar al cliente y enviar último aviso)",
+    "Process_Credito_TOBE: nodo no alcanzable desde el inicio: TB_END_LLAM (Cliente contactado)"
+  ],
+  "estadisticas": {
+    "Process_Cliente": {
+      "nodos": 4,
+      "flujos": 3,
+      "inicios": 1,
+      "fines": 1
+    },
+    "Process_Credito_TOBE": {
+      "nodos": 46,
+      "flujos": 50,
+      "inicios": 1,
+      "fines": 7
+    },
+    "global": {
+      "procesos": 2,
+      "participantes": 2,
+      "messageFlows": 7,
+      "formasDI": 68,
+      "conectoresDI": 71
+    }
+  },
+  "limitaciones": [
+    "No valida contra el XSD oficial BPMN 2.0.",
+    "No comprueba configuración Zeebe/Camunda para ejecución.",
+    "No verifica coherencia jurídica ni semántica de las decisiones.",
+    "El aspecto visual debe revisarse en Camunda Modeler.",
+    "Port en Node.js de validar_bpmn.py: lee el XML con expresiones regulares, no con un analizador XML completo."
+  ]
+}

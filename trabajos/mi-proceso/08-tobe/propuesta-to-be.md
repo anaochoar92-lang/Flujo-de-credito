@@ -46,3 +46,6 @@ Aceptación → enlace → carga y validación (≈ 2 días) → en paralelo: ve
 
 ## 5. Siguiente paso
 Revisar `proceso-to-be-v02.bpmn` en Camunda con `revision-camunda.md`, resolver los pendientes y seguir con los KPI (`10-kpis`, skill `definir-kpis`).
+
+## 6. Ronda 14 — medidas contra la pérdida de créditos
+Versión vigente: **`proceso-to-be-v03.bpmn`**. Añade recordatorios (días hábiles 3 y 6), llamada del Analista (día 8), lista de documentos al crear la solicitud y carga asistida en el stand (REQ-TOBE-017 a 019, PROC-TOBE-005). Hipótesis H-2b: los cierres en el portal bajan de 5 % a 2,5 %; en los datos sintéticos, los créditos perdidos en el TO-BE pasan de 148 a 91 al año.

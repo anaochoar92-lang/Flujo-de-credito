@@ -68,13 +68,14 @@ Una fila por mes y escenario. Las tasas se calculan como `SUM(eventos) / SUM(cas
 | D-1 | Reparto del 60 % que no llega a expediente | 1/3 rechazada por Riesgo, 1/3 rechazada en análisis, 1/3 cliente no acepta | **SUPUESTO** (no se preguntó; no afecta los KPI) |
 | D-2 | Motivo de la devolución | 50 % vencido, 30 % ilegible, 20 % no cuadra | **SUPUESTO** |
 | H-1 | TO-BE: pasan a papel | 5 % por falla del portal + 10 % por intentos agotados = 15 % | **HIPÓTESIS** |
-| H-2 | TO-BE digital: cierre por vencimiento | 5 % | **HIPÓTESIS** (priorización) |
+| H-2b | TO-BE digital: cierre por vencimiento | **2,5 %** (antes 5 %) con recordatorios, llamada y carga asistida | **HIPÓTESIS** (ronda 14) |
 | H-3 | TO-BE digital: devolución de Despacho | 5 % | **HIPÓTESIS** (propuesta TO-BE) |
 | H-4 | TO-BE digital: carga y validación / verificación / corrección | 2 / 1 / 2 días hábiles | **HIPÓTESIS** |
 | H-5 | TO-BE: recogida / escaneo (sigue, PRIO-3) / recogida fallida | 1 / 3 días hábiles; 5 % fallida (+ 2 días) | **HIPÓTESIS** |
 | H-6 | TO-BE en papel | Mismos tiempos y tasas que el AS-IS | Declarado (TB-4) |
 
 ## 6. Limitaciones
+- **L-0:** cada solicitud y escenario usa su **propia secuencia aleatoria** (desde la ronda 14). Cambiar una hipótesis del TO-BE ya no altera el AS-IS. Por ese cambio, las cifras del AS-IS difieren un poco de las de la ronda 10 (por ejemplo, 336 cierres al año en vez de 323).
 - **L-1:** los días hábiles solo excluyen sábados y domingos; **no** hay festivos.
 - **L-2:** el TO-BE es un **escenario estimado**: comparar AS-IS con TO-BE aquí es un *business case*, no una prueba de que el portal funciona.
 - **L-3:** para medir el AS-IS real, el sistema de solicitudes tiene inicio y fin **de toda la solicitud** (DAT-2). Para KPI-01 harían falta también la fecha de aceptación y la de salida del sobre; para KPI-02, las devoluciones.

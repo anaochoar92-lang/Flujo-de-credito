@@ -7,7 +7,7 @@
 | Archivo | Filas | Granularidad |
 |---|---|---|
 | `casos.csv` | 16000 | 1 fila por solicitud y escenario |
-| `actividades.csv` | 24140 | 1 fila por actividad del expediente, vuelta, solicitud y escenario |
+| `actividades.csv` | 24335 | 1 fila por actividad del expediente, vuelta, solicitud y escenario |
 | `resumen_mensual.csv` | 24 | 1 fila por mes y escenario |
 
 ## Pruebas
@@ -23,12 +23,12 @@
 | ruta = papel en TO-BE exige motivo_papel | 0 | — |
 | Cada id_par tiene exactamente un AS-IS y un TO-BE | 0 | — |
 | Actividades sin caso | 0 | — |
-| AVISO (no es error): días de expediente > 40, casos con 3 o más devoluciones | 32 | 46; 49; 48 |
+| AVISO (no es error): días de expediente > 40, casos con 3 o más devoluciones | 30 | 51; 51; 48 |
 
 ## Control de parámetros (año completo, SUM/SUM)
 | KPI | AS-IS | TO-BE | Parámetro esperado |
 |---|---|---|---|
-| KPI-01 Ciclo del expediente (días hábiles) | 15,14 | 7,89 | AS-IS ≈ 15 (12 ÷ 0,8); TO-BE ≈ 6–7 (hipótesis) |
-| KPI-02 Tasa de devolución | 20,4 % | 7,0 % | AS-IS 20 %; TO-BE ≈ 5 % digital + 20 % en papel |
-| KPI-03 Cierre por vencimiento | 10,1 % | 5,3 % | AS-IS 10 %; TO-BE ≈ 5 % digital + 10 % en papel |
-| KPI-04 Uso efectivo del portal | N/D | 83,6 % | TO-BE 85 % (hipótesis H-1) |
+| KPI-01 Ciclo del expediente (días hábiles) | 14,93 | 7,81 | AS-IS ≈ 15 (12 ÷ 0,8); TO-BE ≈ 6–7 (hipótesis) |
+| KPI-02 Tasa de devolución | 20,0 % | 6,9 % | AS-IS 20 %; TO-BE ≈ 5 % digital + 20 % en papel |
+| KPI-03 Cierre por vencimiento | 10,5 % | 2,8 % | AS-IS 10 %; TO-BE ≈ 5 % digital + 10 % en papel |
+| KPI-04 Uso efectivo del portal | N/D | 85,4 % | TO-BE 85 % (hipótesis H-1) |
