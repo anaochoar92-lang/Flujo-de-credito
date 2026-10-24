@@ -1,0 +1,14 @@
+# Ficha KPI-01
+
+**Nombre:** Ciclo del expediente **Propietario:** Gerente de crédito **Decisión que habilita:** saber si el portal cumple la meta de 6 días; si no, revisar el tramo que más tarda (carga, verificación o recogida y escaneo) y exigir a IT o al proveedor lo que corresponda.
+**Vínculo al AS-IS / TO-BE (ID ACT/REQ):** AS-IS v02 `ACT_006` → `GW_006` (OK); TO-BE v02 `TB_SND_ENLACE` → `TB_GW_MERGE`. REQ-TOBE-002, 009, 011, 012; RN-01; objetivo clave.
+**Definición inequívoca:** número de días hábiles entre el momento en que el cliente **acepta** una decisión de crédito sin condiciones y el momento en que el **sobre sale a Desembolso**, promediado sobre las solicitudes que llegaron a esa salida en el período. Incluye las devoluciones y la ruta en papel.
+**Fórmula:** `SUM(dias_habiles_expediente) / COUNT(DISTINCT solicitud_id)`, filtrando `sobre_enviado = 1`.
+**Numerador:** suma de días hábiles de expediente. **Denominador:** solicitudes con sobre enviado. **Unidad:** días hábiles por solicitud.
+**Granularidad:** solicitud-escenario. **Dimensiones:** `mes` (de aceptación), `temporada` (feria / no feria), `escenario` (AS-IS / TO-BE), `ruta` (digital / papel). **Periodicidad:** mensual.
+**Campos CSV mínimos y tipos:** `solicitud_id` (texto sintético), `mes` (texto YYYY-MM), `temporada` (texto), `escenario` (texto), `ruta` (texto), `fecha_aceptacion` (fecha), `fecha_sobre_desembolso` (fecha), `dias_habiles_expediente` (entero), `sobre_enviado` (0/1).
+**Fuente / linaje / método de registro:** TO-BE: historial de Camunda (inicio de `TB_SND_ENLACE` o fin de `ACT_004` con `clienteAcepta = true`; llegada a `TB_GW_MERGE`). AS-IS: [PENDIENTE KPI-Q2b]; mientras tanto, estimación de la fuente. Días hábiles calculados con el calendario laboral del banco.
+**Línea base:** 12 días hábiles sin devoluciones; ≈ 15 en promedio con un 20 % de devoluciones (`07-diagnostico/diagnostico.md`). Estimada, no medida. **Meta TO-BE:** ≤ 6 días hábiles (PREG-016). Propuesta pendiente del acuerdo del Gerente. **Evidencia:** entrevista PREG-007, PREG-016; Excel de la fuente, hoja «Tiempos».
+**Responsable de medición:** IT (extrae el historial de Camunda). **Regla de calidad:** cada solicitud con sobre enviado debe tener ambas fechas y `fecha_sobre_desembolso ≥ fecha_aceptacion`; error permitido ± 1 día hábil por el corte de horario. Si menos del 95 % de los casos tiene las dos fechas, mostrar N/D.
+**Visualización en Preset:** número grande (mes actual) y barras por `mes` con series `escenario`; filtro por `temporada` y `ruta`.
+**Limitaciones / riesgos de interpretación:** el promedio esconde casos muy largos (mostrar también el percentil 90 si hay datos). Las solicitudes cerradas por vencimiento no terminan y no entran aquí: se leen en KPI-03. Si la ruta en papel crece, el promedio sube aunque la ruta digital mejore: leer junto con KPI-04.

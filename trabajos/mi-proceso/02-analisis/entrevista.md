@@ -1,4 +1,4 @@
-# Historial de entrevista — Solicitud de crédito Expomóvil
+| «El expediente termina cuando el sobre sale a Desembolso. Sí entran en el mismo promedio.» | Confirmado por entrevistado || «Mide el efecto feria, sí, pero igual valida y deja la traza de los otros meses.» Las metas no se comentaron | Confirmado (período). Metas: propuesta pendiente del Gerente || «¿Qué me sugieres? ¿A qué dato te refieres?» → Se propone: TO-BE con el historial de Camunda; AS-IS con estimaciones mientras se confirma si existe un sistema (KPI-Q2b) | Propuesta, por confirmar || «Gerente de crédito; exigir a IT la disponibilidad del portal.» | Confirmado por entrevistado |# Historial de entrevista — Solicitud de crédito Expomóvil
 
 **Skill:** `entrevista-adversarial` · **Fuente analizada:** `01-fuentes/Proceso_Solicitud_Credito_BPMN.xlsx` (ver `inventario.md` y `vacios.md`).
 Regla: máximo cuatro preguntas por ronda. Sin respuesta explícita, la pregunta queda **PENDIENTE**.
@@ -139,3 +139,16 @@ PREG-005 canal de inicio · PREG-013 cómputo de los 10 días (hábiles o calend
 | TB-7 | ¿Qué hace que el sistema considere «dudoso» un documento y lo envíe a Legal? | «Datos no coinciden.» | Confirmado por entrevistado (detalle en TB-8) |
 | TB-8 | ¿Qué datos se comparan para decidir que «no coinciden»? | «El nombre, la cédula, el salario o el monto no son iguales entre documentos.» | Confirmado por entrevistado |
 | TB-9 | Si el portal falla, ¿quién lo detecta y registra el paso a la ruta en papel? | «El área de IT.» | Confirmado por entrevistado |
+
+## Ronda 9 — 2026-10-24 (KPI, skill `definir-kpis`)
+KPI candidatos (propuesta, sin fichas todavía): **KPI-01** ciclo del expediente (días hábiles por solicitud), **KPI-02** tasa de corrección/devolución de Despacho, **KPI-03** tasa de cierre por vencimiento, **KPI-04** uso efectivo del portal (solicitudes que terminan por la ruta digital). Métricas de apoyo: intentos por documento, % de casos dudosos a Legal y días de recogida de originales.
+Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe en el kit.
+
+| ID | Pregunta | Caso adversarial | Por qué importa | Respuesta | Estado |
+|---|---|---|---|---|---|
+| KPI-Q1 | **Decisión y dueño:** ¿quién es el dueño de estos KPI y qué decisión tomaría con ellos? Por ejemplo, reforzar Legal en febrero y noviembre, ajustar el margen de 20 días o exigir a IT disponibilidad del portal. | Un KPI que nadie revisa no cambia nada. | Sin dueño ni decisión no es KPI, es métrica. | — | PENDIENTE |
+| KPI-Q2 | **Fuente del dato:** ¿en qué sistema quedan hoy la fecha de aceptación del cliente, la fecha en que el sobre sale a Desembolso, las devoluciones y los cierres por vencimiento? ¿Quién las registra? | Si la devolución solo queda en un correo, no se puede contar. | Sin fecha de inicio y fin no hay KPI-01 medible (REQ-017 sigue pendiente). | — | PENDIENTE |
+| KPI-Q3 | **Período y metas:** ¿medimos por mes de feria (febrero y noviembre)? Metas propuestas: expediente ≤ 6 días hábiles, devoluciones ≤ 5 %, cierres por vencimiento ≤ 5 %, uso del portal ≥ 80 %. ¿Te parecen realistas? | Una meta impuesta sin el dueño del proceso no se cumple. | El objetivo dice que las metas no se fijan sin acuerdo del dueño. | — | PENDIENTE |
+| KPI-Q4 | **Interpretación:** ¿el expediente termina cuando el sobre sale a Desembolso o cuando se desembolsa? ¿Las solicitudes que pasan a la ruta en papel cuentan en el mismo promedio? | Si las de papel se excluyen, el promedio mejora aunque el proceso no. | Define el inicio, el fin y la población del KPI principal. | — | PENDIENTE |
+
+**Resultado ronda 9:** catálogo y fichas en `10-kpis/`. Queda KPI-Q2b (¿existe hoy un sistema con fechas de aceptación, salida del sobre, devoluciones y cierres?) y el acuerdo de metas con el Gerente de crédito.
