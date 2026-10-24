@@ -1,0 +1,411 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_FlujoCredito_ASIS" targetNamespace="https://laboratorio.example.org/bpmn" exporter="Taller OpenCode BPMN (Node.js)" exporterVersion="1.0">
+  <bpmn:collaboration id="Collaboration_Lab" name="Flujo de crédito Expomóvil — AS-IS — BORRADOR v02">
+    <bpmn:participant id="Participant_Process_Credito" name="Banco — solicitud de crédito Expomóvil" processRef="Process_Credito" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Credito" name="Banco — solicitud de crédito Expomóvil" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Process_Credito">
+      <bpmn:lane id="Lane_Negocio" name="Persona de Negocio">
+        <bpmn:flowNodeRef>EVT_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_005</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Riesgo" name="Persona de Riesgo">
+        <bpmn:flowNodeRef>ACT_002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_RECH_RIESGO</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Analista" name="Analista de crédito">
+        <bpmn:flowNodeRef>ACT_003</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_RECHAZADA</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_004</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_003</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_NO_ACEPTA</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_004</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_008</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_006</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Legal" name="Legal">
+        <bpmn:flowNodeRef>ACT_006</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TMR_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_005</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_007</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Sistema" name="Sistema (cierre automático)">
+        <bpmn:flowNodeRef>SVC_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_VENCIDA</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Desembolso" name="Desembolso">
+        <bpmn:flowNodeRef>ACT_009</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_DESEMBOLSADO</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="EVT_001" name="Cliente solicita crédito">
+      <bpmn:outgoing>F_001</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="ACT_001" name="Crear solicitud">
+      <bpmn:incoming>F_001</bpmn:incoming>
+      <bpmn:incoming>F_005</bpmn:incoming>
+      <bpmn:outgoing>F_002</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="ACT_002" name="Evaluar solicitud">
+      <bpmn:incoming>F_002</bpmn:incoming>
+      <bpmn:outgoing>F_003</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_001" name="¿Cliente apto?">
+      <bpmn:incoming>F_003</bpmn:incoming>
+      <bpmn:outgoing>F_004</bpmn:outgoing>
+      <bpmn:outgoing>F_005</bpmn:outgoing>
+      <bpmn:outgoing>F_006</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="END_RECH_RIESGO" name="Solicitud rechazada por Riesgo">
+      <bpmn:incoming>F_006</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="ACT_003" name="Analizar crédito">
+      <bpmn:incoming>F_004</bpmn:incoming>
+      <bpmn:incoming>F_015</bpmn:incoming>
+      <bpmn:outgoing>F_007</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_002" name="¿Decisión del análisis?">
+      <bpmn:incoming>F_007</bpmn:incoming>
+      <bpmn:outgoing>F_008</bpmn:outgoing>
+      <bpmn:outgoing>F_009</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="END_RECHAZADA" name="Solicitud rechazada">
+      <bpmn:incoming>F_009</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="ACT_004" name="Informar decisión al cliente">
+      <bpmn:incoming>F_008</bpmn:incoming>
+      <bpmn:outgoing>F_010</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_003" name="¿Cliente acepta y continúa?">
+      <bpmn:incoming>F_010</bpmn:incoming>
+      <bpmn:outgoing>F_011</bpmn:outgoing>
+      <bpmn:outgoing>F_012</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="END_NO_ACEPTA" name="Solicitud cerrada: cliente no acepta">
+      <bpmn:incoming>F_011</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="GW_004" name="¿Aprobada con condiciones?">
+      <bpmn:incoming>F_012</bpmn:incoming>
+      <bpmn:outgoing>F_013</bpmn:outgoing>
+      <bpmn:outgoing>F_014</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="ACT_005" name="Modificar datos del crédito">
+      <bpmn:incoming>F_013</bpmn:incoming>
+      <bpmn:outgoing>F_015</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="ACT_006" name="Recopilar expediente">
+      <bpmn:incoming>F_014</bpmn:incoming>
+      <bpmn:incoming>F_018</bpmn:incoming>
+      <bpmn:incoming>F_024</bpmn:incoming>
+      <bpmn:outgoing>F_016</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:boundaryEvent id="TMR_001" name="10 días hábiles sin expediente completo" attachedToRef="ACT_006">
+      <bpmn:outgoing>F_019</bpmn:outgoing>
+      <bpmn:timerEventDefinition />
+    </bpmn:boundaryEvent>
+    <bpmn:serviceTask id="SVC_001" name="Cerrar solicitud automáticamente">
+      <bpmn:incoming>F_019</bpmn:incoming>
+      <bpmn:outgoing>F_020</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="END_VENCIDA" name="Solicitud cerrada por expediente incompleto">
+      <bpmn:incoming>F_020</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="GW_005" name="¿Documentación completa?">
+      <bpmn:incoming>F_016</bpmn:incoming>
+      <bpmn:outgoing>F_017</bpmn:outgoing>
+      <bpmn:outgoing>F_018</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="ACT_007" name="Escanear documentación">
+      <bpmn:incoming>F_017</bpmn:incoming>
+      <bpmn:outgoing>F_021</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="ACT_008" name="Verificar y autorizar expediente (Despacho)">
+      <bpmn:incoming>F_021</bpmn:incoming>
+      <bpmn:outgoing>F_022</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_006" name="¿Documentación OK?">
+      <bpmn:incoming>F_022</bpmn:incoming>
+      <bpmn:outgoing>F_023</bpmn:outgoing>
+      <bpmn:outgoing>F_024</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="ACT_009" name="Desembolsar crédito y gestionar post-desembolso">
+      <bpmn:incoming>F_023</bpmn:incoming>
+      <bpmn:outgoing>F_025</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="END_DESEMBOLSADO" name="Crédito desembolsado">
+      <bpmn:incoming>F_025</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_001" sourceRef="EVT_001" targetRef="ACT_001" />
+    <bpmn:sequenceFlow id="F_002" sourceRef="ACT_001" targetRef="ACT_002" name="Enviar a Riesgo" />
+    <bpmn:sequenceFlow id="F_003" sourceRef="ACT_002" targetRef="GW_001" />
+    <bpmn:sequenceFlow id="F_004" sourceRef="GW_001" targetRef="ACT_003" name="Apto" />
+    <bpmn:sequenceFlow id="F_005" sourceRef="GW_001" targetRef="ACT_001" name="Corregir datos" />
+    <bpmn:sequenceFlow id="F_006" sourceRef="GW_001" targetRef="END_RECH_RIESGO" name="Rechazar" />
+    <bpmn:sequenceFlow id="F_007" sourceRef="ACT_003" targetRef="GW_002" />
+    <bpmn:sequenceFlow id="F_008" sourceRef="GW_002" targetRef="ACT_004" name="Aprobar (con o sin condiciones)" />
+    <bpmn:sequenceFlow id="F_009" sourceRef="GW_002" targetRef="END_RECHAZADA" name="Rechazar" />
+    <bpmn:sequenceFlow id="F_010" sourceRef="ACT_004" targetRef="GW_003" />
+    <bpmn:sequenceFlow id="F_011" sourceRef="GW_003" targetRef="END_NO_ACEPTA" name="No acepta" />
+    <bpmn:sequenceFlow id="F_012" sourceRef="GW_003" targetRef="GW_004" name="Acepta" />
+    <bpmn:sequenceFlow id="F_013" sourceRef="GW_004" targetRef="ACT_005" name="Con condiciones" />
+    <bpmn:sequenceFlow id="F_014" sourceRef="GW_004" targetRef="ACT_006" name="Sin condiciones" />
+    <bpmn:sequenceFlow id="F_015" sourceRef="ACT_005" targetRef="ACT_003" name="Volver a análisis" />
+    <bpmn:sequenceFlow id="F_016" sourceRef="ACT_006" targetRef="GW_005" />
+    <bpmn:sequenceFlow id="F_017" sourceRef="GW_005" targetRef="ACT_007" name="Completa" />
+    <bpmn:sequenceFlow id="F_018" sourceRef="GW_005" targetRef="ACT_006" name="Incompleta: seguir recopilando" />
+    <bpmn:sequenceFlow id="F_019" sourceRef="TMR_001" targetRef="SVC_001" />
+    <bpmn:sequenceFlow id="F_020" sourceRef="SVC_001" targetRef="END_VENCIDA" />
+    <bpmn:sequenceFlow id="F_021" sourceRef="ACT_007" targetRef="ACT_008" name="Enviar a Despacho" />
+    <bpmn:sequenceFlow id="F_022" sourceRef="ACT_008" targetRef="GW_006" />
+    <bpmn:sequenceFlow id="F_023" sourceRef="GW_006" targetRef="ACT_009" name="OK: enviar sobre" />
+    <bpmn:sequenceFlow id="F_024" sourceRef="GW_006" targetRef="ACT_006" name="Falta, no cuadra o documentos con más de 1 mes" />
+    <bpmn:sequenceFlow id="F_025" sourceRef="ACT_009" targetRef="END_DESEMBOLSADO" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Lab">
+    <bpmndi:BPMNPlane id="BPMNPlane_Lab" bpmnElement="Collaboration_Lab">
+      <bpmndi:BPMNShape id="Participant_Process_Credito_di" bpmnElement="Participant_Process_Credito" isHorizontal="true">
+        <dc:Bounds x="70" y="90" width="3296" height="1480" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Negocio_di" bpmnElement="Lane_Negocio" isHorizontal="true">
+        <dc:Bounds x="100" y="90" width="3266" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Riesgo_di" bpmnElement="Lane_Riesgo" isHorizontal="true">
+        <dc:Bounds x="100" y="330" width="3266" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Analista_di" bpmnElement="Lane_Analista" isHorizontal="true">
+        <dc:Bounds x="100" y="570" width="3266" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Legal_di" bpmnElement="Lane_Legal" isHorizontal="true">
+        <dc:Bounds x="100" y="810" width="3266" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Sistema_di" bpmnElement="Lane_Sistema" isHorizontal="true">
+        <dc:Bounds x="100" y="1050" width="3266" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Desembolso_di" bpmnElement="Lane_Desembolso" isHorizontal="true">
+        <dc:Bounds x="100" y="1290" width="3266" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EVT_001_di" bpmnElement="EVT_001">
+        <dc:Bounds x="140" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_001_di" bpmnElement="ACT_001">
+        <dc:Bounds x="340" y="141" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_002_di" bpmnElement="ACT_002">
+        <dc:Bounds x="540" y="381" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_001_di" bpmnElement="GW_001">
+        <dc:Bounds x="740" y="395" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_RECH_RIESGO_di" bpmnElement="END_RECH_RIESGO">
+        <dc:Bounds x="940" y="402" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_003_di" bpmnElement="ACT_003">
+        <dc:Bounds x="940" y="621" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_002_di" bpmnElement="GW_002">
+        <dc:Bounds x="1140" y="635" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_RECHAZADA_di" bpmnElement="END_RECHAZADA">
+        <dc:Bounds x="1340" y="642" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_004_di" bpmnElement="ACT_004">
+        <dc:Bounds x="1340" y="731" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_003_di" bpmnElement="GW_003">
+        <dc:Bounds x="1540" y="635" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_NO_ACEPTA_di" bpmnElement="END_NO_ACEPTA">
+        <dc:Bounds x="1740" y="642" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_004_di" bpmnElement="GW_004">
+        <dc:Bounds x="1740" y="745" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_005_di" bpmnElement="ACT_005">
+        <dc:Bounds x="1940" y="141" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_006_di" bpmnElement="ACT_006">
+        <dc:Bounds x="1940" y="861" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TMR_001_di" bpmnElement="TMR_001">
+        <dc:Bounds x="2068" y="921" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SVC_001_di" bpmnElement="SVC_001">
+        <dc:Bounds x="2140" y="1101" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_VENCIDA_di" bpmnElement="END_VENCIDA">
+        <dc:Bounds x="2340" y="1122" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_005_di" bpmnElement="GW_005">
+        <dc:Bounds x="2140" y="875" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_007_di" bpmnElement="ACT_007">
+        <dc:Bounds x="2340" y="861" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_008_di" bpmnElement="ACT_008">
+        <dc:Bounds x="2540" y="621" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_006_di" bpmnElement="GW_006">
+        <dc:Bounds x="2740" y="635" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_009_di" bpmnElement="ACT_009">
+        <dc:Bounds x="2940" y="1341" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_DESEMBOLSADO_di" bpmnElement="END_DESEMBOLSADO">
+        <dc:Bounds x="3140" y="1362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="F_001_di" bpmnElement="F_001">
+        <di:waypoint x="176" y="180" />
+        <di:waypoint x="258" y="180" />
+        <di:waypoint x="258" y="180" />
+        <di:waypoint x="340" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_002_di" bpmnElement="F_002">
+        <di:waypoint x="488" y="180" />
+        <di:waypoint x="514" y="180" />
+        <di:waypoint x="514" y="420" />
+        <di:waypoint x="540" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_003_di" bpmnElement="F_003">
+        <di:waypoint x="688" y="420" />
+        <di:waypoint x="714" y="420" />
+        <di:waypoint x="714" y="420" />
+        <di:waypoint x="740" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_004_di" bpmnElement="F_004">
+        <di:waypoint x="790" y="420" />
+        <di:waypoint x="865" y="420" />
+        <di:waypoint x="865" y="660" />
+        <di:waypoint x="940" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_005_di" bpmnElement="F_005">
+        <di:waypoint x="765" y="445" />
+        <di:waypoint x="765" y="532" />
+        <di:waypoint x="414" y="532" />
+        <di:waypoint x="414" y="219" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_006_di" bpmnElement="F_006">
+        <di:waypoint x="790" y="420" />
+        <di:waypoint x="865" y="420" />
+        <di:waypoint x="865" y="420" />
+        <di:waypoint x="940" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_007_di" bpmnElement="F_007">
+        <di:waypoint x="1088" y="660" />
+        <di:waypoint x="1114" y="660" />
+        <di:waypoint x="1114" y="660" />
+        <di:waypoint x="1140" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_008_di" bpmnElement="F_008">
+        <di:waypoint x="1190" y="660" />
+        <di:waypoint x="1265" y="660" />
+        <di:waypoint x="1265" y="770" />
+        <di:waypoint x="1340" y="770" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_009_di" bpmnElement="F_009">
+        <di:waypoint x="1190" y="660" />
+        <di:waypoint x="1265" y="660" />
+        <di:waypoint x="1265" y="660" />
+        <di:waypoint x="1340" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_010_di" bpmnElement="F_010">
+        <di:waypoint x="1488" y="770" />
+        <di:waypoint x="1514" y="770" />
+        <di:waypoint x="1514" y="660" />
+        <di:waypoint x="1540" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_011_di" bpmnElement="F_011">
+        <di:waypoint x="1590" y="660" />
+        <di:waypoint x="1665" y="660" />
+        <di:waypoint x="1665" y="660" />
+        <di:waypoint x="1740" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_012_di" bpmnElement="F_012">
+        <di:waypoint x="1590" y="660" />
+        <di:waypoint x="1665" y="660" />
+        <di:waypoint x="1665" y="770" />
+        <di:waypoint x="1740" y="770" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_013_di" bpmnElement="F_013">
+        <di:waypoint x="1790" y="770" />
+        <di:waypoint x="1865" y="770" />
+        <di:waypoint x="1865" y="180" />
+        <di:waypoint x="1940" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_014_di" bpmnElement="F_014">
+        <di:waypoint x="1790" y="770" />
+        <di:waypoint x="1865" y="770" />
+        <di:waypoint x="1865" y="900" />
+        <di:waypoint x="1940" y="900" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_015_di" bpmnElement="F_015">
+        <di:waypoint x="2014" y="219" />
+        <di:waypoint x="2014" y="808" />
+        <di:waypoint x="1014" y="808" />
+        <di:waypoint x="1014" y="699" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_016_di" bpmnElement="F_016">
+        <di:waypoint x="2088" y="900" />
+        <di:waypoint x="2114" y="900" />
+        <di:waypoint x="2114" y="900" />
+        <di:waypoint x="2140" y="900" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_017_di" bpmnElement="F_017">
+        <di:waypoint x="2190" y="900" />
+        <di:waypoint x="2265" y="900" />
+        <di:waypoint x="2265" y="900" />
+        <di:waypoint x="2340" y="900" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_018_di" bpmnElement="F_018">
+        <di:waypoint x="2165" y="925" />
+        <di:waypoint x="2165" y="1048" />
+        <di:waypoint x="2014" y="1048" />
+        <di:waypoint x="2014" y="939" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_019_di" bpmnElement="F_019">
+        <di:waypoint x="2104" y="939" />
+        <di:waypoint x="2122" y="939" />
+        <di:waypoint x="2122" y="1140" />
+        <di:waypoint x="2140" y="1140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_020_di" bpmnElement="F_020">
+        <di:waypoint x="2288" y="1140" />
+        <di:waypoint x="2314" y="1140" />
+        <di:waypoint x="2314" y="1140" />
+        <di:waypoint x="2340" y="1140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_021_di" bpmnElement="F_021">
+        <di:waypoint x="2488" y="900" />
+        <di:waypoint x="2514" y="900" />
+        <di:waypoint x="2514" y="660" />
+        <di:waypoint x="2540" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_022_di" bpmnElement="F_022">
+        <di:waypoint x="2688" y="660" />
+        <di:waypoint x="2714" y="660" />
+        <di:waypoint x="2714" y="660" />
+        <di:waypoint x="2740" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_023_di" bpmnElement="F_023">
+        <di:waypoint x="2790" y="660" />
+        <di:waypoint x="2865" y="660" />
+        <di:waypoint x="2865" y="1380" />
+        <di:waypoint x="2940" y="1380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_024_di" bpmnElement="F_024">
+        <di:waypoint x="2765" y="685" />
+        <di:waypoint x="2765" y="1048" />
+        <di:waypoint x="2014" y="1048" />
+        <di:waypoint x="2014" y="939" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_025_di" bpmnElement="F_025">
+        <di:waypoint x="3088" y="1380" />
+        <di:waypoint x="3114" y="1380" />
+        <di:waypoint x="3114" y="1380" />
+        <di:waypoint x="3140" y="1380" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

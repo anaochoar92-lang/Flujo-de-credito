@@ -1,6 +1,6 @@
-# Automatización Preaprobado
+# Flujo de crédito
 
-La idea es crear el flujo de preaprobado para saber cuál es el proceso que se puede automatizar.
+Análisis del flujo de solicitud de crédito (producto Expomóvil) para identificar qué partes del proceso se pueden automatizar. Objetivo clave: disminuir los tiempos de las actividades de expediente.
 
 ---
 

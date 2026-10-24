@@ -1,0 +1,71 @@
+{
+  "id": "Definitions_FlujoCredito_ASIS",
+  "name": "Flujo de crédito Expomóvil — AS-IS — BORRADOR v02",
+  "processes": [
+    {
+      "id": "Process_Credito",
+      "name": "Banco — solicitud de crédito Expomóvil",
+      "isExecutable": false,
+      "lanes": [
+        {"id": "Lane_Negocio", "name": "Persona de Negocio", "nodeIds": ["EVT_001", "ACT_001", "ACT_005"]},
+        {"id": "Lane_Riesgo", "name": "Persona de Riesgo", "nodeIds": ["ACT_002", "GW_001", "END_RECH_RIESGO"]},
+        {"id": "Lane_Analista", "name": "Analista de crédito", "nodeIds": ["ACT_003", "GW_002", "END_RECHAZADA", "ACT_004", "GW_003", "END_NO_ACEPTA", "GW_004", "ACT_008", "GW_006"]},
+        {"id": "Lane_Legal", "name": "Legal", "nodeIds": ["ACT_006", "TMR_001", "GW_005", "ACT_007"]},
+        {"id": "Lane_Sistema", "name": "Sistema (cierre automático)", "nodeIds": ["SVC_001", "END_VENCIDA"]},
+        {"id": "Lane_Desembolso", "name": "Desembolso", "nodeIds": ["ACT_009", "END_DESEMBOLSADO"]}
+      ],
+      "nodes": [
+        {"id": "EVT_001", "type": "startEvent", "name": "Cliente solicita crédito", "column": 0, "trace": "E1; PB-F5; REQ-001"},
+        {"id": "ACT_001", "type": "userTask", "name": "Crear solicitud", "column": 1, "trace": "T1; PB-F6; REQ-001, REQ-002; PROC-001"},
+        {"id": "ACT_002", "type": "userTask", "name": "Evaluar solicitud", "column": 2, "trace": "T2; PB-F7; PROC-002"},
+        {"id": "GW_001", "type": "exclusiveGateway", "name": "¿Cliente apto?", "column": 3, "trace": "G1; PB-F8; ENT PREG-002; REQ-003, REQ-004, REQ-005"},
+        {"id": "END_RECH_RIESGO", "type": "endEvent", "name": "Solicitud rechazada por Riesgo", "column": 4, "trace": "ENT PREG-002; REQ-005"},
+        {"id": "ACT_003", "type": "userTask", "name": "Analizar crédito", "column": 4, "trace": "T3; PB-F9; PROC-003"},
+        {"id": "GW_002", "type": "exclusiveGateway", "name": "¿Decisión del análisis?", "column": 5, "trace": "G2; PB-F10; REQ-006, REQ-007"},
+        {"id": "END_RECHAZADA", "type": "endEvent", "name": "Solicitud rechazada", "column": 6, "trace": "E2; PB-F11; REQ-006"},
+        {"id": "ACT_004", "type": "userTask", "name": "Informar decisión al cliente", "column": 6, "trace": "ENT PREG-004; REQ-007; PROC-004"},
+        {"id": "GW_003", "type": "exclusiveGateway", "name": "¿Cliente acepta y continúa?", "column": 7, "trace": "ENT PREG-004; REQ-008"},
+        {"id": "END_NO_ACEPTA", "type": "endEvent", "name": "Solicitud cerrada: cliente no acepta", "column": 8, "trace": "ENT PREG-004; REQ-008"},
+        {"id": "GW_004", "type": "exclusiveGateway", "name": "¿Aprobada con condiciones?", "column": 8, "trace": "PB-F10; ENT PREG-004; REQ-009, REQ-010"},
+        {"id": "ACT_005", "type": "userTask", "name": "Modificar datos del crédito", "column": 9, "trace": "PB-F10; ENT PREG-004; REQ-009; PROC-005; AS-01"},
+        {"id": "ACT_006", "type": "userTask", "name": "Recopilar expediente", "column": 9, "trace": "T4; PB-F12; ENT PREG-003; REQ-010, REQ-011; PROC-006"},
+        {"id": "TMR_001", "type": "boundaryEvent", "name": "10 días hábiles sin expediente completo", "attachedTo": "ACT_006", "cancelActivity": true, "event": {"kind": "timer"}, "trace": "ENT PREG-003, PREG-013 (días hábiles, desde la aceptación del cliente, se reinicia con cada devolución); REQ-012"},
+        {"id": "SVC_001", "type": "serviceTask", "name": "Cerrar solicitud automáticamente", "column": 10, "trace": "ENT PREG-003; REQ-012"},
+        {"id": "END_VENCIDA", "type": "endEvent", "name": "Solicitud cerrada por expediente incompleto", "column": 11, "trace": "ENT PREG-003; REQ-012"},
+        {"id": "GW_005", "type": "exclusiveGateway", "name": "¿Documentación completa?", "column": 10, "trace": "G3; PB-F13; REQ-013, REQ-014"},
+        {"id": "ACT_007", "type": "userTask", "name": "Escanear documentación", "column": 11, "trace": "T5; PB-F14; REQ-015; PROC-007"},
+        {"id": "ACT_008", "type": "userTask", "name": "Verificar y autorizar expediente (Despacho)", "column": 12, "trace": "T6; PB-F15; ENT PREG-003, PREG-007, PREG-008; PROC-008, PROC-010"},
+        {"id": "GW_006", "type": "exclusiveGateway", "name": "¿Documentación OK?", "column": 13, "trace": "G4; PB-F16; ENT PREG-003, PREG-014; REQ-016, REQ-017; PROC-010"},
+        {"id": "ACT_009", "type": "userTask", "name": "Desembolsar crédito y gestionar post-desembolso", "column": 14, "trace": "T7; PB-F17; REQ-018; PROC-009"},
+        {"id": "END_DESEMBOLSADO", "type": "endEvent", "name": "Crédito desembolsado", "column": 15, "trace": "E3; PB-F18; REQ-018"}
+      ],
+      "flows": [
+        {"id": "F_001", "source": "EVT_001", "target": "ACT_001"},
+        {"id": "F_002", "source": "ACT_001", "target": "ACT_002", "name": "Enviar a Riesgo"},
+        {"id": "F_003", "source": "ACT_002", "target": "GW_001"},
+        {"id": "F_004", "source": "GW_001", "target": "ACT_003", "name": "Apto"},
+        {"id": "F_005", "source": "GW_001", "target": "ACT_001", "name": "Corregir datos"},
+        {"id": "F_006", "source": "GW_001", "target": "END_RECH_RIESGO", "name": "Rechazar"},
+        {"id": "F_007", "source": "ACT_003", "target": "GW_002"},
+        {"id": "F_008", "source": "GW_002", "target": "ACT_004", "name": "Aprobar (con o sin condiciones)"},
+        {"id": "F_009", "source": "GW_002", "target": "END_RECHAZADA", "name": "Rechazar"},
+        {"id": "F_010", "source": "ACT_004", "target": "GW_003"},
+        {"id": "F_011", "source": "GW_003", "target": "END_NO_ACEPTA", "name": "No acepta"},
+        {"id": "F_012", "source": "GW_003", "target": "GW_004", "name": "Acepta"},
+        {"id": "F_013", "source": "GW_004", "target": "ACT_005", "name": "Con condiciones"},
+        {"id": "F_014", "source": "GW_004", "target": "ACT_006", "name": "Sin condiciones"},
+        {"id": "F_015", "source": "ACT_005", "target": "ACT_003", "name": "Volver a análisis"},
+        {"id": "F_016", "source": "ACT_006", "target": "GW_005"},
+        {"id": "F_017", "source": "GW_005", "target": "ACT_007", "name": "Completa"},
+        {"id": "F_018", "source": "GW_005", "target": "ACT_006", "name": "Incompleta: seguir recopilando"},
+        {"id": "F_019", "source": "TMR_001", "target": "SVC_001"},
+        {"id": "F_020", "source": "SVC_001", "target": "END_VENCIDA"},
+        {"id": "F_021", "source": "ACT_007", "target": "ACT_008", "name": "Enviar a Despacho"},
+        {"id": "F_022", "source": "ACT_008", "target": "GW_006"},
+        {"id": "F_023", "source": "GW_006", "target": "ACT_009", "name": "OK: enviar sobre"},
+        {"id": "F_024", "source": "GW_006", "target": "ACT_006", "name": "Falta, no cuadra o documentos con más de 1 mes"},
+        {"id": "F_025", "source": "ACT_009", "target": "END_DESEMBOLSADO"}
+      ]
+    }
+  ]
+}
