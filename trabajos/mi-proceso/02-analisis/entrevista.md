@@ -177,3 +177,11 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | ROI-4 | ¿Qué se gana en dinero? | «Menos personal temporal en feria.» | Confirmado por entrevistado |
 
 **Resultado ronda 11:** `12-roi/` con el Excel y `interpretacion.md`. ROI año 1 en caja negativo en los tres escenarios; el margen de los ≈ 153 créditos al año que dejan de perderse no está incluido.
+
+## Ronda 12 — 2026-10-24 (decisión para subir el ROI)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| ROI-5 | ¿Se agrega el margen por crédito como beneficio? | «No, quiero que el ROI suba; ¿qué decisión podríamos tomar?» | Confirmado: el margen no se incluye |
+| ROI-6 | Opciones propuestas: (1) sin mensajero, el cliente entrega originales en sucursal; (2) además, convertir el tiempo liberado en caja (no reponer ≈ 2,7 puestos); (3) además, versión mínima del portal sobre Camunda. Recomendada: 3 | «Sí, agrégalas al Excel y súbelo a GitHub y reemplaza los archivos con el nuevo modelo para tener un ROI positivo.» | **Adoptada la Opción 3** como modelo del ROI (v02) |
+
+**Resultado ronda 12:** ROI año 1 base +19,5 % (recuperación ≈ 10 meses); conservador −76 %. **Pendiente:** actualizar BPMN TO-BE, requisitos y datos sintéticos si se confirma quitar el mensajero (Opción 1).
