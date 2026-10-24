@@ -23,13 +23,14 @@
 | REQ-TOBE-013 | Comportamiento no deseado | Si pasan **10 días hábiles** desde la aceptación sin documentos válidos, o desde que Despacho pidió un documento corregido sin recibirlo, entonces el sistema deberá cerrar la solicitud con estado «Cerrada por expediente incompleto». Cada corrección pedida por Despacho **reinicia** el conteo. | REQ-012; PREG-013; TB-5 | Confirmado por entrevistado |
 | REQ-TOBE-014 | Ubicuo | El portal deberá mostrar al cliente el **estado de su solicitud** en cada hito: enlace enviado, documentos validados, en verificación, originales recogidos, desembolso. | CV-3; OPP-03 | Propuesta (paquete A) |
 | REQ-TOBE-015 | Ubicuo | El área de **IT del banco** será la responsable de la operación y disponibilidad del portal. | TB-4 | Confirmado por entrevistado |
+| REQ-TOBE-016 | Por evento | Cuando se programe la recogida de originales (REQ-TOBE-009), el sistema deberá informar y cobrar al cliente la **comisión del servicio de recogida**, que presta un tercero, de modo que el servicio no genere costo para el banco. | ROI-7 (ronda 13) | Confirmado por entrevistado. [PENDIENTE: monto de la comisión y si hay alternativa gratuita en sucursal] |
 
 ## 2. Procedimientos humanos (PROC-TOBE-*)
 | ID | Procedimiento | Fuente | Estado |
 |---|---|---|---|
 | PROC-TOBE-001 | Legal revisará los documentos dudosos y decidirá si se aceptan o se pide al cliente cargarlos de nuevo. | TB-2; TB-3 | Confirmado por entrevistado |
 | PROC-TOBE-002 | El Analista (Despacho) verificará que el expediente digital «cuadre». Si algo no cuadra, pedirá al cliente el documento corregido por el portal. | PROC-008; PROC-010 | Propuesta. La corrección reinicia los 10 días hábiles (TB-5, confirmado) |
-| PROC-TOBE-003 | El mensajero certificado recogerá los originales en la casa del cliente y los entregará a Legal. | DG-4 | Confirmado por entrevistado |
+| PROC-TOBE-003 | El mensajero certificado, **operado por un tercero**, recogerá los originales en la casa del cliente y los entregará a Legal. | DG-4; ROI-7 | Confirmado por entrevistado |
 | PROC-TOBE-004 | Legal escaneará los originales recogidos y enviará el sobre físico a Desembolso. | PRIO-3; RN-01 | Confirmado por entrevistado |
 
 ## 3. Requisitos AS-IS que cambian

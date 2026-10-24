@@ -185,3 +185,11 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | ROI-6 | Opciones propuestas: (1) sin mensajero, el cliente entrega originales en sucursal; (2) además, convertir el tiempo liberado en caja (no reponer ≈ 2,7 puestos); (3) además, versión mínima del portal sobre Camunda. Recomendada: 3 | «Sí, agrégalas al Excel y súbelo a GitHub y reemplaza los archivos con el nuevo modelo para tener un ROI positivo.» | **Adoptada la Opción 3** como modelo del ROI (v02) |
 
 **Resultado ronda 12:** ROI año 1 base +19,5 % (recuperación ≈ 10 meses); conservador −76 %. **Pendiente:** actualizar BPMN TO-BE, requisitos y datos sintéticos si se confirma quitar el mensajero (Opción 1).
+
+## Ronda 13 — 2026-10-24 (mensajero)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| ROI-7 | ¿Se quita el mensajero (Opción 1)? | «El mensajero queda, pero no lo va a pagar el banco: lo hace un tercero y se cobra como comisión del servicio al cliente; de esa forma no genera costo, hace que no se pierdan créditos y corta tiempos.» | Confirmado por entrevistado. La Opción 1 pasa a ser «mensajero cobrado al cliente» |
+| ROI-8 | ¿Qué opción genera más ROI? | «Escoge la opción que más ROI genere.» → Opción 3 (+19,5 % base) | Confirmado |
+
+**Resultado ronda 13:** BPMN TO-BE v02 y datos sin cambios (el mensajero sigue). Nuevo REQ-TOBE-016 (comisión) y PROC-TOBE-003 ajustado. ROI sin cambio respecto a la ronda 12: el mensajero ya costaba 0 al banco en la Opción 3.

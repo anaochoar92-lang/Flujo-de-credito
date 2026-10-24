@@ -1,14 +1,14 @@
 # Interpretación del ROI — Flujo de crédito preaprobado (TO-BE, SINTÉTICO) · v02
 
 **Fecha:** 2026-10-24 · **Skill:** `calcular-roi` · **Excel:** `12-roi/Modelo_ROI_Flujo_Credito.xlsx` (hojas `LEEME`, `Opciones`, `ROI`, `Supuestos`, `Conteos`, `FlujoMensual`).
-**Modelo adoptado (ronda 12): Opción 3**, versión mínima del portal + sin mensajero + tiempo liberado convertido en caja. La v01 (portal completo con mensajero, ROI −93 %) queda como «Modelo original» en la hoja `Opciones` y en el historial de git.
+**Modelo adoptado (rondas 12 y 13): Opción 3**, versión mínima del portal + mensajero de un tercero cobrado al cliente como comisión + tiempo liberado convertido en caja. La v01 (portal completo con mensajero, ROI −93 %) queda como «Modelo original» en la hoja `Opciones` y en el historial de git.
 
 > **Un ROI con datos sintéticos no valida la inversión.** Sirve para comparar decisiones y ver qué hay que medir. Cifras en **pesos dominicanos (RD$)**.
 
 ## 1. Decisiones de la ronda 12
 | Opción | Decisión | Qué cambia en el modelo |
 |---|---|---|
-| 1 | **Sin mensajero:** el cliente entrega los originales en una sucursal o en el stand de la feria | Costo del mensajero = 0 (`Supuestos` fila 23) |
+| 1 | **Mensajero de un tercero, cobrado al cliente** como comisión del servicio (ronda 13, ROI-7). La recogida a domicilio se mantiene: acorta tiempos y evita perder créditos | Costo del mensajero para el banco = 0 (`Supuestos` fila 23). Las 2.550 recogidas siguen en el proceso |
 | 2 | **Convertir el tiempo liberado en caja:** fuera de feria se liberan ≈ 520 h/mes (≈ 2,7 personas); no se reponen esos puestos cuando haya salidas, o se reasignan a áreas que hoy contratan | El valor del tiempo liberado cuenta como caja (`Supuestos` fila 24) |
 | 3 | **Versión mínima del portal:** sobre Camunda 8.10 (ya preparado), sus formularios y la banca en línea; validación con reglas simples (fecha, documentos completos, datos que coinciden) | Inversión RD$ 1.000.000 y mantenimiento 15 % (`Supuestos` filas 20 y 21) |
 
@@ -16,7 +16,7 @@
 | | Modelo original | Opción 1 | Opción 2 | **Opción 3 (adoptada)** |
 |---|---|---|---|---|
 | Beneficio en caja | RD$ 351.619 | RD$ 351.619 | RD$ 1.373.785 | **RD$ 1.373.785** |
-| Mensajero | RD$ 1.020.000 | 0 | 0 | **0** |
+| Mensajero (costo para el banco) | RD$ 1.020.000 | 0 | 0 | **0** |
 | Mantenimiento | RD$ 700.000 | RD$ 700.000 | RD$ 700.000 | **RD$ 150.000** |
 | Inversión | RD$ 3.500.000 | RD$ 3.500.000 | RD$ 3.500.000 | **RD$ 1.000.000** |
 | Beneficio neto anual | −RD$ 1.368.381 | −RD$ 348.381 | RD$ 673.785 | **RD$ 1.223.785** |
@@ -40,7 +40,7 @@
 ## 4. Lectura
 1. **El ROI es positivo en el escenario base**, pero **no en el conservador**. El resultado depende sobre todo de dos cosas que hoy son supuestos: las horas reales de trabajo por expediente y que la gerencia **de verdad** no reponga los ≈ 2,7 puestos.
 2. **La Opción 2 es la que más mueve el resultado.** Sin ella, incluso con la versión mínima, el ROI base es −69 %: el ahorro en personal temporal de feria no basta.
-3. **Quitar el mensajero** ahorra RD$ 1,02 millones al año, pero traslada el esfuerzo al cliente. Hay que vigilar KPI-01: si la entrega en sucursal tarda más que la recogida, la rama de originales puede pasar de 4 días.
+3. **Cobrar el mensajero al cliente** ahorra al banco RD$ 1,02 millones al año sin quitar la recogida a domicilio, que es la que acorta la rama de originales (≈ 4 días) y evita cierres por vencimiento. Riesgo: la comisión puede desanimar a algunos clientes; conviene ofrecer como respaldo gratuito la entrega de originales en sucursal y medir cuántos la eligen.
 4. **El beneficio más grande sigue sin contarse:** ≈ 153 créditos al año que dejan de perderse por vencimiento. Con cualquier margen por crédito, el ROI sube más.
 5. Las horas liberadas son caja **solo** si se ejecuta la decisión de no reponer o reasignar puestos. Si no, vuelven a ser capacidad.
 
@@ -49,8 +49,8 @@
 - **Comprometer la Opción 2 por escrito** (Gerente de crédito y Recursos Humanos): sin ella el caso no se sostiene.
 - **Medir en el piloto** KPI-01 a KPI-04 y las horas reales por expediente. Con esos datos se reemplazan las hipótesis H-R1 y S-3b y se decide si escalar.
 
-## 6. Pendiente por coherencia
-El BPMN TO-BE v02, los requisitos (PROC-TOBE-003, REQ-TOBE-009 y 010) y los datos sintéticos **todavía modelan el mensajero a domicilio**. Si se confirma la Opción 1, hay que actualizarlos: la recogida pasa a «el cliente entrega los originales en sucursal». El BPMN v02 es el que Sergio preparó para Camunda 8.10, así que el cambio debe hacerse en una versión nueva.
+## 6. Coherencia con el resto del proyecto
+Como el mensajero se mantiene (ronda 13), **el BPMN TO-BE v02 y los datos sintéticos no cambian**. En los requisitos se añadió REQ-TOBE-016 (comisión de recogida cobrada al cliente) y se ajustó PROC-TOBE-003 (mensajero de un tercero).
 
 ## 7. Variables y ecuaciones
 | Concepto | En palabras | En Excel (hoja `ROI`, columna D = base) |
@@ -59,7 +59,7 @@ El BPMN TO-BE v02, los requisitos (PROC-TOBE-003, REQ-TOBE-009 y 010) y los dato
 | Horas por escenario | Σ ejecuciones de cada actividad × horas por ejecución | `=SUMPRODUCT((Conteos!$C$4:$C$27="AS-IS")*(Conteos!$B$4:$B$27="feria")*(…))` |
 | Ahorro de temporales | Horas ahorradas en feria × costo por hora | `=D7*Supuestos!D8` |
 | Tiempo convertido en caja | Horas liberadas fuera de feria × costo por hora × % convertido | `=D14*Supuestos!D24` |
-| Mensajero | Recogidas × costo × (1 si hay mensajero) | `=D16*Supuestos!D19` |
+| Mensajero (costo para el banco) | Recogidas × costo × (1 si lo paga el banco; 0 si se cobra al cliente) | `=D16*Supuestos!D19*Supuestos!D23` |
 | **ROI año 1** | (beneficio en caja − opex − inversión) ÷ (opex + inversión) | `=(D21-D19-D20)/(D19+D20)` |
 | Meses de recuperación | Inversión ÷ beneficio neto mensual | `=IF(D22>0,D20/(D22/12),"No se recupera")` |
 

@@ -27,7 +27,7 @@ Titulo $wsL 'Modelo de ROI - Flujo de crédito preaprobado Expomóvil (SINTÉTIC
 $notas = @(
   'Datos SINTÉTICOS (09-datos, semilla 20261024). Un ROI sintético NO valida una inversión.',
   'Moneda: pesos dominicanos (RD$). Celdas amarillas de la hoja Supuestos = editables.',
-  'MODELO ADOPTADO = Opción 3 (ronda 12): versión mínima del portal sobre Camunda, cliente entrega originales en sucursal (sin mensajero) y el tiempo liberado fuera de feria se convierte en caja (no reponer puestos).',
+  'MODELO ADOPTADO = Opción 3 (ronda 12): versión mínima del portal sobre Camunda, mensajero de un tercero cobrado al cliente como comisión (sin costo para el banco) y el tiempo liberado fuera de feria se convierte en caja (no reponer puestos).',
   'Hoja Opciones: compara el modelo original con las opciones 1, 2 y 3 (escenario base). Hojas ROI y FlujoMensual: modelo adoptado.',
   'Caja = menos personal temporal en feria (ROI-4) + tiempo liberado convertido en caja (% editable en Supuestos, fila 24).',
   'ROI año 1 = (beneficio en caja - opex - inversión) / (opex + inversión). Opex = mensajero (si aplica) + mantenimiento.',
@@ -51,10 +51,10 @@ $sup = @(
   @(15, 'TB_ACT_PEDIR Pedir documento corregido (Despacho)', 'h/ejecución', 0.125, 0.25, 0.375, 'HIPÓTESIS H-R1'),
   @(16, 'TB_ACT_RECOP_ORIG Recopilar originales (Legal)', 'h/ejecución', 0.5, 1, 1.5, 'HIPÓTESIS H-R1'),
   @(17, 'TB_ACT_ESCANEAR Escanear originales (Legal)', 'h/ejecución', 0.5, 1, 1.5, 'HIPÓTESIS H-R1'),
-  @(19, 'Costo por recogida del mensajero certificado', 'RD$/recogida', 500, 400, 300, 'SUPUESTO S-2 (solo si hay mensajero, fila 23)'),
+  @(19, 'Costo por recogida del mensajero certificado', 'RD$/recogida', 500, 400, 300, 'SUPUESTO S-2 (lo paga el banco solo si fila 23 = 1)'),
   @(20, 'Inversión inicial: versión mínima del portal sobre Camunda', 'RD$', 1500000, 1000000, 700000, 'SUPUESTO S-3b (Opción 3, ronda 12)'),
   @(21, 'Mantenimiento anual (% de la inversión)', '%', 0.20, 0.15, 0.10, 'SUPUESTO S-4b (Opción 3)'),
-  @(23, '¿Mensajero a domicilio? (1 = sí, 0 = cliente entrega en sucursal)', '1/0', 0, 0, 0, 'Decisión Opción 1 (ronda 12)'),
+  @(23, '¿El banco paga el mensajero? (1 = sí, 0 = tercero cobrado al cliente como comisión)', '1/0', 0, 0, 0, 'Decisión Opción 1 (ronda 13, ROI-7)'),
   @(24, '% del tiempo liberado fuera de feria que se convierte en caja', '%', 0.5, 1, 1, 'Decisión Opción 2 (ronda 12): no reponer puestos; SUPUESTO S-5 en conservador'))
 foreach ($q in $sup) { Fila $wsS $q[0] @($q[1], $q[2], $q[3], $q[4], $q[5], $q[6]); $wsS.Range("C$($q[0]):E$($q[0])").Interior.Color = 0x99FFFF }
 $wsS.Cells.Item(10, 1).Value2 = 'Horas de trabajo por ejecución de cada actividad'; $wsS.Cells.Item(10, 1).Font.Bold = $true
@@ -91,8 +91,8 @@ $filas = @(
   @(13, 'Horas liberadas fuera de feria', 'h/año', { param($X) "=${X}11-${X}12" }, 'Capacidad, no caja', $NUM),
   @(14, 'Valor del tiempo liberado fuera de feria', 'RD$/año', { param($X) "=${X}13*Supuestos!${X}8" }, 'Horas liberadas x costo hora', $RD),
   @(15, 'AHORRO EN CAJA: tiempo liberado convertido (no reponer puestos)', 'RD$/año', { param($X) "=${X}14*Supuestos!${X}24" }, 'Opción 2: valor x % convertido', $RD),
-  @(16, 'Recogidas a domicilio', 'recogidas/año', { param($X) "=SUMPRODUCT(($(& $rng 'C')=""TO-BE"")*$(& $rng 'K'))*Supuestos!${X}23" }, 'TB_ACT_RECOGER; 0 si el cliente entrega en sucursal (Opción 1)', $NUM),
-  @(17, 'Costo del mensajero certificado', 'RD$/año', { param($X) "=${X}16*Supuestos!${X}19" }, 'Recogidas x costo por recogida', $RD),
+  @(16, 'Recogidas a domicilio', 'recogidas/año', { param($X) "=SUMPRODUCT(($(& $rng 'C')=""TO-BE"")*$(& $rng 'K'))" }, 'TB_ACT_RECOGER (el mensajero se mantiene)', $NUM),
+  @(17, 'Costo del mensajero para el banco', 'RD$/año', { param($X) "=${X}16*Supuestos!${X}19*Supuestos!${X}23" }, 'Costo para el banco: 0 si lo paga el cliente como comisión (Opción 1)', $RD),
   @(18, 'Mantenimiento del portal', 'RD$/año', { param($X) "=Supuestos!${X}22" }, '', $RD),
   @(19, 'Opex año 1', 'RD$/año', { param($X) "=${X}17+${X}18" }, 'Mensajero + mantenimiento', $RD),
   @(20, 'Inversión inicial (versión mínima)', 'RD$', { param($X) "=Supuestos!${X}20" }, 'Opción 3', $RD),
@@ -110,7 +110,7 @@ foreach ($b in 9, 15, 21, 22, 23, 24) { $wsR.Range("A${b}:E${b}").Font.Bold = $t
 
 # --- FlujoMensual (escenario base) ------------------------------------------------
 Titulo $wsF 'Flujo mensual - modelo adoptado (Opción 3), escenario BASE (RD$)'
-Encabezado $wsF 3 @('mes', 'temporada', 'Horas AS-IS', 'Horas TO-BE', 'Horas ahorradas', 'Ahorro temporales (feria)', 'Tiempo convertido en caja', 'Mensajero', 'Mantenimiento', 'Neto en caja', 'Acumulado')
+Encabezado $wsF 3 @('mes', 'temporada', 'Horas AS-IS', 'Horas TO-BE', 'Horas ahorradas', 'Ahorro temporales (feria)', 'Tiempo convertido en caja', 'Mensajero (banco)', 'Mantenimiento', 'Neto en caja', 'Acumulado')
 Fila $wsF 4 @('Mes 0', 'inversión', $null, $null, $null, $null, $null, $null, $null, '=-Supuestos!D20', '=J4')
 for ($m = 0; $m -lt 12; $m++) {
   $r = 5 + $m; $a = 4 + 2 * $m; $t = $a + 1
@@ -123,18 +123,18 @@ $wsF.Range('C4:E16').NumberFormatLocal = $NUM; $wsF.Range('F4:K16').NumberFormat
 
 # --- Opciones (escenario base) ----------------------------------------------------
 Titulo $wsO 'Opciones para subir el ROI (escenario base, año 1) - ronda 12'
-Encabezado $wsO 3 @('Concepto', 'Modelo original', 'Opción 1: sin mensajero', 'Opción 2: + tiempo en caja', 'Opción 3: + versión mínima (ADOPTADA)', 'Nota')
+Encabezado $wsO 3 @('Concepto', 'Modelo original', 'Opción 1: mensajero cobrado al cliente', 'Opción 2: + tiempo en caja', 'Opción 3: + versión mínima (ADOPTADA)', 'Nota')
 $op = @(
   @(4, 'Inversión inicial (RD$)', 3500000, 3500000, 3500000, '=Supuestos!D20', 'Portal completo vs versión mínima sobre Camunda'),
   @(5, 'Mantenimiento anual (% de la inversión)', 0.2, 0.2, 0.2, '=Supuestos!D21', ''),
-  @(6, '¿Mensajero a domicilio? (1/0)', 1, 0, 0, '=Supuestos!D23', 'Opción 1: el cliente entrega los originales en sucursal o en la feria'),
+  @(6, '¿El banco paga el mensajero? (1/0)', 1, 0, 0, '=Supuestos!D23', 'Opción 1: lo opera un tercero y se cobra al cliente como comisión del servicio'),
   @(7, '% del tiempo liberado que se convierte en caja', 0, 0, 1, '=Supuestos!D24', 'Opción 2: no reponer ~2,7 puestos fuera de feria'))
 foreach ($q in $op) { Fila $wsO $q[0] @($q[1], $q[2], $q[3], $q[4], $q[5], $q[6]); $wsO.Range("B$($q[0]):D$($q[0])").Interior.Color = 0x99FFFF }
 $calc = @(
   @(9, 'Ahorro temporales en feria', { param($X) '=ROI!$D$9' }, $RD),
   @(10, 'Tiempo liberado convertido en caja', { param($X) "=ROI!`$D`$14*${X}7" }, $RD),
   @(11, 'Beneficio total en caja', { param($X) "=${X}9+${X}10" }, $RD),
-  @(12, 'Mensajero', { param($X) "=SUMPRODUCT((Conteos!`$C`$4:`$C`$27=""TO-BE"")*Conteos!`$K`$4:`$K`$27)*Supuestos!`$D`$19*${X}6" }, $RD),
+  @(12, 'Mensajero (costo para el banco)', { param($X) "=SUMPRODUCT((Conteos!`$C`$4:`$C`$27=""TO-BE"")*Conteos!`$K`$4:`$K`$27)*Supuestos!`$D`$19*${X}6" }, $RD),
   @(13, 'Mantenimiento', { param($X) "=${X}4*${X}5" }, $RD),
   @(14, 'Opex', { param($X) "=${X}12+${X}13" }, $RD),
   @(15, 'Beneficio neto anual (caja)', { param($X) "=${X}11-${X}14" }, $RD),
