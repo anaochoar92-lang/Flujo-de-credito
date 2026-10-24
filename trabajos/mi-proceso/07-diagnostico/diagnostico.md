@@ -48,7 +48,9 @@ Es un cálculo con datos de ejemplo y **supone** que cada vuelta tiene la misma 
 | 2 | Los documentos **se vencen durante el proceso**. No es lo más frecuente, pero ocurre | ENT DG-1 | Declarado |
 | 3 | Legal revisa la fecha **solo al recibir**: comprueba que el documento esté vigente ese día, no que lo siga estando cuando llegue a Despacho | ENT DG-2 | Declarado |
 | 4 | Entre Legal y Despacho pasan varios días hábiles (escaneo de 3 días y espera de Despacho), y el documento puede llegar con poca vigencia | ENT PREG-007; XLS Tiempos | Estimado |
-| 5 | **Causa raíz propuesta:** el expediente se arma en papel y en serie (recopilar → escanear → verificar → trasladar), así que la vigencia se consume en esperas y no hay ninguna regla que exija un margen de vigencia al recibir | Deducido de los niveles 1–4 | **Por confirmar con el entrevistado** |
+| 5 | **Causa raíz:** el expediente se arma en papel y en serie (recopilar → escanear → verificar → trasladar), así que la vigencia se consume en esperas y no hay ninguna regla que exija un margen de vigencia al recibir | Deducido de los niveles 1–4 | **Confirmada** (ENT PRIO-2) |
+
+**Segunda causa de devolución (ENT PRIO-2):** el documento **no es visible**, es decir, es ilegible (borroso, cortado u oscuro). Igual que la vigencia, hoy solo se detecta en Despacho, al final del tramo.
 
 Nota (C-03): en la ronda 2 el vencimiento fue el motivo **más común** de devolución, y en la ronda 5 «no pasa mucho» que se venza durante el proceso. Parte de las devoluciones pueden ser documentos que ya llegaban casi vencidos u otros casos de «no cuadra».
 

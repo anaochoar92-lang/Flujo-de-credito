@@ -43,4 +43,8 @@ Volumen de referencia: 400 expedientes por mes de feria (800 al año), 80 devolu
 ## 5. Recomendación
 **Paquete A (recomendado): OPP-01 + OPP-02**, portal web con validación automática, **con OPP-04** como complemento para cumplir RN-01. OPP-03 entra como mejora rápida sobre el mismo portal.
 
-**Necesita tu aprobación.** Elige el alcance del TO-BE (pregunta PRIO-1 en la entrevista).
+**Aprobado por el entrevistado (ronda 6, PRIO-1 = A):** paquete A completo, OPP-01 + OPP-02 + OPP-04 + OPP-03. OPP-05 queda descartada.
+
+## 6. Ajustes tras la ronda 6
+- **La validación (OPP-02) debe revisar también la legibilidad**, porque el documento «no visible» es otra causa de devolución (PRIO-2).
+- **El escaneo del original se mantiene** (PRIO-3). La estimación de la sección 3 cambia: el escaneo no baja a 0, sino que se propone **en paralelo** a la verificación digital. Estimación revisada del expediente: recopilar y validar ≈ 2 días; luego, en paralelo, verificar en digital ≈ 1 día frente a recoger, escanear y trasladar ≈ 1 + 3 = 4 días. La ruta crítica queda en **≈ 6 días hábiles**, justo en la meta. **Riesgo:** si el escaneo sigue tardando 3 días, la meta queda sin margen.

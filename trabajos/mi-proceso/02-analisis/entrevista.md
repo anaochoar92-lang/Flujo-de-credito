@@ -108,6 +108,14 @@ PREG-005 canal de inicio · PREG-013 cómputo de los 10 días (hábiles o calend
 ## Ronda 6 — 2026-10-24 (priorización, skill `priorizar-automatizacion`)
 | ID | Pregunta | Por qué importa | Respuesta | Estado |
 |---|---|---|---|---|
-| PRIO-1 | ¿Qué alcance tiene el TO-BE? (A) Paquete recomendado: portal web con validación automática (OPP-01 + OPP-02) + recogida a domicilio (OPP-04) + consulta de estado (OPP-03). (B) Solo portal + validación. (C) Otra combinación | Define qué se diseña en el TO-BE, los KPI y el ROI | — | PENDIENTE |
-| PRIO-2 | ¿Confirmas la causa raíz de P-01? «El expediente se arma en papel y en serie, la vigencia se consume en esperas y no hay ninguna regla que exija un margen de vigencia al recibir» | El skill pide confirmar la causa raíz antes de concluir | — | PENDIENTE |
-| PRIO-3 | Si el documento llega en digital por la web, ¿hace falta seguir escaneando el original físico? | Decide si el escaneo (3 días) desaparece | — | PENDIENTE |
+| PRIO-1 | ¿Qué alcance tiene el TO-BE? (A) Paquete recomendado: portal web con validación automática (OPP-01 + OPP-02) + recogida a domicilio (OPP-04) + consulta de estado (OPP-03). (B) Solo portal + validación. (C) Otra combinación | Define qué se diseña en el TO-BE, los KPI y el ROI | «A.» | Confirmado por entrevistado |
+| PRIO-2 | ¿Confirmas la causa raíz de P-01? «El expediente se arma en papel y en serie, la vigencia se consume en esperas y no hay ninguna regla que exija un margen de vigencia al recibir» | El skill pide confirmar la causa raíz antes de concluir | «Sí, y también es devuelto porque no es visible, para que la agregues.» | Confirmado por entrevistado |
+| PRIO-3 | Si el documento llega en digital por la web, ¿hace falta seguir escaneando el original físico? | Decide si el escaneo (3 días) desaparece | «Sí.» | Confirmado por entrevistado |
+
+## Ronda 7 — 2026-10-24 (diseño TO-BE, skill `disenar-tobe`)
+| ID | Pregunta | Caso adversarial | Por qué importa | Respuesta | Estado |
+|---|---|---|---|---|---|
+| TB-1 | **Disparador:** ¿en qué momento se le envía al cliente el enlace al portal (al registrar que acepta la decisión) y por qué canal (correo, SMS, WhatsApp)? | El cliente acepta en la feria, pero el enlace le llega dos días después. | Es el inicio del tramo nuevo y el arranque de los 10 días hábiles. | — | PENDIENTE |
+| TB-2 | **Criterios:** si los documentos deben tener 1 mes o menos al llegar a Despacho, ¿qué margen exigimos al cargarlos? Por ejemplo, expedidos hace 20 días o menos. ¿Y quién decide si un documento es legible: el sistema, y en caso de duda Legal? | Un comprobante con 28 días pasa la validación y se vence antes de Despacho. | Son las reglas de la validación automática. | — | PENDIENTE |
+| TB-3 | **Casos anómalos:** si la validación rechaza un documento (vencido o ilegible), ¿se le pide al cliente que lo vuelva a cargar? ¿Cuántas veces puede intentarlo? ¿Los casos dudosos van a Legal? | El cliente carga 5 veces la misma foto borrosa. | Define la ruta de excepción y el papel humano. | — | PENDIENTE |
+| TB-4 | **Contingencia y responsable:** si el portal falla, el cliente no sabe usarlo o el mensajero no logra recoger los originales, ¿se mantiene la ruta actual (Legal recopila en papel) como respaldo? ¿Quién es el responsable del portal? | El portal se cae el primer día de la feria de noviembre. | Plan de contingencia y responsable. | — | PENDIENTE |
