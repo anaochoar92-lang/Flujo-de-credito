@@ -200,3 +200,8 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | CRED-1 | ¿Cómo reducir la pérdida de créditos por vencimiento? Propuestas: (1) recordatorios y llamada; (2) lista de documentos al crear la solicitud y carga asistida en el stand; (3) ayuda antes de agotar intentos; (4) disponibilidad del portal exigida a IT; (5) prórroga | «Sí, hazlo con las medidas 1 y 2 y súbelo a GitHub.» | Confirmado: medidas 1 y 2 |
 
 **Resultado ronda 14:** BPMN TO-BE v03, REQ-TOBE-017 a 019, PROC-TOBE-005, hipótesis H-2b. Créditos perdidos en el TO-BE: 148 → 91 al año; créditos que dejan de perderse frente al AS-IS: 245. ROI base +16,7 %.
+
+## Ronda 15 — 2026-10-24 (ROI y créditos)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| ROI-9 | Las medidas 1 y 2 no suben el ROI porque los créditos no están monetizados. ¿(1) Agregar el margen por crédito como supuesto editable o (2) dejar el ROI solo con ahorro de personal y mostrar los créditos aparte? | «2.» | Confirmado: ROI base +16,7 %; 245 créditos recuperados al año como beneficio no monetizado |

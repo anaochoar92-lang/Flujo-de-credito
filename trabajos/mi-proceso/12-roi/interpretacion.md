@@ -50,6 +50,7 @@ Cifras de la ronda 14: datos regenerados con las medidas 1 y 2 (H-2b) y con una 
 | **Créditos que dejan de perderse frente al AS-IS** | | 188 | **245** |
 
 Las medidas (recordatorios los días hábiles 3 y 6, llamada el día 8, lista de documentos al crear la solicitud y carga asistida en el stand) recuperan **≈ 57 créditos más al año**. Es la **HIPÓTESIS H-2b**: la mitad de los cierres en el portal se evitan.
+**Decisión (ronda 15, ROI-9):** el ROI se mantiene solo con el ahorro de personal; los créditos recuperados se reportan como **beneficio aparte, no monetizado** (fila 28 de la hoja `ROI`).
 Efecto en el ROI en caja: **ninguno directo**, porque el margen por crédito no se cuenta (ROI-5). Al contrario, cada crédito que no se pierde agrega trabajo de verificación y escaneo, y el ahorro de horas baja un poco. El costo de las llamadas y de la asistencia en el stand tampoco se modeló: se estima menor a RD$ 20.000 al año (≈ 0,25 h por llamada, unas 270 llamadas).
 
 ## 4. Lectura
