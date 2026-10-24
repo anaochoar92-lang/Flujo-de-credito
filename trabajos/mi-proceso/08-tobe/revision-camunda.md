@@ -44,7 +44,7 @@ Con `TMR_T02` se resuelve el riesgo del punto 6 de la lista (la unión ya no pue
 | 1 | Cada nodo queda dentro de su pool y carril | Todo el diagrama | Por revisar |
 | 2 | Los flujos de mensaje van **solo** entre pools (Cliente ↔ Banco) | `MF_*` | Por revisar |
 | 3 | Temporizador `TMR_T01`: falta la expresión de 10 días hábiles (calendario laboral) | `TB_RCV_DOCS` | Pendiente de configuración |
-| 4 | Error `ERR_T01` (portal caído o cliente sin acceso) lleva a la ruta de respaldo | `TB_RCV_DOCS` → `ACT_006` | Por revisar. [PENDIENTE: quién lo detecta y registra] |
+| 4 | Error `ERR_T01` (portal caído o cliente sin acceso) lleva a la ruta de respaldo | `TB_RCV_DOCS` → `ACT_006` | Por revisar. Lo detecta y registra **IT** (TB-9) |
 | 5 | Eventos finales: desembolsado, rechazos (3), cliente no acepta, vencida | 5 fines en Banco, 1 en Cliente | Por revisar |
 | 6 | **Paralelo:** `TB_GW_SPLIT` abre dos ramas y `TB_GW_JOIN` las cierra; ninguna rama sale sin volver | Ramas Despacho y mensajero | Por revisar. Riesgo: si `TB_GW_VERIF` → `TB_ACT_PEDIR` se repite sin fin, la unión espera indefinidamente (ver TB-5) |
 | 7 | **Merge exclusivo** `TB_GW_MERGE`: solo una ruta (digital o respaldo) llega por solicitud | Antes de `ACT_009` | Por revisar |

@@ -13,9 +13,9 @@
 | REQ-TOBE-003 | Ubicuo | El portal deberá permitir que el cliente cargue los cuatro documentos obligatorios: documento de identidad, comprobante de ingresos, estado de cuenta bancario y pagaré. | PREG-003; PREG-017 | Confirmado por entrevistado |
 | REQ-TOBE-004 | Por evento | Cuando el cliente cargue un documento, el sistema deberá validar que (a) estén los cuatro documentos, (b) cada uno esté **expedido hace 20 días o menos** y (c) sea **legible**. | TB-2; PRIO-2; RN-02 | Confirmado por entrevistado |
 | REQ-TOBE-005 | Comportamiento no deseado | Si un documento no cumple el REQ-TOBE-004, entonces el sistema deberá avisar al cliente del motivo y pedirle que lo vuelva a cargar, hasta un máximo de **5 intentos por cada documento**. | TB-3; TB-6 | Confirmado por entrevistado |
-| REQ-TOBE-006 | Comportamiento no deseado | Si los **datos de un documento no coinciden** (caso dudoso), entonces el sistema deberá enviarlo a **Legal** para que lo revise y decida. | TB-2; TB-3; TB-7 | Confirmado por entrevistado. [PENDIENTE: qué datos se cruzan, p. ej. nombre, cédula, ingresos] |
+| REQ-TOBE-006 | Comportamiento no deseado | Si el **nombre, la cédula, el salario o el monto** no son iguales entre los documentos (caso dudoso), entonces el sistema deberá enviar el expediente a **Legal** para que lo revise y decida. | TB-2; TB-3; TB-7; TB-8 | Confirmado por entrevistado |
 | REQ-TOBE-007 | Comportamiento no deseado | Si el cliente agota los 5 intentos de un documento, entonces el sistema deberá pasar la solicitud a la **ruta actual en papel** (Legal recopila el expediente). | TB-3; TB-4; AS-T1 | Confirmado por entrevistado (ronda 8) |
-| REQ-TOBE-008 | Comportamiento no deseado | Si el portal no está disponible o el cliente no puede usarlo, entonces la solicitud deberá seguir la **ruta actual en papel** (AS-IS v02 desde `ACT_006`). | TB-4 | Confirmado por entrevistado. [PENDIENTE: quién detecta y registra el paso a la ruta de respaldo] |
+| REQ-TOBE-008 | Comportamiento no deseado | Si el portal no está disponible o el cliente no puede usarlo, entonces el **área de IT** deberá registrar el paso de la solicitud a la **ruta actual en papel** (AS-IS v02 desde `ACT_006`). | TB-4; TB-9 | Confirmado por entrevistado |
 | REQ-TOBE-009 | Por evento | Cuando los cuatro documentos sean válidos, el sistema deberá, **al mismo tiempo**, (a) enviar el expediente digital a Despacho para su verificación y (b) programar la recogida de los originales y avisar al cliente. | DG-4; OPP-04; RN-01 | Propuesta (paquete A) |
 | REQ-TOBE-010 | Comportamiento no deseado | Si el mensajero certificado no logra recoger los originales, entonces **Legal** deberá recopilarlos por la ruta actual. | TB-4 | Confirmado por entrevistado |
 | REQ-TOBE-011 | Por estado | Mientras se verifica el expediente digital, Legal deberá escanear los originales recogidos (el escaneo se mantiene). | PRIO-3 | Confirmado por entrevistado |
@@ -46,4 +46,6 @@
 - **TB-5:** sí, la corrección pedida por Despacho reinicia los 10 días hábiles.
 - **TB-6:** los 5 intentos son **por cada documento**.
 - **TB-7:** «dudoso» = **los datos no coinciden**.
-- **Pendientes menores:** qué datos se cruzan en TB-7; quién detecta y registra el paso a la ruta de respaldo cuando el portal falla (REQ-TOBE-008).
+- **TB-8:** se comparan entre documentos el **nombre, la cédula, el salario y el monto**.
+- **TB-9:** si el portal falla, **IT** lo detecta y registra el paso a la ruta en papel.
+- **Sin pendientes abiertos** en los requisitos TO-BE.

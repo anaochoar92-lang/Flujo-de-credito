@@ -136,4 +136,6 @@ PREG-005 canal de inicio · PREG-013 cómputo de los 10 días (hábiles o calend
 | AS-T1 | ¿Qué pasa cuando el cliente agota los 5 intentos? (se modeló como paso a la ruta en papel) | «El supuesto que hiciste está bien, se va por la ruta en papel.» | Confirmado por entrevistado |
 | TB-5 | Si Despacho pide al cliente un documento corregido, ¿se reinician los 10 días hábiles, como hoy con cada devolución? | «Sí.» | Confirmado por entrevistado |
 | TB-6 | ¿Los 5 intentos son por documento o por expediente? | «Por cada documento.» | Confirmado por entrevistado |
-| TB-7 | ¿Qué hace que el sistema considere «dudoso» un documento y lo envíe a Legal? | «Datos no coinciden.» | Confirmado por entrevistado. Se interpreta: los datos del documento no coinciden con los de la solicitud o con los de otro documento [PENDIENTE: qué datos se cruzan] |
+| TB-7 | ¿Qué hace que el sistema considere «dudoso» un documento y lo envíe a Legal? | «Datos no coinciden.» | Confirmado por entrevistado (detalle en TB-8) |
+| TB-8 | ¿Qué datos se comparan para decidir que «no coinciden»? | «El nombre, la cédula, el salario o el monto no son iguales entre documentos.» | Confirmado por entrevistado |
+| TB-9 | Si el portal falla, ¿quién lo detecta y registra el paso a la ruta en papel? | «El área de IT.» | Confirmado por entrevistado |
