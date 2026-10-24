@@ -167,3 +167,13 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | DAT-4 | ¿Cuántas solicitudes hay fuera de la feria? | «600 los otros 10 meses, con los mismos porcentajes de devoluciones, etc.» | Confirmado por entrevistado |
 
 **Resultado ronda 10:** `09-datos/` con `casos.csv`, `actividades.csv`, `resumen_mensual.csv`, `diccionario.md` y `registro_calidad.md`.
+
+## Ronda 11 — 2026-10-24 (ROI, skill `calcular-roi`)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| ROI-1 | Moneda y costo del personal | «Pesos dominicanos. Asume que es el salario mínimo de una empresa grande en República Dominicana.» → RD$ 29.988/mes (Res. CNS-01-2025, desde 01-02-2026) | Confirmado por entrevistado |
+| ROI-2 | Horas reales de trabajo por expediente | «Ambas áreas trabajan 8 horas diarias.» → se usa para el costo por hora; las horas por expediente quedan como HIPÓTESIS H-R1 | Confirmado en parte |
+| ROI-3 | Inversión, mantenimiento y mensajero | «¿Podrías sacar esos datos de supuestos?» → SUPUESTOS S-2 a S-4 con tres escenarios | Supuesto |
+| ROI-4 | ¿Qué se gana en dinero? | «Menos personal temporal en feria.» | Confirmado por entrevistado |
+
+**Resultado ronda 11:** `12-roi/` con el Excel y `interpretacion.md`. ROI año 1 en caja negativo en los tres escenarios; el margen de los ≈ 153 créditos al año que dejan de perderse no está incluido.
