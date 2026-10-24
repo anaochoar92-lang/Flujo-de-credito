@@ -157,3 +157,13 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 |---|---|---|---|
 | KPI-Q2b | ¿Existe hoy un sistema donde queden las fechas del AS-IS? | «Sí, todo ese proceso se hace por medio de solicitudes de crédito, donde se tiene una fecha de inicio y una fecha de fin.» | Confirmado por entrevistado |
 | KPI-Q3b | ¿Las metas quedan como propuesta para validar con el Gerente de crédito? | «Sí.» | Confirmado por entrevistado |
+
+## Ronda 10 — 2026-10-24 (datos, skill `modelar-datos`)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| DAT-1 | ¿Datos reales o sintéticos? | «Sintéticos.» | Confirmado por entrevistado |
+| DAT-2 | ¿La fecha de inicio y fin cubre toda la solicitud o hay fechas por etapa? | «Sí, desde que se crea hasta el desembolso. El tiempo de cada actividad te lo pasé en fuentes.» | Confirmado. Se usan los días por actividad de la fuente |
+| DAT-3 | ¿El sistema guarda estados y devoluciones? | «Deja el estado que se da por la actividad, pero para el ejercicio lo vamos a dejar sencillo.» | Confirmado: `estado_final` según la última actividad |
+| DAT-4 | ¿Cuántas solicitudes hay fuera de la feria? | «600 los otros 10 meses, con los mismos porcentajes de devoluciones, etc.» | Confirmado por entrevistado |
+
+**Resultado ronda 10:** `09-datos/` con `casos.csv`, `actividades.csv`, `resumen_mensual.csv`, `diccionario.md` y `registro_calidad.md`.
