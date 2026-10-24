@@ -11,7 +11,7 @@
 | Cliente y valor esperado | Solicitante: crédito rápido y saber cómo va su solicitud. Concesionario: cobrar para entregar el vehículo | Declarado |
 | Tramo foco | Expediente: `ACT_006` → `GW_005` → `ACT_007` → `ACT_008` → `GW_006` | Declarado (objetivo clave) |
 | Volumen | 1.000 solicitudes por mes de feria, unas 2.000 al año. **400 por mes de feria llegan a expediente** (800 al año) | Declarado (ejemplo, DG-3) |
-| Reproceso | 20 % devueltas de Despacho a Legal → **80 por mes de feria**. 10 % cerradas por los 10 días hábiles → **40** (se asume que el 10 % es sobre las 400, AS-07) | Declarado (ejemplo) |
+| Reproceso | 20 % devueltas de Despacho a Legal → **80 por mes de feria**. 10 % cerradas por los 10 días hábiles → **40** (el 10 % es sobre las 400; AS-07 confirmado en la ronda 7) | Declarado (ejemplo) |
 | Meta | Expediente de 12 a **6** días hábiles | Declarado |
 
 ## 2. Mapa de flujo de valor (días hábiles por caso)

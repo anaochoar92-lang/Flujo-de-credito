@@ -3,7 +3,7 @@
 > **Es una PROPUESTA, no un hecho observado.** Parte del AS-IS vigente (`05-bpmn/proceso-v02.bpmn`, que no se modifica) y del paquete A aprobado en la ronda 6 (`07-diagnostico/priorizacion.md`).
 
 **Fecha:** 2026-10-24 · **Skill:** `disenar-tobe` · **Meta:** expediente de 12 a 6 días hábiles.
-**Estado:** borrador. Faltan las respuestas TB-1 a TB-4 y tu autorización para generar el modelo y el BPMN TO-BE.
+**Estado:** borrador con modelo. Respuestas TB-1 a TB-4 recibidas (ronda 7); generados `requisitos-ears-to-be.md`, `modelo-v01.json`, `proceso-to-be-v01.bpmn` y `revision-camunda.md`. Quedan 4 pendientes (sección 4).
 
 ## 1. Explicación del cambio (paso 1 del skill)
 | Aspecto | Contenido |
@@ -34,8 +34,15 @@
 Aceptación → enlace → carga y validación (≈ 2 días) → en paralelo: verificación digital (≈ 1 día) y recogida + escaneo + traslado (≈ 4 días) → unión → Desembolso.
 **Expediente ≈ 6 días hábiles** (antes 12). Sin margen si el escaneo sigue tardando 3 días.
 
-## 4. Preguntas antes de modelar (paso 2 del skill)
-TB-1 a TB-4, en la ronda 7 de `02-analisis/entrevista.md`.
+## 4. Respuestas de la ronda 7 y pendientes
+| ID | Decisión |
+|---|---|
+| TB-1 | Enlace **por correo** en cuanto el cliente acepta la decisión (inicio de los 10 días hábiles) |
+| TB-2 | Documentos **expedidos hace 20 días o menos**; legibilidad la decide el sistema y, si hay duda, Legal |
+| TB-3 | El cliente vuelve a cargar, **hasta 5 intentos**; los dudosos van a Legal |
+| TB-4 | Si algo falla, **ruta actual en papel**. Responsable del portal: **IT del banco** |
+
+**Pendientes (ronda 8):** AS-T1 (qué pasa al agotar los 5 intentos; se modeló como paso a la ruta en papel), TB-5 (si la corrección pedida por Despacho reinicia los 10 días), si los 5 intentos son por documento o por expediente, y qué hace «dudoso» un caso.
 
 ## 5. Siguiente paso
-Con tus respuestas y tu autorización: `08-tobe/requisitos-ears-to-be.md` (REQ-TOBE-*), `08-tobe/modelo-v01.json`, `08-tobe/proceso-to-be-v01.bpmn` (el AS-IS no se toca), validación y `08-tobe/revision-camunda.md`.
+Revisar `proceso-to-be-v01.bpmn` en Camunda con `revision-camunda.md`, resolver los pendientes y seguir con los KPI (`10-kpis`, skill `definir-kpis`).
