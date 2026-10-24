@@ -1,4 +1,4 @@
-# Flujo de crédito
+# Flujo de crédito preaprobado
 
 Análisis del flujo de solicitud de crédito (producto Expomóvil) para identificar qué partes del proceso se pueden automatizar. Objetivo clave: disminuir los tiempos de las actividades de expediente.
 

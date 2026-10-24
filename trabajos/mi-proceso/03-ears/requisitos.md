@@ -1,4 +1,4 @@
-# Requisitos EARS v01 — AS-IS · Flujo de crédito (Expomóvil)
+# Requisitos EARS v01 — AS-IS · Flujo de crédito preaprobado (Expomóvil)
 
 **Versión:** v01 · 2026-10-23 · **Nivel:** AS-IS · **Skill:** `redactar-ears`.
 **Fuentes:** `01-fuentes/Proceso_Solicitud_Credito_BPMN.xlsx` (XLS, hoja «Proceso BPMN» = `PB`) y entrevista, ronda 1 (`ENT`, PREG-001 a PREG-004).

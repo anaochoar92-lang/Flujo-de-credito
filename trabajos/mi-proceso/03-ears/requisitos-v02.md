@@ -1,4 +1,4 @@
-# Requisitos EARS v02 — AS-IS · Flujo de crédito (cambios sobre v01)
+# Requisitos EARS v02 — AS-IS · Flujo de crédito preaprobado (cambios sobre v01)
 
 **Versión:** v02 · 2026-10-24 · **Nivel:** AS-IS · **Fuente nueva:** entrevista, ronda 2 (PREG-007, PREG-008, PREG-013, PREG-014).
 `requisitos.md` (v01) **se conserva** y sigue vigente en todo lo que no aparece aquí.

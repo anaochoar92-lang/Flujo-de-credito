@@ -1,4 +1,4 @@
-# Inventario AS-IS — Solicitud de crédito Expomóvil (v01)
+# Inventario AS-IS — Solicitud de crédito preaprobado Expomóvil (v01)
 
 **Fecha:** 2026-10-23 · **Skill:** `analizar-sop` · **Nivel:** AS-IS.
 **Fuente única:** `01-fuentes/Proceso_Solicitud_Credito_BPMN.xlsx`

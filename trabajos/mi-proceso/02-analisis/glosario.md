@@ -1,4 +1,4 @@
-# Glosario — Solicitud de crédito Expomóvil (v01)
+# Glosario — Solicitud de crédito preaprobado Expomóvil (v01)
 
 **Fecha:** 2026-10-23 · **Fuente:** `01-fuentes/Proceso_Solicitud_Credito_BPMN.xlsx`
 

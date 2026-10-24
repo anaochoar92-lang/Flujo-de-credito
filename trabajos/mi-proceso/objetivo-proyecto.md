@@ -1,4 +1,4 @@
-# Objetivo del proyecto — Flujo de crédito
+# Objetivo del proyecto — Flujo de crédito preaprobado
 
 **Fecha:** 2026-10-23 · **Fuente:** entrevistado, ronda 1 (`02-analisis/entrevista.md`).
 
@@ -22,3 +22,10 @@ A esto se suma el reproceso: cada devolución de Despacho a Legal (G4 → T4) re
 - **Priorización (paso 10):** las oportunidades que reduzcan este tramo pesan más.
 - **TO-BE (paso 11):** la mejora elegida debe atacar los tiempos de expediente.
 - **KPI (paso 12):** como mínimo, el tiempo del tramo de expediente por solicitud, la tasa de devolución de Despacho a Legal y el porcentaje de solicitudes cerradas por vencimiento de los 10 días. Las metas no se fijan sin acuerdo del dueño del proceso.
+
+## Meta (ronda 4, 2026-10-24)
+- **Expediente: de 12 a 6 días hábiles** (PREG-016). Así se interpretó; falta confirmar que la meta es del tramo y no del proceso completo. Con esa meta, el proceso pasaría de 17 a 11 días hábiles.
+- **Medio propuesto (TO-BE):** página web donde el **cliente carga sus documentos** y el concesionario deja de ser intermediario (PREG-017).
+- **Segundo dolor del cliente:** no saber el estado de su solicitud (CV-3).
+- **Volumen de ejemplo:** 1.000 solicitudes por mes de feria (febrero y noviembre), unas 2.000 al año (PREG-018).
+- **Restricción:** los originales deben llegar en físico a Desembolso (RN-01).

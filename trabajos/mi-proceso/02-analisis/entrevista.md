@@ -57,3 +57,57 @@ PREG-005 canal de inicio · PREG-013 cómputo de los 10 días (hábiles o calend
 - Confirmado: cómputo del plazo, composición de los tiempos de expediente, obligación del soporte físico, volumen y tasas de ejemplo, motivo principal de devolución.
 - Pendiente (no bloquea): periodo de las 1.000 solicitudes (mes o año), AS-01 (si se repite Riesgo), canal, sistemas, segregación, garantías.
 - Suficiente para la fase 2 (diagnóstico, priorización, TO-BE y KPI).
+
+## Ronda 3 — 2026-10-24 (cadena de valor, skill `cadena-valor`)
+**Hipótesis presentadas (no confirmadas):** el proceso entrega el producto **crédito vehicular Expomóvil**. Es una **actividad primaria** (operaciones / ventas del banco); Legal, Despacho y Desembolso son actividades de **apoyo** que habilitan el desembolso. Clientes: el **solicitante** (externo) y posiblemente el **concesionario** que vende el vehículo. El tramo de expediente es el que más se aleja del valor percibido por el cliente.
+
+| ID | Pregunta | Caso adversarial | Por qué importa | Respuesta | Estado |
+|---|---|---|---|---|---|
+| CV-1 | ¿«Expomóvil» es una **feria o campaña con fechas** o un **producto permanente** del banco? | Si es una feria de una semana, un expediente de 12 días hace que el cliente compre con otro banco antes de que termine. | Define cuánto vale cada día ganado. | «Es una feria que se da en ciertas fechas del año.» | Confirmado por entrevistado |
+| CV-2 | ¿A quién se le desembolsa: al **cliente** o al **concesionario**? ¿El concesionario participa en el proceso, por ejemplo entregando documentos? | El concesionario espera el pago para entregar el carro y presiona al banco. | Define quién es el cliente que recibe el valor y quién sufre la demora. | «Para términos prácticos, dejémoslo al concesionario. Sí participa en el proceso para entregar documentos.» | Confirmado por entrevistado |
+| CV-3 | Desde el punto de vista del cliente, ¿qué paso le genera **más quejas o abandonos**? ¿Coincide con el expediente? | El cliente quizá se queja más de no saber en qué va su solicitud que del tiempo en sí. | Confirma si el objetivo clave es el punto crítico para el cliente. | «Le molesta más no saber cómo está su solicitud.» | Confirmado por entrevistado |
+| CV-4 | ¿Qué **meta medible** tienen para el expediente? Por ejemplo, pasar de 12 a N días hábiles, o bajar la devolución del 20 % al X %, y en qué plazo. | Sin meta, cualquier mejora parece suficiente. | Será la meta del KPI principal y la base del ROI. | «Disminuir el tiempo de 12 días hábiles a N días para todo el proceso, y hacerlo por medio de una página web para reducir los tiempos de cargue de documentos.» | Confirmado en parte (N y alcance por confirmar) |
+
+### Interpretación de la ronda 3
+| ID | Decisión | Estado |
+|---|---|---|
+| CV-1 | Expomóvil es una **feria en fechas concretas del año**: la demanda llega en picos y cada día de demora pesa más | Confirmado por entrevistado |
+| CV-2 | Se desembolsa al **concesionario**. El concesionario **entrega documentos** del expediente | Confirmado por entrevistado. Impacto en el AS-IS: es un actor externo que no está en el BPMN v02 (posible pool «Concesionario» en una próxima versión) |
+| CV-3 | Lo que más molesta al cliente es **no saber el estado de su solicitud** | Confirmado por entrevistado. Nuevo dolor del cliente, distinto del tiempo |
+| CV-4 | Meta: bajar de **12 días hábiles a N**, mediante una **página web de cargue de documentos** | Confirmado en parte. **Contradicción C-02:** 12 días es el tramo de expediente, no «todo el proceso» (17 días). N no está definido. La página web es una **propuesta TO-BE**, no AS-IS |
+
+### Contradicción nueva C-01 (bloquea el nombre del proyecto)
+- Ronda 1 (PREG-001): «El nombre quedó como preaprobado pero no lo es […]; aquí pasaría igual para todos.» → se renombró el repositorio a «Flujo-de-credito».
+- Ronda 3: «Una acotación: el flujo sí es de preaprobado.»
+- No se cambia nada hasta aclararlo (PREG-015).
+
+## Ronda 4 — 2026-10-24 (aclaraciones)
+| ID | Pregunta | Caso adversarial | Por qué importa | Respuesta | Estado |
+|---|---|---|---|---|---|
+| PREG-015 | En la ronda 1 se indicó que el flujo **no** era de preaprobado y que todos siguen los mismos pasos; ahora se indica que **sí** lo es. ¿Qué significa aquí «preaprobado»? ¿El cliente sale de la feria **preaprobado** (Riesgo + Análisis) y luego completa el expediente para el desembolso? ¿O hay clientes que llegan ya preaprobados y se saltan pasos? ¿Volvemos a llamar el proyecto «preaprobado»? | Un cliente preaprobado en la feria que no entrega documentos en 10 días: ¿pierde la preaprobación? | Define el alcance, el nombre y si hay una variante en el BPMN. | «El nombre de preaprobado no cambia nada el flujo, solo es para que lo agregues en títulos, etc. No cambies más nombres, ya déjalo así.» | Confirmado por entrevistado |
+| PREG-016 | ¿Cuál es el valor de **N**? ¿La meta es para el tramo de expediente (hoy 12 días hábiles) o para todo el proceso (hoy 17)? | Bajar el total a 12 ya sería una mejora de 5 días; bajar el expediente a 12 no cambia nada. | Es la meta del KPI principal y la base del ROI. | «El valor N sería 6.» | Confirmado por entrevistado (tramo interpretado: expediente) |
+| PREG-017 | En la página web, ¿quién carga los documentos: el cliente, el concesionario o ambos? Como el soporte físico es obligatorio (RN-01), ¿los originales siguen viajando en físico a Desembolso después de cargarlos en la web? | Si la web elimina el escaneo pero el original llega tarde, Desembolso sigue esperando. | Define el alcance real del TO-BE. | «Que los cargue el cliente y que el concesionario deje de ser un intermediario, para reducir ese tiempo.» | Confirmado por entrevistado (originales físicos por confirmar) |
+| PREG-018 | ¿Las 1.000 solicitudes son **por feria**, por mes o por año? ¿Cuántas ferias hay al año? | 1.000 por feria con 2 ferias al año es muy distinto de 1.000 al mes para el ROI. | Volumen para los KPI y el ROI (AS-06). | «Las 1000 son por mes cuando se hace la feria, que son febrero y noviembre.» | Confirmado por entrevistado |
+
+### Interpretación de la ronda 4
+| ID | Decisión | Estado |
+|---|---|---|
+| PREG-015 / C-01 | «Preaprobado» es solo la **etiqueta** del proceso: se añade en los títulos. **No cambia el flujo** (sigue siendo igual para todos) y **no se cambian más nombres** de repositorio ni de carpeta. Resuelve C-01 | Confirmado por entrevistado |
+| PREG-016 / C-02 | **N = 6 días hábiles.** Se interpreta para el **tramo de expediente** (12 → 6), porque el resto del proceso ya suma 5 días y un total de 6 no sería alcanzable. Con esa meta, el proceso completo pasaría de 17 a 11 días hábiles | Confirmado por entrevistado; la interpretación del tramo queda **por confirmar** |
+| PREG-017 | En el TO-BE, el **cliente carga sus documentos en la página web** y el concesionario **deja de ser intermediario** en la entrega de documentos | Confirmado por entrevistado (propuesta TO-BE). Pendiente: cómo llegan los originales físicos (RN-01) |
+| PREG-018 | **1.000 solicitudes por mes de feria**; hay feria en **febrero y noviembre** → unas **2.000 solicitudes al año** | Confirmado por entrevistado (datos de ejemplo). AS-06 cambia: no son mensuales todo el año |
+
+## Ronda 5 — 2026-10-24 (diagnóstico, skill `diagnosticar-asis`)
+| ID | Pregunta | Caso adversarial | Por qué importa | Respuesta | Estado |
+|---|---|---|---|---|---|
+| DG-1 | (Cinco porqués de P-01, nivel 2) Los documentos con más de 1 mes, ¿**ya llegan así** cuando el cliente o el concesionario los entrega, o **se vencen mientras** el expediente está en proceso? | Un comprobante de ingresos expedido hace 25 días se vence en el día 6 del expediente. | Define si la solución es validar al recibir o acortar el proceso. | «Puede que se venzan durante el proceso; no pasa mucho, pero sí está la posibilidad.» | Confirmado por entrevistado |
+| DG-2 | ¿Legal revisa la fecha de expedición cuando recibe los documentos? Si no, ¿por qué esa revisión la hace solo Despacho, al final? | Legal da por completo un expediente con un documento vencido y se pierden 12 días. | Nivel 3 de los cinco porqués; apunta a la validación temprana. | «La revisa Legal, pero en el transcurso de que llegue a Despacho se pudieron haber vencido.» | Confirmado por entrevistado |
+| DG-3 | De las 1.000 solicitudes de un mes de feria, ¿cuántas llegan a la etapa de expediente (no rechazadas y con el cliente que acepta)? | Si solo 400 llegan a expediente, el 20 % son 80 devoluciones, no 200. | Volumen real del tramo que se quiere mejorar (KPI y ROI). | «Correcto, serían 20 %, es decir 80.» | Confirmado por entrevistado |
+| DG-4 | Si el cliente carga sus documentos en la web, ¿cómo llegarían los **originales físicos** a Desembolso (RN-01)? ¿El cliente los lleva a una oficina, se recogen o los entrega en la feria? ¿Hace falta seguir escaneando si el documento ya llega digital? | La web elimina el escaneo, pero el original llega tarde y Desembolso sigue esperando. | Decide cuánto del objetivo de 6 días es alcanzable. | «Los puede dejar en la puerta de su casa y pasa un mensajero certificado y los recoge.» | Confirmado por entrevistado (escaneo sin responder) |
+
+## Ronda 6 — 2026-10-24 (priorización, skill `priorizar-automatizacion`)
+| ID | Pregunta | Por qué importa | Respuesta | Estado |
+|---|---|---|---|---|
+| PRIO-1 | ¿Qué alcance tiene el TO-BE? (A) Paquete recomendado: portal web con validación automática (OPP-01 + OPP-02) + recogida a domicilio (OPP-04) + consulta de estado (OPP-03). (B) Solo portal + validación. (C) Otra combinación | Define qué se diseña en el TO-BE, los KPI y el ROI | — | PENDIENTE |
+| PRIO-2 | ¿Confirmas la causa raíz de P-01? «El expediente se arma en papel y en serie, la vigencia se consume en esperas y no hay ninguna regla que exija un margen de vigencia al recibir» | El skill pide confirmar la causa raíz antes de concluir | — | PENDIENTE |
+| PRIO-3 | Si el documento llega en digital por la web, ¿hace falta seguir escaneando el original físico? | Decide si el escaneo (3 días) desaparece | — | PENDIENTE |
