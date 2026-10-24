@@ -1,0 +1,46 @@
+{
+  "archivo": "trabajos/mi-proceso/08-tobe/proceso-to-be-v02.bpmn",
+  "errores": [],
+  "advertencias": [
+    "Process_Credito: gateway de decisión GW_001 sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: gateway de decisión GW_002 sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: gateway de decisión GW_003 sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: gateway de decisión GW_004 sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: nodo no alcanzable desde el inicio: SVC_001 (Cerrar solicitud automáticamente)",
+    "Process_Credito: gateway de decisión TB_GW_VALIDO sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: nodo no alcanzable desde el inicio: END_VENCIDA (Solicitud cerrada por expediente incompleto)",
+    "Process_Credito: gateway de decisión TB_GW_LEGAL sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: gateway de decisión TB_GW_VERIF sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: gateway de decisión TB_GW_RECOGIDA sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: gateway de decisión GW_005 sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)",
+    "Process_Credito: gateway de decisión GW_006 sin flujo por defecto ni condiciones formales (apto solo para revisión conceptual)"
+  ],
+  "estadisticas": {
+    "Process_Cliente": {
+      "nodos": 4,
+      "flujos": 3,
+      "inicios": 1,
+      "fines": 1
+    },
+    "Process_Credito": {
+      "nodos": 44,
+      "flujos": 53,
+      "inicios": 1,
+      "fines": 5
+    },
+    "global": {
+      "procesos": 2,
+      "participantes": 2,
+      "messageFlows": 6,
+      "formasDI": 57,
+      "conectoresDI": 62
+    }
+  },
+  "limitaciones": [
+    "No valida contra el XSD oficial BPMN 2.0.",
+    "No comprueba configuración Zeebe/Camunda para ejecución.",
+    "No verifica coherencia jurídica ni semántica de las decisiones.",
+    "El aspecto visual debe revisarse en Camunda Modeler.",
+    "Port en Node.js de validar_bpmn.py: lee el XML con expresiones regulares, no con un analizador XML completo."
+  ]
+}

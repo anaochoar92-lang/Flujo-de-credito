@@ -1,4 +1,20 @@
-# Revisión en Camunda Modeler — TO-BE v01
+# Revisión en Camunda Modeler — TO-BE v01 y v02
+
+## Cambios v02 (ronda 8) — versión vigente
+**Archivos:** `proceso-to-be-v02.bpmn` · `modelo-v02.json` · `validacion-to-be-v02.json` → **0 errores, 12 advertencias** (las mismas de la v01). La v01 se conserva.
+| Cambio | Elemento | Fuente |
+|---|---|---|
+| Se quita la marca [SUPUESTO] del paso a la ruta en papel | `F_T08` «5 intentos agotados en un documento» | AS-T1 |
+| Los intentos se cuentan por documento | `F_T06` «Rechazado (menos de 5 intentos del documento)» | TB-6 |
+| «Dudoso» significa que los datos no coinciden | `F_T07` «Dudoso: datos no coinciden» | TB-7 |
+| **Nuevo temporizador** de 10 días hábiles sobre la corrección pedida por Despacho (el conteo se reinicia) | `TMR_T02` en `TB_ACT_PEDIR` → `SVC_001` | TB-5 |
+| El cierre por vencimiento pasa a evento final de **terminación**, para que también cierre la rama paralela del mensajero | `END_VENCIDA` | TB-5 (consecuencia del modelo) |
+
+Con `TMR_T02` se resuelve el riesgo del punto 6 de la lista (la unión ya no puede esperar sin fin). El punto 8 ya no tiene supuestos.
+
+---
+
+## Versión v01
 
 > **Propuesta, no aprobada.** El diagrama es descriptivo: **no es ejecutable** sin configuración de Camunda (condiciones, expresiones de tiempo, conectores de correo y portal) y sin validaciones formales adicionales.
 

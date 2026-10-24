@@ -1,0 +1,839 @@
+{
+  "id": "Definitions_FlujoCredito_TOBE",
+  "name": "Flujo de crédito preaprobado Expomóvil — TO-BE PROPUESTA v02 (NO APROBADO)",
+  "messages": [
+    {
+      "id": "Msg_Enlace",
+      "name": "Correo con enlace al portal"
+    }
+  ],
+  "errors": [
+    {
+      "id": "Err_Portal",
+      "name": "Portal no disponible o cliente sin acceso"
+    }
+  ],
+  "processes": [
+    {
+      "id": "Process_Cliente",
+      "name": "Cliente",
+      "isExecutable": false,
+      "nodes": [
+        {
+          "id": "CL_START",
+          "type": "startEvent",
+          "name": "Recibir correo con enlace",
+          "event": {
+            "kind": "message",
+            "ref": "Msg_Enlace"
+          },
+          "column": 9,
+          "trace": "TB-1; REQ-TOBE-001"
+        },
+        {
+          "id": "CL_CARGAR",
+          "type": "userTask",
+          "name": "Cargar documentos en el portal",
+          "column": 10,
+          "trace": "PREG-017; REQ-TOBE-003, REQ-TOBE-005"
+        },
+        {
+          "id": "CL_DEJAR",
+          "type": "manualTask",
+          "name": "Dejar originales para recogida",
+          "column": 16,
+          "trace": "DG-4; PROC-TOBE-003"
+        },
+        {
+          "id": "CL_END",
+          "type": "endEvent",
+          "name": "Documentos entregados",
+          "column": 17,
+          "trace": "DG-4"
+        }
+      ],
+      "flows": [
+        {
+          "id": "F_C01",
+          "source": "CL_START",
+          "target": "CL_CARGAR"
+        },
+        {
+          "id": "F_C02",
+          "source": "CL_CARGAR",
+          "target": "CL_DEJAR"
+        },
+        {
+          "id": "F_C03",
+          "source": "CL_DEJAR",
+          "target": "CL_END"
+        }
+      ]
+    },
+    {
+      "id": "Process_Credito",
+      "name": "Banco — solicitud de crédito Expomóvil (TO-BE)",
+      "isExecutable": false,
+      "lanes": [
+        {
+          "id": "Lane_Negocio",
+          "name": "Persona de Negocio",
+          "nodeIds": [
+            "EVT_001",
+            "ACT_001",
+            "ACT_005"
+          ]
+        },
+        {
+          "id": "Lane_Riesgo",
+          "name": "Persona de Riesgo",
+          "nodeIds": [
+            "ACT_002",
+            "GW_001",
+            "END_RECH_RIESGO"
+          ]
+        },
+        {
+          "id": "Lane_Analista",
+          "name": "Analista de crédito (Despacho)",
+          "nodeIds": [
+            "ACT_003",
+            "GW_002",
+            "END_RECHAZADA",
+            "ACT_004",
+            "GW_003",
+            "END_NO_ACEPTA",
+            "GW_004",
+            "ACT_008",
+            "GW_006",
+            "TB_ACT_VERIF",
+            "TB_GW_VERIF",
+            "TB_ACT_PEDIR"
+          ]
+        },
+        {
+          "id": "Lane_Sistema",
+          "name": "Sistema / portal (IT del banco)",
+          "nodeIds": [
+            "TB_SND_ENLACE",
+            "TB_RCV_DOCS",
+            "TB_SVC_VALIDAR",
+            "TB_GW_VALIDO",
+            "TB_SND_CORREGIR",
+            "SVC_001",
+            "END_VENCIDA",
+            "TB_GW_SPLIT",
+            "TB_SND_RECOGIDA"
+          ]
+        },
+        {
+          "id": "Lane_Legal",
+          "name": "Legal",
+          "nodeIds": [
+            "TB_ACT_REVISAR",
+            "TB_GW_LEGAL",
+            "ACT_006",
+            "GW_005",
+            "ACT_007",
+            "TB_ACT_RECOP_ORIG",
+            "TB_ACT_ESCANEAR"
+          ]
+        },
+        {
+          "id": "Lane_Mensajero",
+          "name": "Mensajero certificado",
+          "nodeIds": [
+            "TB_ACT_RECOGER",
+            "TB_GW_RECOGIDA"
+          ]
+        },
+        {
+          "id": "Lane_Desembolso",
+          "name": "Desembolso",
+          "nodeIds": [
+            "TB_GW_JOIN",
+            "TB_GW_MERGE",
+            "ACT_009",
+            "END_DESEMBOLSADO"
+          ]
+        }
+      ],
+      "nodes": [
+        {
+          "id": "EVT_001",
+          "type": "startEvent",
+          "name": "Cliente solicita crédito",
+          "column": 0,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "ACT_001",
+          "type": "userTask",
+          "name": "Crear solicitud",
+          "column": 1,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "ACT_002",
+          "type": "userTask",
+          "name": "Evaluar solicitud",
+          "column": 2,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "GW_001",
+          "type": "exclusiveGateway",
+          "name": "¿Cliente apto?",
+          "column": 3,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "END_RECH_RIESGO",
+          "type": "endEvent",
+          "name": "Solicitud rechazada por Riesgo",
+          "column": 4,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "ACT_003",
+          "type": "userTask",
+          "name": "Analizar crédito",
+          "column": 4,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "GW_002",
+          "type": "exclusiveGateway",
+          "name": "¿Decisión del análisis?",
+          "column": 5,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "END_RECHAZADA",
+          "type": "endEvent",
+          "name": "Solicitud rechazada",
+          "column": 6,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "ACT_004",
+          "type": "userTask",
+          "name": "Informar decisión al cliente",
+          "column": 6,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "GW_003",
+          "type": "exclusiveGateway",
+          "name": "¿Cliente acepta y continúa?",
+          "column": 7,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "END_NO_ACEPTA",
+          "type": "endEvent",
+          "name": "Solicitud cerrada: cliente no acepta",
+          "column": 8,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "GW_004",
+          "type": "exclusiveGateway",
+          "name": "¿Aprobada con condiciones?",
+          "column": 8,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "ACT_005",
+          "type": "userTask",
+          "name": "Modificar datos del crédito",
+          "column": 9,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "TB_SND_ENLACE",
+          "type": "sendTask",
+          "name": "Enviar enlace al portal por correo [PROPUESTA]",
+          "column": 9,
+          "trace": "TB-1; REQ-TOBE-001, REQ-TOBE-002; OPP-01"
+        },
+        {
+          "id": "TB_RCV_DOCS",
+          "type": "receiveTask",
+          "name": "Recibir documentos cargados [PROPUESTA]",
+          "column": 10,
+          "trace": "PREG-017; REQ-TOBE-003; OPP-01"
+        },
+        {
+          "id": "TMR_T01",
+          "type": "boundaryEvent",
+          "name": "10 días hábiles sin documentos válidos",
+          "attachedTo": "TB_RCV_DOCS",
+          "cancelActivity": true,
+          "event": {
+            "kind": "timer"
+          },
+          "trace": "PREG-013; REQ-TOBE-013"
+        },
+        {
+          "id": "ERR_T01",
+          "type": "boundaryEvent",
+          "name": "Portal no disponible o cliente sin acceso",
+          "attachedTo": "TB_RCV_DOCS",
+          "cancelActivity": true,
+          "event": {
+            "kind": "error",
+            "ref": "Err_Portal"
+          },
+          "trace": "TB-4; REQ-TOBE-008"
+        },
+        {
+          "id": "TB_SVC_VALIDAR",
+          "type": "serviceTask",
+          "name": "Validar documentos: completos, ≤ 20 días y legibles [PROPUESTA]",
+          "column": 11,
+          "trace": "TB-2; REQ-TOBE-004; OPP-02"
+        },
+        {
+          "id": "SVC_001",
+          "type": "serviceTask",
+          "name": "Cerrar solicitud automáticamente",
+          "column": 11,
+          "trace": "REQ-012; REQ-TOBE-013"
+        },
+        {
+          "id": "TB_GW_VALIDO",
+          "type": "exclusiveGateway",
+          "name": "¿Resultado de la validación?",
+          "column": 12,
+          "trace": "TB-2, TB-3, ronda 8 (AS-T1, intentos por documento, dudoso = datos no coinciden); REQ-TOBE-004 a 007"
+        },
+        {
+          "id": "END_VENCIDA",
+          "type": "endEvent",
+          "name": "Solicitud cerrada por expediente incompleto",
+          "column": 12,
+          "trace": "REQ-012; REQ-TOBE-013; terminate: cierra también la rama paralela (ronda 8)",
+          "event": {
+            "kind": "terminate"
+          }
+        },
+        {
+          "id": "TB_SND_CORREGIR",
+          "type": "sendTask",
+          "name": "Pedir al cliente que vuelva a cargar [PROPUESTA]",
+          "column": 13,
+          "trace": "TB-3; REQ-TOBE-005"
+        },
+        {
+          "id": "TB_ACT_REVISAR",
+          "type": "userTask",
+          "name": "Revisar documento dudoso",
+          "column": 13,
+          "trace": "TB-2, TB-3; REQ-TOBE-006; PROC-TOBE-001"
+        },
+        {
+          "id": "TB_GW_LEGAL",
+          "type": "exclusiveGateway",
+          "name": "¿Legal lo acepta?",
+          "column": 14,
+          "trace": "TB-3; PROC-TOBE-001"
+        },
+        {
+          "id": "TB_GW_SPLIT",
+          "type": "parallelGateway",
+          "name": "Expediente digital válido",
+          "column": 15,
+          "trace": "REQ-TOBE-009; OPP-04"
+        },
+        {
+          "id": "TB_ACT_VERIF",
+          "type": "userTask",
+          "name": "Verificar expediente digital (Despacho)",
+          "column": 16,
+          "trace": "PROC-008; PROC-TOBE-002"
+        },
+        {
+          "id": "TB_GW_VERIF",
+          "type": "exclusiveGateway",
+          "name": "¿Expediente digital OK?",
+          "column": 17,
+          "trace": "PROC-010; PROC-TOBE-002"
+        },
+        {
+          "id": "TB_ACT_PEDIR",
+          "type": "userTask",
+          "name": "Pedir documento corregido al cliente",
+          "column": 18,
+          "trace": "PROC-TOBE-002; TB-5 (reinicia los 10 días hábiles)"
+        },
+        {
+          "id": "TMR_T02",
+          "type": "boundaryEvent",
+          "name": "10 días hábiles sin documento corregido",
+          "attachedTo": "TB_ACT_PEDIR",
+          "cancelActivity": true,
+          "event": {
+            "kind": "timer"
+          },
+          "trace": "TB-5; REQ-TOBE-013"
+        },
+        {
+          "id": "TB_SND_RECOGIDA",
+          "type": "sendTask",
+          "name": "Programar recogida y avisar al cliente [PROPUESTA]",
+          "column": 16,
+          "trace": "DG-4; REQ-TOBE-009; OPP-04"
+        },
+        {
+          "id": "TB_ACT_RECOGER",
+          "type": "manualTask",
+          "name": "Recoger originales a domicilio",
+          "column": 17,
+          "trace": "DG-4; PROC-TOBE-003"
+        },
+        {
+          "id": "TB_GW_RECOGIDA",
+          "type": "exclusiveGateway",
+          "name": "¿Recogida lograda?",
+          "column": 18,
+          "trace": "TB-4; REQ-TOBE-010"
+        },
+        {
+          "id": "TB_ACT_RECOP_ORIG",
+          "type": "userTask",
+          "name": "Recopilar originales por la ruta actual",
+          "column": 19,
+          "trace": "TB-4; REQ-TOBE-010"
+        },
+        {
+          "id": "TB_ACT_ESCANEAR",
+          "type": "userTask",
+          "name": "Escanear originales y enviar sobre",
+          "column": 20,
+          "trace": "PRIO-3; RN-01; REQ-TOBE-011; PROC-TOBE-004"
+        },
+        {
+          "id": "ACT_006",
+          "type": "userTask",
+          "name": "Recopilar expediente en papel (ruta de respaldo)",
+          "column": 14,
+          "trace": "AS-IS v02; TB-4; REQ-TOBE-007, REQ-TOBE-008"
+        },
+        {
+          "id": "TMR_001",
+          "type": "boundaryEvent",
+          "name": "10 días hábiles sin expediente completo",
+          "attachedTo": "ACT_006",
+          "cancelActivity": true,
+          "event": {
+            "kind": "timer"
+          },
+          "trace": "AS-IS v02; REQ-012"
+        },
+        {
+          "id": "GW_005",
+          "type": "exclusiveGateway",
+          "name": "¿Documentación completa?",
+          "column": 15,
+          "trace": "AS-IS v02 (respaldo)"
+        },
+        {
+          "id": "ACT_007",
+          "type": "userTask",
+          "name": "Escanear documentación",
+          "column": 16,
+          "trace": "AS-IS v02 (respaldo)"
+        },
+        {
+          "id": "ACT_008",
+          "type": "userTask",
+          "name": "Verificar y autorizar expediente (Despacho)",
+          "column": 19,
+          "trace": "AS-IS v02 (respaldo)"
+        },
+        {
+          "id": "GW_006",
+          "type": "exclusiveGateway",
+          "name": "¿Documentación OK?",
+          "column": 20,
+          "trace": "AS-IS v02 (respaldo)"
+        },
+        {
+          "id": "TB_GW_JOIN",
+          "type": "parallelGateway",
+          "name": "Verificación OK y sobre enviado",
+          "column": 21,
+          "trace": "RN-01; REQ-TOBE-012"
+        },
+        {
+          "id": "TB_GW_MERGE",
+          "type": "exclusiveGateway",
+          "name": "Unir ruta digital y de respaldo",
+          "column": 22,
+          "trace": "TB-4"
+        },
+        {
+          "id": "ACT_009",
+          "type": "userTask",
+          "name": "Desembolsar crédito y gestionar post-desembolso",
+          "column": 23,
+          "trace": "AS-IS v02 sin cambio"
+        },
+        {
+          "id": "END_DESEMBOLSADO",
+          "type": "endEvent",
+          "name": "Crédito desembolsado",
+          "column": 24,
+          "trace": "AS-IS v02 sin cambio"
+        }
+      ],
+      "flows": [
+        {
+          "id": "F_001",
+          "source": "EVT_001",
+          "target": "ACT_001"
+        },
+        {
+          "id": "F_002",
+          "source": "ACT_001",
+          "target": "ACT_002",
+          "name": "Enviar a Riesgo"
+        },
+        {
+          "id": "F_003",
+          "source": "ACT_002",
+          "target": "GW_001"
+        },
+        {
+          "id": "F_004",
+          "source": "GW_001",
+          "target": "ACT_003",
+          "name": "Apto"
+        },
+        {
+          "id": "F_005",
+          "source": "GW_001",
+          "target": "ACT_001",
+          "name": "Corregir datos"
+        },
+        {
+          "id": "F_006",
+          "source": "GW_001",
+          "target": "END_RECH_RIESGO",
+          "name": "Rechazar"
+        },
+        {
+          "id": "F_007",
+          "source": "ACT_003",
+          "target": "GW_002"
+        },
+        {
+          "id": "F_008",
+          "source": "GW_002",
+          "target": "ACT_004",
+          "name": "Aprobar (con o sin condiciones)"
+        },
+        {
+          "id": "F_009",
+          "source": "GW_002",
+          "target": "END_RECHAZADA",
+          "name": "Rechazar"
+        },
+        {
+          "id": "F_010",
+          "source": "ACT_004",
+          "target": "GW_003"
+        },
+        {
+          "id": "F_011",
+          "source": "GW_003",
+          "target": "END_NO_ACEPTA",
+          "name": "No acepta"
+        },
+        {
+          "id": "F_012",
+          "source": "GW_003",
+          "target": "GW_004",
+          "name": "Acepta"
+        },
+        {
+          "id": "F_013",
+          "source": "GW_004",
+          "target": "ACT_005",
+          "name": "Con condiciones"
+        },
+        {
+          "id": "F_015",
+          "source": "ACT_005",
+          "target": "ACT_003",
+          "name": "Volver a análisis"
+        },
+        {
+          "id": "F_T01",
+          "source": "GW_004",
+          "target": "TB_SND_ENLACE",
+          "name": "Sin condiciones"
+        },
+        {
+          "id": "F_T02",
+          "source": "TB_SND_ENLACE",
+          "target": "TB_RCV_DOCS"
+        },
+        {
+          "id": "F_T03",
+          "source": "TB_RCV_DOCS",
+          "target": "TB_SVC_VALIDAR"
+        },
+        {
+          "id": "F_T04",
+          "source": "TB_SVC_VALIDAR",
+          "target": "TB_GW_VALIDO"
+        },
+        {
+          "id": "F_T05",
+          "source": "TB_GW_VALIDO",
+          "target": "TB_GW_SPLIT",
+          "name": "Válidos"
+        },
+        {
+          "id": "F_T06",
+          "source": "TB_GW_VALIDO",
+          "target": "TB_SND_CORREGIR",
+          "name": "Rechazado (menos de 5 intentos del documento)"
+        },
+        {
+          "id": "F_T07",
+          "source": "TB_GW_VALIDO",
+          "target": "TB_ACT_REVISAR",
+          "name": "Dudoso: datos no coinciden"
+        },
+        {
+          "id": "F_T08",
+          "source": "TB_GW_VALIDO",
+          "target": "ACT_006",
+          "name": "5 intentos agotados en un documento"
+        },
+        {
+          "id": "F_T09",
+          "source": "TB_SND_CORREGIR",
+          "target": "TB_RCV_DOCS",
+          "name": "Esperar nueva carga"
+        },
+        {
+          "id": "F_T10",
+          "source": "TB_ACT_REVISAR",
+          "target": "TB_GW_LEGAL"
+        },
+        {
+          "id": "F_T11",
+          "source": "TB_GW_LEGAL",
+          "target": "TB_GW_SPLIT",
+          "name": "Acepta"
+        },
+        {
+          "id": "F_T12",
+          "source": "TB_GW_LEGAL",
+          "target": "TB_SND_CORREGIR",
+          "name": "No acepta"
+        },
+        {
+          "id": "F_T13",
+          "source": "TMR_T01",
+          "target": "SVC_001"
+        },
+        {
+          "id": "F_T14",
+          "source": "ERR_T01",
+          "target": "ACT_006",
+          "name": "Ruta de respaldo"
+        },
+        {
+          "id": "F_020",
+          "source": "SVC_001",
+          "target": "END_VENCIDA"
+        },
+        {
+          "id": "F_T15",
+          "source": "TB_GW_SPLIT",
+          "target": "TB_ACT_VERIF"
+        },
+        {
+          "id": "F_T16",
+          "source": "TB_GW_SPLIT",
+          "target": "TB_SND_RECOGIDA"
+        },
+        {
+          "id": "F_T17",
+          "source": "TB_ACT_VERIF",
+          "target": "TB_GW_VERIF"
+        },
+        {
+          "id": "F_T18",
+          "source": "TB_GW_VERIF",
+          "target": "TB_GW_JOIN",
+          "name": "OK"
+        },
+        {
+          "id": "F_T19",
+          "source": "TB_GW_VERIF",
+          "target": "TB_ACT_PEDIR",
+          "name": "No cuadra"
+        },
+        {
+          "id": "F_T20",
+          "source": "TB_ACT_PEDIR",
+          "target": "TB_ACT_VERIF",
+          "name": "Documento corregido"
+        },
+        {
+          "id": "F_T29",
+          "source": "TMR_T02",
+          "target": "SVC_001"
+        },
+        {
+          "id": "F_T21",
+          "source": "TB_SND_RECOGIDA",
+          "target": "TB_ACT_RECOGER"
+        },
+        {
+          "id": "F_T22",
+          "source": "TB_ACT_RECOGER",
+          "target": "TB_GW_RECOGIDA"
+        },
+        {
+          "id": "F_T23",
+          "source": "TB_GW_RECOGIDA",
+          "target": "TB_ACT_ESCANEAR",
+          "name": "Sí"
+        },
+        {
+          "id": "F_T24",
+          "source": "TB_GW_RECOGIDA",
+          "target": "TB_ACT_RECOP_ORIG",
+          "name": "No"
+        },
+        {
+          "id": "F_T25",
+          "source": "TB_ACT_RECOP_ORIG",
+          "target": "TB_ACT_ESCANEAR"
+        },
+        {
+          "id": "F_T26",
+          "source": "TB_ACT_ESCANEAR",
+          "target": "TB_GW_JOIN"
+        },
+        {
+          "id": "F_T27",
+          "source": "TB_GW_JOIN",
+          "target": "TB_GW_MERGE"
+        },
+        {
+          "id": "F_016",
+          "source": "ACT_006",
+          "target": "GW_005"
+        },
+        {
+          "id": "F_017",
+          "source": "GW_005",
+          "target": "ACT_007",
+          "name": "Completa"
+        },
+        {
+          "id": "F_018",
+          "source": "GW_005",
+          "target": "ACT_006",
+          "name": "Incompleta: seguir recopilando"
+        },
+        {
+          "id": "F_019",
+          "source": "TMR_001",
+          "target": "SVC_001"
+        },
+        {
+          "id": "F_021",
+          "source": "ACT_007",
+          "target": "ACT_008",
+          "name": "Enviar a Despacho"
+        },
+        {
+          "id": "F_022",
+          "source": "ACT_008",
+          "target": "GW_006"
+        },
+        {
+          "id": "F_023",
+          "source": "GW_006",
+          "target": "TB_GW_MERGE",
+          "name": "OK: enviar sobre"
+        },
+        {
+          "id": "F_024",
+          "source": "GW_006",
+          "target": "ACT_006",
+          "name": "Falta, no cuadra o documentos con más de 1 mes"
+        },
+        {
+          "id": "F_T28",
+          "source": "TB_GW_MERGE",
+          "target": "ACT_009"
+        },
+        {
+          "id": "F_025",
+          "source": "ACT_009",
+          "target": "END_DESEMBOLSADO"
+        }
+      ]
+    }
+  ],
+  "participants": [
+    {
+      "id": "Participant_Cliente",
+      "name": "Cliente",
+      "processRef": "Process_Cliente"
+    },
+    {
+      "id": "Participant_Banco",
+      "name": "Banco — flujo de crédito preaprobado (TO-BE)",
+      "processRef": "Process_Credito"
+    }
+  ],
+  "messageFlows": [
+    {
+      "id": "MF_Enlace",
+      "source": "TB_SND_ENLACE",
+      "target": "CL_START",
+      "name": "Correo con enlace"
+    },
+    {
+      "id": "MF_Carga",
+      "source": "CL_CARGAR",
+      "target": "TB_RCV_DOCS",
+      "name": "Documentos cargados"
+    },
+    {
+      "id": "MF_Corregir",
+      "source": "TB_SND_CORREGIR",
+      "target": "CL_CARGAR",
+      "name": "Motivo y nueva carga"
+    },
+    {
+      "id": "MF_Pedir",
+      "source": "TB_ACT_PEDIR",
+      "target": "CL_CARGAR",
+      "name": "Documento corregido"
+    },
+    {
+      "id": "MF_Recogida",
+      "source": "TB_SND_RECOGIDA",
+      "target": "CL_DEJAR",
+      "name": "Fecha de recogida"
+    },
+    {
+      "id": "MF_Originales",
+      "source": "CL_DEJAR",
+      "target": "TB_ACT_RECOGER",
+      "name": "Originales"
+    }
+  ]
+}

@@ -129,3 +129,11 @@ PREG-005 canal de inicio · PREG-013 cómputo de los 10 días (hábiles o calend
 | TB-2 | Al cargar, cada documento debe estar **expedido hace 20 días o menos** (margen de ≈ 10 días frente al mes que exige Despacho, RN-02). El sistema decide la legibilidad y, si hay duda, decide Legal | Confirmado por entrevistado |
 | TB-3 | Si un documento se rechaza, el cliente lo vuelve a cargar, con **hasta 5 intentos**. Los casos dudosos van a Legal. **Qué pasa al agotar los 5 intentos no se dijo:** se modela como paso a la ruta actual en papel (por TB-4) y queda **[SUPUESTO AS-T1, por confirmar]** | Confirmado en parte |
 | TB-4 | Si algo falla (portal caído, cliente que no puede usarlo, recogida fallida), se usa **la ruta actual** como respaldo: Legal recopila en papel. Responsable del portal: **IT del banco** | Confirmado por entrevistado |
+
+## Ronda 8 — 2026-10-24 (pendientes del TO-BE, skill `disenar-tobe`)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| AS-T1 | ¿Qué pasa cuando el cliente agota los 5 intentos? (se modeló como paso a la ruta en papel) | «El supuesto que hiciste está bien, se va por la ruta en papel.» | Confirmado por entrevistado |
+| TB-5 | Si Despacho pide al cliente un documento corregido, ¿se reinician los 10 días hábiles, como hoy con cada devolución? | «Sí.» | Confirmado por entrevistado |
+| TB-6 | ¿Los 5 intentos son por documento o por expediente? | «Por cada documento.» | Confirmado por entrevistado |
+| TB-7 | ¿Qué hace que el sistema considere «dudoso» un documento y lo envíe a Legal? | «Datos no coinciden.» | Confirmado por entrevistado. Se interpreta: los datos del documento no coinciden con los de la solicitud o con los de otro documento [PENDIENTE: qué datos se cruzan] |
