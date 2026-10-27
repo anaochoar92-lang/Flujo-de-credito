@@ -1,0 +1,45 @@
+# Backlog autónomo del MVP — paso 27 (`/27-iterar`)
+
+**Fecha:** 2026-10-26 · **Skill:** `mvp-iterar` · **Estado:** **PROPUESTA — pendiente de aprobación (ITER-1 a ITER-3, ronda 20)**.
+**Base:** `14-mvp/alcance-equipo.md` (exclusiones), `08-tobe/requisitos-ears-to-be.md`, `14-mvp/entrega-paso23-david-sergio.md`. Datos SINTÉTICOS.
+**Condición previa:** que el paso 23 (MVP base) esté implementado y con las pruebas en verde. Cada incremento se hace **uno por vez** y, al terminar, se vuelve a auditar (paso 26).
+**Efecto en los números:** ninguno sobre el ROI (16,7 %, 10,1 meses) ni sobre los KPI del tablero, que salen de `09-datos`. Los incrementos solo agregan medidas **del MVP** (casos de demostración).
+
+## Cómo se eligieron
+Se tomaron los requisitos TO-BE que el alcance dejó fuera y se ordenaron por valor para el usuario, tamaño y riesgo. Regla del skill: el primero debe caber en menos de 90 minutos y no tocar el BPMN.
+
+| Opción | Requisito TO-BE | Valor | Tamaño | Riesgo | Decisión |
+|---|---|---|---|---|---|
+| Estado visible para el cliente | REQ-TOBE-014 | Alto: es el segundo dolor del cliente (CV-3) | **S** | Bajo | **INC-1** |
+| Cierre a los 10 días hábiles | REQ-TOBE-013 | Alto: permite medir KPI-03 en el MVP | **M** | Medio (calendario) | **INC-2** |
+| Recordatorios días 3 y 6, llamada día 8 | REQ-TOBE-017, 018 | Medio: reduce cierres por vencimiento | **M** | Medio (depende de INC-2) | **INC-3** |
+| Recogida de originales con comisión | REQ-TOBE-009 (b), 016 | Medio | L | Alto: falta el monto de la comisión | Fuera por ahora |
+| Ruta en papel completa | REQ-TOBE-007, 008 | Bajo para la demo | L | Alto: duplica el AS-IS | Fuera |
+
+## INC-1 · Estado de la solicitud visible para el cliente (S, < 90 min)
+- **EARS (ubicuo):** El portal deberá mostrar al cliente, con su `SOL-NNNNN`, el **hito actual** de su solicitud: «Enlace enviado», «Documentos con observaciones», «En revisión», «En verificación», «Expediente verificado» o «Pasa a atención presencial».
+- **Archivos:** `app/credito.py` (nueva ruta `GET /api/credito/estado/{id_solicitud}`), `app/static/credito.html` (caja «Consultar mi solicitud»), `tests/test_credito.py`.
+- **Criterio de aceptación:** cada estado interno se traduce a un hito; la respuesta trae **solo** `id_solicitud`, hito y fecha del último cambio.
+- **Prueba negativa:** un `SOL-` inexistente devuelve 404 con el mismo mensaje que un formato inválido (no revela qué IDs existen); la respuesta **no** incluye correo, cédula ni montos.
+- **Respaldo (fallback):** si falla, se oculta la caja; el resto del MVP no cambia.
+- **No cambia:** BPMN, tablas, ni las 43 pruebas previas.
+
+## INC-2 · Cierre por expediente incompleto a los 10 días hábiles (M)
+- **EARS (no deseado):** Si pasan **10 días hábiles** desde el envío del enlace sin los 4 documentos válidos, o desde que Despacho pidió una corrección sin recibirla, entonces el sistema deberá cerrar el caso con estado «Cerrada por expediente incompleto». Cada corrección pedida por Despacho **reinicia** el conteo.
+- **Archivos:** `app/credito.py` (función de días hábiles y ruta `POST /api/credito/vencimientos/revisar?fecha=AAAA-MM-DD` para simular el reloj), `cred_casos` (+ `inicio_conteo`), `credito.html` (estado nuevo), pruebas.
+- **Criterio de aceptación:** con fecha simulada del día hábil 10 el caso sigue abierto; el día 11 se cierra y queda el evento `CERRADA_VENCIMIENTO` (`TMR_T01` / `TMR_T02`). El CSV permite calcular KPI-03 del MVP.
+- **Prueba negativa:** un caso ya en «Revisión Legal» o «Verificación» **no** se cierra; revisar dos veces el mismo día no duplica el evento; un fin de semana no cuenta.
+- **Respaldo:** la revisión es manual (botón o llamada), no un proceso automático en segundo plano; si falla, no cierra nada.
+- **Supuesto a confirmar:** ver ITER-2.
+
+## INC-3 · Recordatorios de los días 3 y 6 y llamada del día 8 (M)
+- **EARS (por estado):** Mientras el caso no tenga los 4 documentos válidos, el sistema deberá registrar un **recordatorio por correo** los días hábiles 3 y 6 y, el día 8, crear para el **Analista** la tarea «Llamar al cliente».
+- **Archivos:** `app/credito.py` (reutiliza el conteo de INC-2), rol `analista` en las bandejas, `credito.html`, pruebas.
+- **Criterio de aceptación:** con fechas simuladas aparecen los eventos `RECORDATORIO_ENVIADO` (`TB_SND_RECORDAR`) los días 3 y 6, y la tarea `TB_ACT_LLAMAR` el día 8; completarla deja evento.
+- **Prueba negativa:** si el cliente completa sus documentos el día 5, no hay recordatorio del día 6 ni llamada; no se envían dos recordatorios el mismo día. El correo se **simula** (evento), no se envía.
+- **Respaldo:** desactivar con una variable de entorno sin tocar INC-1 ni INC-2.
+
+## Preguntas para aprobar (ronda 20)
+- **ITER-1:** ¿Empezamos por **INC-1** (estado visible para el cliente)?
+- **ITER-2:** Para INC-2 e INC-3, ¿los días hábiles son **lunes a viernes sin feriados** en el MVP? Los feriados de República Dominicana quedarían para después.
+- **ITER-3:** ¿Apruebas el orden INC-1 → INC-2 → INC-3 y dejar fuera la recogida con comisión hasta conocer el monto?
