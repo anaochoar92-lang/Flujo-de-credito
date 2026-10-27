@@ -224,3 +224,14 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | EARS-3 | ¿Se aprueban REQ-MVP-01 a 03? | «Sí.» | Aprobados |
 
 **Resultado ronda 17:** `14-mvp/ears-equipo.md` aprobado. Sin efecto en ROI ni KPI.
+
+## Ronda 18 — 2026-10-26 (modelo de datos del MVP, skill `mvp-datos`, paso 22)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| DAT-1 | ¿Identificador del caso? | «SOL-123456 (los 6 números son aleatorios).» Luego: «No importa si son 5 o 6, solo déjalo homogéneo para que luego no te confundas.» | Confirmado: `SOL-NNNNN` (5 dígitos como `09-datos`), al azar en SOL-90000 a 99999 para no chocar con los sintéticos |
+| DAT-2 | ¿4 documentos con intentos por documento? Propuesta de la usuaria: 5 intentos en conjunto. Efecto explicado: solo-MVP no cambia números pero contradice REQ-TOBE-005; en el TO-BE probablemente bajaría KPI-04 y el ROI | «Déjalo como está entonces, y así mantenemos los números.» | Confirmado: 5 intentos **por documento** (sin cambio) |
+| DAT-2a | ¿El cambio aplica solo al MVP o también al TO-BE? | «Déjalo como lo teníamos.» | Sin cambio en MVP ni TO-BE |
+| DAT-2b | ¿Se vuelven a subir los 4 o solo el rechazado? | «Solo el rechazado.» | Confirmado |
+| DAT-3 | ¿Qué campos van a Preset? (a) excluir correo, alias y datos declarados; (b) igual pero monto y salario en rangos; (c) todos, marcados sintéticos | «c» (tras preguntar por qué se excluían) | Confirmado: todos a Preset con `fuente_datos = SINTETICO`; si llega un caso real, excluirlos (riesgo aceptado) |
+
+**Resultado ronda 18:** `14-mvp/modelo-equipo.md` aprobado. Sin efecto en ROI ni KPI.

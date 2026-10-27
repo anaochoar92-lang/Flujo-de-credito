@@ -17,3 +17,6 @@
 - **EARS-1:** ¿Los 20 días se cuentan en días **calendario** desde la fecha de expedición hasta el día de la carga? (El AS-IS dice «20 días» sin especificar). → «Sí.»
 - **EARS-2:** En el MVP, la legibilidad la marca una persona con una casilla (no hay lectura automática). ¿De acuerdo? → «Sí.»
 - **EARS-3:** ¿Apruebas REQ-MVP-01 a 03 como están, o cambias algo? → «Sí.»
+
+## Precisión (ronda 18, DAT-2b)
+En REQ-MVP-01, cuando se rechaza un documento el cliente vuelve a subir **solo ese documento**; los aceptados se conservan. Los intentos siguen siendo 5 **por cada documento** (sin cambio).
