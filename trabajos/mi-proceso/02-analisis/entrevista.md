@@ -205,3 +205,13 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | ID | Pregunta | Respuesta | Estado |
 |---|---|---|---|
 | ROI-9 | Las medidas 1 y 2 no suben el ROI porque los créditos no están monetizados. ¿(1) Agregar el margen por crédito como supuesto editable o (2) dejar el ROI solo con ahorro de personal y mostrar los créditos aparte? | «2.» | Confirmado: ROI base +16,7 %; 245 créditos recuperados al año como beneficio no monetizado |
+
+## Ronda 16 — 2026-10-26 (alcance del MVP, skill `mvp-contexto`, paso 20)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| CTX-1 | ¿El MVP empieza al enviar el enlace tras la aceptación del cliente y termina con el expediente digital verificado por Despacho? | «Sí.» | Confirmado |
+| CTX-2 | ¿Tres tareas humanas: cliente carga (`CL_CARGAR`), Legal revisa dudoso (`TB_ACT_REVISAR`), Despacho verifica (`TB_ACT_VERIF`)? | «Sí.» | Confirmado |
+| CTX-3 | ¿Excluir (a) Riesgo/análisis/decisión, (b) recogida por mensajero, comisión y desembolso, (c) ruta en papel y temporizadores? | «Sí.» | Confirmado |
+| P19 | ¿Quién aplica las correcciones del tablero Preset del reporte de validación? | «Sí, córrelo tú con la mejor propuesta y lo más acertado que puedas.» | Autorizado. No aplicado: la extensión de Chrome no estaba conectada; guía en `11-preset/correcciones-paso19.md` |
+
+**Resultado ronda 16:** `14-mvp/alcance-equipo.md` y `11-preset/correcciones-paso19.md`. Sin efecto en ROI ni KPI.
