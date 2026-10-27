@@ -1,0 +1,1197 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_FlujoCredito_TOBE" targetNamespace="https://laboratorio.example.org/bpmn" exporter="Taller OpenCode BPMN (Node.js)" exporterVersion="1.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
+  <bpmn:message id="Msg_Enlace" name="Correo con enlace al portal" />
+  <bpmn:message id="Msg_DocsCargados" name="documentos-cargados">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=solicitudId" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Msg_FallaPortal" name="falla-portal-reportada">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=solicitudId" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:collaboration id="Collaboration_Lab" name="Flujo de crédito preaprobado Expomóvil — TO-BE PROPUESTA v02 (NO APROBADO)">
+    <bpmn:participant id="Participant_Cliente" name="Cliente" processRef="Process_Cliente" />
+    <bpmn:participant id="Participant_Banco" name="Banco — flujo de crédito preaprobado (TO-BE)" processRef="Process_Credito_TOBE" />
+    <bpmn:messageFlow id="MF_Enlace" name="Correo con enlace" sourceRef="TB_SND_ENLACE" targetRef="CL_START" />
+    <bpmn:messageFlow id="MF_Carga" name="Documentos cargados" sourceRef="CL_CARGAR" targetRef="TB_RCV_DOCS" />
+    <bpmn:messageFlow id="MF_Corregir" name="Motivo y nueva carga" sourceRef="TB_SND_CORREGIR" targetRef="CL_CARGAR" />
+    <bpmn:messageFlow id="MF_Pedir" name="Documento corregido" sourceRef="TB_ACT_PEDIR" targetRef="CL_CARGAR" />
+    <bpmn:messageFlow id="MF_Recogida" name="Fecha de recogida" sourceRef="TB_SND_RECOGIDA" targetRef="CL_DEJAR" />
+    <bpmn:messageFlow id="MF_Originales" name="Originales" sourceRef="CL_DEJAR" targetRef="TB_ACT_RECOGER" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Cliente" name="Cliente" isExecutable="false">
+    <bpmn:startEvent id="CL_START" name="Recibir correo con enlace">
+      <bpmn:outgoing>F_C01</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_Enlace" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="CL_CARGAR" name="Cargar documentos en el portal">
+      <bpmn:incoming>F_C01</bpmn:incoming>
+      <bpmn:outgoing>F_C02</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:manualTask id="CL_DEJAR" name="Dejar originales para recogida">
+      <bpmn:incoming>F_C02</bpmn:incoming>
+      <bpmn:outgoing>F_C03</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:endEvent id="CL_END" name="Documentos entregados">
+      <bpmn:incoming>F_C03</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_C01" sourceRef="CL_START" targetRef="CL_CARGAR" />
+    <bpmn:sequenceFlow id="F_C02" sourceRef="CL_CARGAR" targetRef="CL_DEJAR" />
+    <bpmn:sequenceFlow id="F_C03" sourceRef="CL_DEJAR" targetRef="CL_END" />
+  </bpmn:process>
+  <bpmn:process id="Process_Credito_TOBE" name="Banco — solicitud de crédito Expomóvil (TO-BE)" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_Process_Credito_TOBE">
+      <bpmn:lane id="Lane_Negocio" name="Persona de Negocio">
+        <bpmn:flowNodeRef>EVT_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_005</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Riesgo" name="Persona de Riesgo">
+        <bpmn:flowNodeRef>ACT_002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_RECH_RIESGO</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Analista" name="Analista de crédito (Despacho)">
+        <bpmn:flowNodeRef>ACT_003</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_RECHAZADA</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_004</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_003</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_NO_ACEPTA</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_004</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_008</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_006</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_ACT_VERIF</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_VERIF</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_ACT_PEDIR</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Sistema" name="Sistema / portal (IT del banco)">
+        <bpmn:flowNodeRef>TB_SND_ENLACE</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>SVC_001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_VENCIDA</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_SPLIT</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_SND_RECOGIDA</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>SUB_T01</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_CARGA</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Legal" name="Legal">
+        <bpmn:flowNodeRef>ACT_006</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_005</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_007</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_ACT_RECOP_ORIG</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_ACT_ESCANEAR</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Mensajero" name="Mensajero certificado">
+        <bpmn:flowNodeRef>TB_ACT_RECOGER</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_RECOGIDA</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Desembolso" name="Desembolso">
+        <bpmn:flowNodeRef>TB_GW_JOIN</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_MERGE</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ACT_009</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_DESEMBOLSADO</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="EVT_001" name="Cliente solicita crédito">
+      <bpmn:outgoing>F_001</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="ACT_001" name="Crear solicitud">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_001</bpmn:incoming>
+      <bpmn:incoming>F_005</bpmn:incoming>
+      <bpmn:outgoing>F_002</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="ACT_002" name="Evaluar solicitud">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_002</bpmn:incoming>
+      <bpmn:outgoing>F_003</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_001" name="¿Cliente apto?">
+      <bpmn:incoming>F_003</bpmn:incoming>
+      <bpmn:outgoing>F_004</bpmn:outgoing>
+      <bpmn:outgoing>F_005</bpmn:outgoing>
+      <bpmn:outgoing>F_006</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="END_RECH_RIESGO" name="Solicitud rechazada por Riesgo">
+      <bpmn:incoming>F_006</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="ACT_003" name="Analizar crédito">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_004</bpmn:incoming>
+      <bpmn:incoming>F_015</bpmn:incoming>
+      <bpmn:outgoing>F_007</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_002" name="¿Decisión del análisis?">
+      <bpmn:incoming>F_007</bpmn:incoming>
+      <bpmn:outgoing>F_008</bpmn:outgoing>
+      <bpmn:outgoing>F_009</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="END_RECHAZADA" name="Solicitud rechazada">
+      <bpmn:incoming>F_009</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="ACT_004" name="Informar decisión al cliente">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_008</bpmn:incoming>
+      <bpmn:outgoing>F_010</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_003" name="¿Cliente acepta y continúa?">
+      <bpmn:incoming>F_010</bpmn:incoming>
+      <bpmn:outgoing>F_011</bpmn:outgoing>
+      <bpmn:outgoing>F_012</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="END_NO_ACEPTA" name="Solicitud cerrada: cliente no acepta">
+      <bpmn:incoming>F_011</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="GW_004" name="¿Aprobada con condiciones?">
+      <bpmn:incoming>F_012</bpmn:incoming>
+      <bpmn:outgoing>F_013</bpmn:outgoing>
+      <bpmn:outgoing>F_T01</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="ACT_005" name="Modificar datos del crédito">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_013</bpmn:incoming>
+      <bpmn:outgoing>F_015</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="TB_SND_ENLACE" name="Enviar enlace al portal por correo [PROPUESTA]">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="enviar-correo-enlace" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T01</bpmn:incoming>
+      <bpmn:outgoing>F_T02</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:subProcess id="SUB_T01" name="Recibir y validar documentos en el portal">
+      <bpmn:incoming>F_T02</bpmn:incoming>
+      <bpmn:outgoing>F_S02</bpmn:outgoing>
+      <bpmn:startEvent id="SUB_START" name="Enlace enviado">
+        <bpmn:outgoing>F_S01</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:receiveTask id="TB_RCV_DOCS" name="Recibir documentos cargados [PROPUESTA]" messageRef="Msg_DocsCargados">
+        <bpmn:incoming>F_S01</bpmn:incoming>
+        <bpmn:incoming>F_T09</bpmn:incoming>
+        <bpmn:outgoing>F_T03</bpmn:outgoing>
+      </bpmn:receiveTask>
+      <bpmn:serviceTask id="TB_SVC_VALIDAR" name="Validar documentos: completos, ≤ 20 días y legibles [PROPUESTA]">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="validar-documentos" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>F_T03</bpmn:incoming>
+        <bpmn:outgoing>F_T04</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:exclusiveGateway id="TB_GW_VALIDO" name="¿Resultado de la validación?">
+        <bpmn:incoming>F_T04</bpmn:incoming>
+        <bpmn:outgoing>F_T05</bpmn:outgoing>
+        <bpmn:outgoing>F_T06</bpmn:outgoing>
+        <bpmn:outgoing>F_T07</bpmn:outgoing>
+        <bpmn:outgoing>F_T08</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sendTask id="TB_SND_CORREGIR" name="Pedir al cliente que vuelva a cargar [PROPUESTA]">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="enviar-correo-correccion" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>F_T06</bpmn:incoming>
+        <bpmn:incoming>F_T12</bpmn:incoming>
+        <bpmn:outgoing>F_T09</bpmn:outgoing>
+      </bpmn:sendTask>
+      <bpmn:userTask id="TB_ACT_REVISAR" name="Revisar documento dudoso (Legal)">
+        <bpmn:extensionElements>
+          <zeebe:userTask />
+        </bpmn:extensionElements>
+        <bpmn:incoming>F_T07</bpmn:incoming>
+        <bpmn:outgoing>F_T10</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:exclusiveGateway id="TB_GW_LEGAL" name="¿Legal lo acepta?">
+        <bpmn:incoming>F_T10</bpmn:incoming>
+        <bpmn:outgoing>F_T11</bpmn:outgoing>
+        <bpmn:outgoing>F_T12</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:endEvent id="SUB_END_OK" name="Documentos válidos">
+        <bpmn:incoming>F_T05</bpmn:incoming>
+        <bpmn:incoming>F_T11</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:endEvent id="SUB_END_PAPEL" name="Pasar a la ruta en papel">
+        <bpmn:incoming>F_T08</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="F_S01" sourceRef="SUB_START" targetRef="TB_RCV_DOCS" />
+      <bpmn:sequenceFlow id="F_T03" sourceRef="TB_RCV_DOCS" targetRef="TB_SVC_VALIDAR" />
+      <bpmn:sequenceFlow id="F_T04" sourceRef="TB_SVC_VALIDAR" targetRef="TB_GW_VALIDO" />
+      <bpmn:sequenceFlow id="F_T05" sourceRef="TB_GW_VALIDO" targetRef="SUB_END_OK" name="Válidos">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = "valido"</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="F_T06" sourceRef="TB_GW_VALIDO" targetRef="TB_SND_CORREGIR" name="Rechazado (menos de 5 intentos del documento)">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = "rechazado"</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="F_T07" sourceRef="TB_GW_VALIDO" targetRef="TB_ACT_REVISAR" name="Dudoso: datos no coinciden">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = "dudoso"</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="F_T08" sourceRef="TB_GW_VALIDO" targetRef="SUB_END_PAPEL" name="5 intentos agotados en un documento">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = "agotado"</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="F_T09" sourceRef="TB_SND_CORREGIR" targetRef="TB_RCV_DOCS" name="Esperar nueva carga" />
+      <bpmn:sequenceFlow id="F_T10" sourceRef="TB_ACT_REVISAR" targetRef="TB_GW_LEGAL" />
+      <bpmn:sequenceFlow id="F_T11" sourceRef="TB_GW_LEGAL" targetRef="SUB_END_OK" name="Acepta">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=legalAcepta = true</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="F_T12" sourceRef="TB_GW_LEGAL" targetRef="TB_SND_CORREGIR" name="No acepta">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=legalAcepta = false</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+    </bpmn:subProcess>
+    <bpmn:exclusiveGateway id="TB_GW_CARGA" name="¿Resultado de la carga?" default="F_S03">
+      <bpmn:incoming>F_S02</bpmn:incoming>
+      <bpmn:outgoing>F_S03</bpmn:outgoing>
+      <bpmn:outgoing>F_S04</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:boundaryEvent id="TMR_T01" name="10 días hábiles sin documentos válidos" attachedToRef="SUB_T01">
+      <bpmn:outgoing>F_T13</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:boundaryEvent id="MSG_T01" name="IT reporta falla del portal o cliente sin acceso" attachedToRef="SUB_T01">
+      <bpmn:outgoing>F_T14</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MSG_T01_def" messageRef="Msg_FallaPortal" />
+    </bpmn:boundaryEvent>
+    <bpmn:serviceTask id="SVC_001" name="Cerrar solicitud automáticamente">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="cerrar-solicitud" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T13</bpmn:incoming>
+      <bpmn:incoming>F_T29</bpmn:incoming>
+      <bpmn:incoming>F_019</bpmn:incoming>
+      <bpmn:outgoing>F_020</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="END_VENCIDA" name="Solicitud cerrada por expediente incompleto">
+      <bpmn:incoming>F_020</bpmn:incoming>
+      <bpmn:terminateEventDefinition />
+    </bpmn:endEvent>
+    <bpmn:parallelGateway id="TB_GW_SPLIT" name="Expediente digital válido">
+      <bpmn:incoming>F_S03</bpmn:incoming>
+      <bpmn:outgoing>F_T15</bpmn:outgoing>
+      <bpmn:outgoing>F_T16</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:userTask id="TB_ACT_VERIF" name="Verificar expediente digital (Despacho)">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T15</bpmn:incoming>
+      <bpmn:incoming>F_T20</bpmn:incoming>
+      <bpmn:outgoing>F_T17</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="TB_GW_VERIF" name="¿Expediente digital OK?">
+      <bpmn:incoming>F_T17</bpmn:incoming>
+      <bpmn:outgoing>F_T18</bpmn:outgoing>
+      <bpmn:outgoing>F_T19</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="TB_ACT_PEDIR" name="Pedir documento corregido al cliente">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T19</bpmn:incoming>
+      <bpmn:outgoing>F_T20</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:boundaryEvent id="TMR_T02" name="10 días hábiles sin documento corregido" attachedToRef="TB_ACT_PEDIR">
+      <bpmn:outgoing>F_T29</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:sendTask id="TB_SND_RECOGIDA" name="Programar recogida y avisar al cliente [PROPUESTA]">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="programar-recogida" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T16</bpmn:incoming>
+      <bpmn:outgoing>F_T21</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:userTask id="TB_ACT_RECOGER" name="Recoger originales a domicilio">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T21</bpmn:incoming>
+      <bpmn:outgoing>F_T22</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="TB_GW_RECOGIDA" name="¿Recogida lograda?">
+      <bpmn:incoming>F_T22</bpmn:incoming>
+      <bpmn:outgoing>F_T23</bpmn:outgoing>
+      <bpmn:outgoing>F_T24</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="TB_ACT_RECOP_ORIG" name="Recopilar originales por la ruta actual">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T24</bpmn:incoming>
+      <bpmn:outgoing>F_T25</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="TB_ACT_ESCANEAR" name="Escanear originales y enviar sobre">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T23</bpmn:incoming>
+      <bpmn:incoming>F_T25</bpmn:incoming>
+      <bpmn:outgoing>F_T26</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="ACT_006" name="Recopilar expediente en papel (ruta de respaldo)">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T14</bpmn:incoming>
+      <bpmn:incoming>F_018</bpmn:incoming>
+      <bpmn:incoming>F_024</bpmn:incoming>
+      <bpmn:incoming>F_S04</bpmn:incoming>
+      <bpmn:outgoing>F_016</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:boundaryEvent id="TMR_001" name="10 días hábiles sin expediente completo" attachedToRef="ACT_006">
+      <bpmn:outgoing>F_019</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:exclusiveGateway id="GW_005" name="¿Documentación completa?">
+      <bpmn:incoming>F_016</bpmn:incoming>
+      <bpmn:outgoing>F_017</bpmn:outgoing>
+      <bpmn:outgoing>F_018</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="ACT_007" name="Escanear documentación">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_017</bpmn:incoming>
+      <bpmn:outgoing>F_021</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="ACT_008" name="Verificar y autorizar expediente (Despacho)">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_021</bpmn:incoming>
+      <bpmn:outgoing>F_022</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_006" name="¿Documentación OK?">
+      <bpmn:incoming>F_022</bpmn:incoming>
+      <bpmn:outgoing>F_023</bpmn:outgoing>
+      <bpmn:outgoing>F_024</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:parallelGateway id="TB_GW_JOIN" name="Verificación OK y sobre enviado">
+      <bpmn:incoming>F_T18</bpmn:incoming>
+      <bpmn:incoming>F_T26</bpmn:incoming>
+      <bpmn:outgoing>F_T27</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:exclusiveGateway id="TB_GW_MERGE" name="Unir ruta digital y de respaldo">
+      <bpmn:incoming>F_T27</bpmn:incoming>
+      <bpmn:incoming>F_023</bpmn:incoming>
+      <bpmn:outgoing>F_T28</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="ACT_009" name="Desembolsar crédito y gestionar post-desembolso">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_T28</bpmn:incoming>
+      <bpmn:outgoing>F_025</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="END_DESEMBOLSADO" name="Crédito desembolsado">
+      <bpmn:incoming>F_025</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_001" sourceRef="EVT_001" targetRef="ACT_001" />
+    <bpmn:sequenceFlow id="F_002" sourceRef="ACT_001" targetRef="ACT_002" name="Enviar a Riesgo" />
+    <bpmn:sequenceFlow id="F_003" sourceRef="ACT_002" targetRef="GW_001" />
+    <bpmn:sequenceFlow id="F_004" sourceRef="GW_001" targetRef="ACT_003" name="Apto">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoRiesgo = "apto"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_005" sourceRef="GW_001" targetRef="ACT_001" name="Corregir datos">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoRiesgo = "corregir"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_006" sourceRef="GW_001" targetRef="END_RECH_RIESGO" name="Rechazar">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoRiesgo = "rechazar"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_007" sourceRef="ACT_003" targetRef="GW_002" />
+    <bpmn:sequenceFlow id="F_008" sourceRef="GW_002" targetRef="ACT_004" name="Aprobar (con o sin condiciones)">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=decisionAnalisis = "aprobar"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_009" sourceRef="GW_002" targetRef="END_RECHAZADA" name="Rechazar">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=decisionAnalisis = "rechazar"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_010" sourceRef="ACT_004" targetRef="GW_003" />
+    <bpmn:sequenceFlow id="F_011" sourceRef="GW_003" targetRef="END_NO_ACEPTA" name="No acepta">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=clienteAcepta = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_012" sourceRef="GW_003" targetRef="GW_004" name="Acepta">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=clienteAcepta = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_013" sourceRef="GW_004" targetRef="ACT_005" name="Con condiciones">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=conCondiciones = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_015" sourceRef="ACT_005" targetRef="ACT_003" name="Volver a análisis" />
+    <bpmn:sequenceFlow id="F_T01" sourceRef="GW_004" targetRef="TB_SND_ENLACE" name="Sin condiciones">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=conCondiciones = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_T02" sourceRef="TB_SND_ENLACE" targetRef="SUB_T01" />
+    <bpmn:sequenceFlow id="F_T13" sourceRef="TMR_T01" targetRef="SVC_001" />
+    <bpmn:sequenceFlow id="F_T14" sourceRef="MSG_T01" targetRef="ACT_006" name="Ruta de respaldo" />
+    <bpmn:sequenceFlow id="F_020" sourceRef="SVC_001" targetRef="END_VENCIDA" />
+    <bpmn:sequenceFlow id="F_T15" sourceRef="TB_GW_SPLIT" targetRef="TB_ACT_VERIF" />
+    <bpmn:sequenceFlow id="F_T16" sourceRef="TB_GW_SPLIT" targetRef="TB_SND_RECOGIDA" />
+    <bpmn:sequenceFlow id="F_T17" sourceRef="TB_ACT_VERIF" targetRef="TB_GW_VERIF" />
+    <bpmn:sequenceFlow id="F_T18" sourceRef="TB_GW_VERIF" targetRef="TB_GW_JOIN" name="OK">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=expedienteOk = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_T19" sourceRef="TB_GW_VERIF" targetRef="TB_ACT_PEDIR" name="No cuadra">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=expedienteOk = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_T20" sourceRef="TB_ACT_PEDIR" targetRef="TB_ACT_VERIF" name="Documento corregido" />
+    <bpmn:sequenceFlow id="F_T29" sourceRef="TMR_T02" targetRef="SVC_001" />
+    <bpmn:sequenceFlow id="F_T21" sourceRef="TB_SND_RECOGIDA" targetRef="TB_ACT_RECOGER" />
+    <bpmn:sequenceFlow id="F_T22" sourceRef="TB_ACT_RECOGER" targetRef="TB_GW_RECOGIDA" />
+    <bpmn:sequenceFlow id="F_T23" sourceRef="TB_GW_RECOGIDA" targetRef="TB_ACT_ESCANEAR" name="Sí">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=recogidaLograda = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_T24" sourceRef="TB_GW_RECOGIDA" targetRef="TB_ACT_RECOP_ORIG" name="No">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=recogidaLograda = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_T25" sourceRef="TB_ACT_RECOP_ORIG" targetRef="TB_ACT_ESCANEAR" />
+    <bpmn:sequenceFlow id="F_T26" sourceRef="TB_ACT_ESCANEAR" targetRef="TB_GW_JOIN" />
+    <bpmn:sequenceFlow id="F_T27" sourceRef="TB_GW_JOIN" targetRef="TB_GW_MERGE" />
+    <bpmn:sequenceFlow id="F_016" sourceRef="ACT_006" targetRef="GW_005" />
+    <bpmn:sequenceFlow id="F_017" sourceRef="GW_005" targetRef="ACT_007" name="Completa">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=documentacionCompleta = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_018" sourceRef="GW_005" targetRef="ACT_006" name="Incompleta: seguir recopilando">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=documentacionCompleta = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_019" sourceRef="TMR_001" targetRef="SVC_001" />
+    <bpmn:sequenceFlow id="F_021" sourceRef="ACT_007" targetRef="ACT_008" name="Enviar a Despacho" />
+    <bpmn:sequenceFlow id="F_022" sourceRef="ACT_008" targetRef="GW_006" />
+    <bpmn:sequenceFlow id="F_023" sourceRef="GW_006" targetRef="TB_GW_MERGE" name="OK: enviar sobre">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=documentacionOk = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_024" sourceRef="GW_006" targetRef="ACT_006" name="Falta, no cuadra o documentos con más de 1 mes">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=documentacionOk = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_T28" sourceRef="TB_GW_MERGE" targetRef="ACT_009" />
+    <bpmn:sequenceFlow id="F_025" sourceRef="ACT_009" targetRef="END_DESEMBOLSADO" />
+    <bpmn:sequenceFlow id="F_S02" sourceRef="SUB_T01" targetRef="TB_GW_CARGA" />
+    <bpmn:sequenceFlow id="F_S03" name="Documentos válidos" sourceRef="TB_GW_CARGA" targetRef="TB_GW_SPLIT" />
+    <bpmn:sequenceFlow id="F_S04" name="Intentos agotados: ruta en papel" sourceRef="TB_GW_CARGA" targetRef="ACT_006">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = "agotado"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Lab">
+    <bpmndi:BPMNPlane id="BPMNPlane_Lab" bpmnElement="Collaboration_Lab">
+      <bpmndi:BPMNShape id="Participant_Cliente_di" bpmnElement="Participant_Cliente" isHorizontal="true">
+        <dc:Bounds x="70" y="90" width="4096" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_Banco_di" bpmnElement="Participant_Banco" isHorizontal="true">
+        <dc:Bounds x="70" y="450" width="5496" height="2020" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CL_START_di" bpmnElement="CL_START">
+        <dc:Bounds x="1940" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1913" y="203" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CL_CARGAR_di" bpmnElement="CL_CARGAR">
+        <dc:Bounds x="2440" y="141" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CL_DEJAR_di" bpmnElement="CL_DEJAR">
+        <dc:Bounds x="3740" y="141" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CL_END_di" bpmnElement="CL_END">
+        <dc:Bounds x="3940" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3913" y="203" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Negocio_di" bpmnElement="Lane_Negocio" isHorizontal="true">
+        <dc:Bounds x="100" y="450" width="5466" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Riesgo_di" bpmnElement="Lane_Riesgo" isHorizontal="true">
+        <dc:Bounds x="100" y="690" width="5466" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Analista_di" bpmnElement="Lane_Analista" isHorizontal="true">
+        <dc:Bounds x="100" y="930" width="5466" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Sistema_di" bpmnElement="Lane_Sistema" isHorizontal="true">
+        <dc:Bounds x="100" y="1170" width="5466" height="540" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Legal_di" bpmnElement="Lane_Legal" isHorizontal="true">
+        <dc:Bounds x="100" y="1710" width="5466" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Mensajero_di" bpmnElement="Lane_Mensajero" isHorizontal="true">
+        <dc:Bounds x="100" y="1950" width="5466" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Desembolso_di" bpmnElement="Lane_Desembolso" isHorizontal="true">
+        <dc:Bounds x="100" y="2190" width="5466" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SUB_T01_di" bpmnElement="SUB_T01" isExpanded="true">
+        <dc:Bounds x="2120" y="1178" width="1230" height="382" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EVT_001_di" bpmnElement="EVT_001">
+        <dc:Bounds x="140" y="522" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="113" y="563" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_001_di" bpmnElement="ACT_001">
+        <dc:Bounds x="340" y="501" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_002_di" bpmnElement="ACT_002">
+        <dc:Bounds x="540" y="741" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_001_di" bpmnElement="GW_001">
+        <dc:Bounds x="740" y="755" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="794" y="807" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_RECH_RIESGO_di" bpmnElement="END_RECH_RIESGO">
+        <dc:Bounds x="940" y="762" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="913" y="803" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_003_di" bpmnElement="ACT_003">
+        <dc:Bounds x="940" y="981" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_002_di" bpmnElement="GW_002">
+        <dc:Bounds x="1140" y="995" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1120" y="962" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_RECHAZADA_di" bpmnElement="END_RECHAZADA">
+        <dc:Bounds x="1340" y="1002" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1313" y="1043" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_004_di" bpmnElement="ACT_004">
+        <dc:Bounds x="1340" y="1091" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_003_di" bpmnElement="GW_003">
+        <dc:Bounds x="1540" y="995" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1520" y="962" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_NO_ACEPTA_di" bpmnElement="END_NO_ACEPTA">
+        <dc:Bounds x="1740" y="1002" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1713" y="1043" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_004_di" bpmnElement="GW_004">
+        <dc:Bounds x="1740" y="1105" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1794" y="1181" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_005_di" bpmnElement="ACT_005">
+        <dc:Bounds x="1940" y="501" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_SND_ENLACE_di" bpmnElement="TB_SND_ENLACE">
+        <dc:Bounds x="1940" y="1221" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_RCV_DOCS_di" bpmnElement="TB_RCV_DOCS">
+        <dc:Bounds x="2230" y="1221" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_SVC_VALIDAR_di" bpmnElement="TB_SVC_VALIDAR">
+        <dc:Bounds x="2430" y="1221" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SVC_001_di" bpmnElement="SVC_001">
+        <dc:Bounds x="2244" y="1601" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_VALIDO_di" bpmnElement="TB_GW_VALIDO">
+        <dc:Bounds x="2630" y="1235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2538" y="1302" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_VENCIDA_di" bpmnElement="END_VENCIDA">
+        <dc:Bounds x="2440" y="1622" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2482" y="1612" width="90" height="56" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_SND_CORREGIR_di" bpmnElement="TB_SND_CORREGIR">
+        <dc:Bounds x="2860" y="1331" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_ACT_REVISAR_di" bpmnElement="TB_ACT_REVISAR">
+        <dc:Bounds x="2860" y="1451" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_LEGAL_di" bpmnElement="TB_GW_LEGAL">
+        <dc:Bounds x="3060" y="1465" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3040" y="1520" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_SPLIT_di" bpmnElement="TB_GW_SPLIT">
+        <dc:Bounds x="3540" y="1235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3520" y="1290" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_ACT_VERIF_di" bpmnElement="TB_ACT_VERIF">
+        <dc:Bounds x="3740" y="981" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_VERIF_di" bpmnElement="TB_GW_VERIF">
+        <dc:Bounds x="3940" y="995" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3846" y="1071" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_ACT_PEDIR_di" bpmnElement="TB_ACT_PEDIR">
+        <dc:Bounds x="4140" y="981" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_SND_RECOGIDA_di" bpmnElement="TB_SND_RECOGIDA">
+        <dc:Bounds x="3740" y="1221" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_ACT_RECOGER_di" bpmnElement="TB_ACT_RECOGER">
+        <dc:Bounds x="3940" y="2001" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_RECOGIDA_di" bpmnElement="TB_GW_RECOGIDA">
+        <dc:Bounds x="4140" y="2015" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4120" y="2070" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_ACT_RECOP_ORIG_di" bpmnElement="TB_ACT_RECOP_ORIG">
+        <dc:Bounds x="4340" y="1761" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_ACT_ESCANEAR_di" bpmnElement="TB_ACT_ESCANEAR">
+        <dc:Bounds x="4540" y="1761" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_006_di" bpmnElement="ACT_006">
+        <dc:Bounds x="3340" y="1871" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_005_di" bpmnElement="GW_005">
+        <dc:Bounds x="3540" y="1775" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3520" y="1742" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_007_di" bpmnElement="ACT_007">
+        <dc:Bounds x="3740" y="1761" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_008_di" bpmnElement="ACT_008">
+        <dc:Bounds x="4340" y="981" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_006_di" bpmnElement="GW_006">
+        <dc:Bounds x="4540" y="995" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4520" y="962" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_JOIN_di" bpmnElement="TB_GW_JOIN">
+        <dc:Bounds x="4740" y="2255" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4720" y="2310" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_MERGE_di" bpmnElement="TB_GW_MERGE">
+        <dc:Bounds x="4940" y="2255" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4920" y="2310" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ACT_009_di" bpmnElement="ACT_009">
+        <dc:Bounds x="5140" y="2241" width="148" height="78" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_DESEMBOLSADO_di" bpmnElement="END_DESEMBOLSADO">
+        <dc:Bounds x="5340" y="2262" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="5313" y="2303" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="F_C01_di" bpmnElement="F_C01">
+        <di:waypoint x="1976" y="180" />
+        <di:waypoint x="2440" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_C02_di" bpmnElement="F_C02">
+        <di:waypoint x="2588" y="180" />
+        <di:waypoint x="3740" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_C03_di" bpmnElement="F_C03">
+        <di:waypoint x="3888" y="180" />
+        <di:waypoint x="3940" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_001_di" bpmnElement="F_001">
+        <di:waypoint x="176" y="540" />
+        <di:waypoint x="340" y="540" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_002_di" bpmnElement="F_002">
+        <di:waypoint x="488" y="562" />
+        <di:waypoint x="592" y="562" />
+        <di:waypoint x="592" y="741" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="495" y="545" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_003_di" bpmnElement="F_003">
+        <di:waypoint x="688" y="780" />
+        <di:waypoint x="740" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_004_di" bpmnElement="F_004">
+        <di:waypoint x="765" y="805" />
+        <di:waypoint x="765" y="998" />
+        <di:waypoint x="940" y="998" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="769" y="894" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_005_di" bpmnElement="F_005">
+        <di:waypoint x="765" y="755" />
+        <di:waypoint x="765" y="540" />
+        <di:waypoint x="488" y="540" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="769" y="640" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_006_di" bpmnElement="F_006">
+        <di:waypoint x="790" y="780" />
+        <di:waypoint x="940" y="780" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="820" y="763" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_007_di" bpmnElement="F_007">
+        <di:waypoint x="1088" y="1020" />
+        <di:waypoint x="1140" y="1020" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_008_di" bpmnElement="F_008">
+        <di:waypoint x="1165" y="1045" />
+        <di:waypoint x="1165" y="1108" />
+        <di:waypoint x="1340" y="1108" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1169" y="1062" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_009_di" bpmnElement="F_009">
+        <di:waypoint x="1190" y="1020" />
+        <di:waypoint x="1340" y="1020" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1220" y="1003" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_010_di" bpmnElement="F_010">
+        <di:waypoint x="1488" y="1108" />
+        <di:waypoint x="1495" y="1108" />
+        <di:waypoint x="1495" y="1020" />
+        <di:waypoint x="1540" y="1020" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_011_di" bpmnElement="F_011">
+        <di:waypoint x="1590" y="1020" />
+        <di:waypoint x="1740" y="1020" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1620" y="1003" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_012_di" bpmnElement="F_012">
+        <di:waypoint x="1565" y="1045" />
+        <di:waypoint x="1565" y="1130" />
+        <di:waypoint x="1740" y="1130" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1569" y="1080" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_013_di" bpmnElement="F_013">
+        <di:waypoint x="1790" y="1130" />
+        <di:waypoint x="1992" y="1130" />
+        <di:waypoint x="1992" y="579" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1846" y="1113" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_015_di" bpmnElement="F_015">
+        <di:waypoint x="1940" y="562" />
+        <di:waypoint x="1036" y="562" />
+        <di:waypoint x="1036" y="981" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1443" y="531" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T01_di" bpmnElement="F_T01">
+        <di:waypoint x="1765" y="1155" />
+        <di:waypoint x="1765" y="1238" />
+        <di:waypoint x="1940" y="1238" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1671" y="1189" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T02_di" bpmnElement="F_T02">
+        <di:waypoint x="2088" y="1260" />
+        <di:waypoint x="2120" y="1260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T03_di" bpmnElement="F_T03">
+        <di:waypoint x="2378" y="1260" />
+        <di:waypoint x="2430" y="1260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T04_di" bpmnElement="F_T04">
+        <di:waypoint x="2578" y="1260" />
+        <di:waypoint x="2630" y="1260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T05_di" bpmnElement="F_T05">
+        <di:waypoint x="2680" y="1260" />
+        <di:waypoint x="3200" y="1260" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2700" y="1263" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T06_di" bpmnElement="F_T06">
+        <di:waypoint x="2668" y="1272" />
+        <di:waypoint x="2668" y="1370" />
+        <di:waypoint x="2860" y="1370" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2725" y="1311" width="90" height="56" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T07_di" bpmnElement="F_T07">
+        <di:waypoint x="2655" y="1285" />
+        <di:waypoint x="2655" y="1490" />
+        <di:waypoint x="2860" y="1490" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2659" y="1373" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T08_di" bpmnElement="F_T08">
+        <di:waypoint x="2655" y="1235" />
+        <di:waypoint x="2655" y="1208" />
+        <di:waypoint x="3298" y="1208" />
+        <di:waypoint x="3298" y="1352" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2700" y="1212" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T09_di" bpmnElement="F_T09">
+        <di:waypoint x="2934" y="1409" />
+        <di:waypoint x="2934" y="1425" />
+        <di:waypoint x="2304" y="1425" />
+        <di:waypoint x="2304" y="1299" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2731" y="1428" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T10_di" bpmnElement="F_T10">
+        <di:waypoint x="3008" y="1490" />
+        <di:waypoint x="3060" y="1490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T11_di" bpmnElement="F_T11">
+        <di:waypoint x="3110" y="1490" />
+        <di:waypoint x="3218" y="1490" />
+        <di:waypoint x="3218" y="1278" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3119" y="1473" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T12_di" bpmnElement="F_T12">
+        <di:waypoint x="3085" y="1465" />
+        <di:waypoint x="3085" y="1370" />
+        <di:waypoint x="3008" y="1370" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3089" y="1410" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T13_di" bpmnElement="F_T13">
+        <di:waypoint x="2318" y="1578" />
+        <di:waypoint x="2318" y="1601" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T14_di" bpmnElement="F_T14">
+        <di:waypoint x="2818" y="1578" />
+        <di:waypoint x="2818" y="1888" />
+        <di:waypoint x="3340" y="1888" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2822" y="1726" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_020_di" bpmnElement="F_020">
+        <di:waypoint x="2392" y="1640" />
+        <di:waypoint x="2440" y="1640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T15_di" bpmnElement="F_T15">
+        <di:waypoint x="3565" y="1235" />
+        <di:waypoint x="3565" y="1042" />
+        <di:waypoint x="3740" y="1042" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T16_di" bpmnElement="F_T16">
+        <di:waypoint x="3590" y="1260" />
+        <di:waypoint x="3740" y="1260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T17_di" bpmnElement="F_T17">
+        <di:waypoint x="3888" y="1020" />
+        <di:waypoint x="3940" y="1020" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T18_di" bpmnElement="F_T18">
+        <di:waypoint x="3965" y="1045" />
+        <di:waypoint x="3965" y="1090" />
+        <di:waypoint x="4720" y="1090" />
+        <di:waypoint x="4720" y="2280" />
+        <di:waypoint x="4740" y="2280" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4108" y="1073" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T19_di" bpmnElement="F_T19">
+        <di:waypoint x="3990" y="1020" />
+        <di:waypoint x="4140" y="1020" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4020" y="1003" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T20_di" bpmnElement="F_T20">
+        <di:waypoint x="4192" y="981" />
+        <di:waypoint x="4192" y="961" />
+        <di:waypoint x="3836" y="961" />
+        <di:waypoint x="3836" y="981" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3870" y="932" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T29_di" bpmnElement="F_T29">
+        <di:waypoint x="4286" y="1077" />
+        <di:waypoint x="4286" y="1586" />
+        <di:waypoint x="2412" y="1586" />
+        <di:waypoint x="2412" y="1618" />
+        <di:waypoint x="2392" y="1618" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T21_di" bpmnElement="F_T21">
+        <di:waypoint x="3888" y="1282" />
+        <di:waypoint x="3992" y="1282" />
+        <di:waypoint x="3992" y="2001" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T22_di" bpmnElement="F_T22">
+        <di:waypoint x="4088" y="2040" />
+        <di:waypoint x="4140" y="2040" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T23_di" bpmnElement="F_T23">
+        <di:waypoint x="4190" y="2040" />
+        <di:waypoint x="4592" y="2040" />
+        <di:waypoint x="4592" y="1839" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4346" y="2023" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T24_di" bpmnElement="F_T24">
+        <di:waypoint x="4165" y="2015" />
+        <di:waypoint x="4165" y="1822" />
+        <di:waypoint x="4340" y="1822" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4169" y="1911" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T25_di" bpmnElement="F_T25">
+        <di:waypoint x="4488" y="1800" />
+        <di:waypoint x="4540" y="1800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T26_di" bpmnElement="F_T26">
+        <di:waypoint x="4688" y="1822" />
+        <di:waypoint x="4765" y="1822" />
+        <di:waypoint x="4765" y="2255" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T27_di" bpmnElement="F_T27">
+        <di:waypoint x="4790" y="2280" />
+        <di:waypoint x="4940" y="2280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_016_di" bpmnElement="F_016">
+        <di:waypoint x="3488" y="1888" />
+        <di:waypoint x="3565" y="1888" />
+        <di:waypoint x="3565" y="1825" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_017_di" bpmnElement="F_017">
+        <di:waypoint x="3590" y="1800" />
+        <di:waypoint x="3740" y="1800" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3620" y="1783" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_018_di" bpmnElement="F_018">
+        <di:waypoint x="3540" y="1800" />
+        <di:waypoint x="3436" y="1800" />
+        <di:waypoint x="3436" y="1871" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3443" y="1803" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_019_di" bpmnElement="F_019">
+        <di:waypoint x="3486" y="1967" />
+        <di:waypoint x="3486" y="1987" />
+        <di:waypoint x="2340" y="1987" />
+        <di:waypoint x="2340" y="1679" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_021_di" bpmnElement="F_021">
+        <di:waypoint x="3888" y="1778" />
+        <di:waypoint x="4320" y="1778" />
+        <di:waypoint x="4320" y="1042" />
+        <di:waypoint x="4340" y="1042" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4059" y="1747" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_022_di" bpmnElement="F_022">
+        <di:waypoint x="4488" y="1020" />
+        <di:waypoint x="4540" y="1020" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_023_di" bpmnElement="F_023">
+        <di:waypoint x="4590" y="1020" />
+        <di:waypoint x="4965" y="1020" />
+        <di:waypoint x="4965" y="2255" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4732" y="1003" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_024_di" bpmnElement="F_024">
+        <di:waypoint x="4565" y="1045" />
+        <di:waypoint x="4565" y="1458" />
+        <di:waypoint x="3392" y="1458" />
+        <di:waypoint x="3392" y="1871" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4569" y="1230" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_T28_di" bpmnElement="F_T28">
+        <di:waypoint x="4990" y="2280" />
+        <di:waypoint x="5140" y="2280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_025_di" bpmnElement="F_025">
+        <di:waypoint x="5288" y="2280" />
+        <di:waypoint x="5340" y="2280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Enlace_di" bpmnElement="MF_Enlace">
+        <di:waypoint x="2064" y="1221" />
+        <di:waypoint x="2064" y="1201" />
+        <di:waypoint x="2108" y="1201" />
+        <di:waypoint x="2108" y="218" />
+        <di:waypoint x="2008" y="218" />
+        <di:waypoint x="2008" y="198" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2112" y="695" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Carga_di" bpmnElement="MF_Carga">
+        <di:waypoint x="2464" y="219" />
+        <di:waypoint x="2464" y="264" />
+        <di:waypoint x="2354" y="264" />
+        <di:waypoint x="2354" y="1221" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2370" y="227" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Corregir_di" bpmnElement="MF_Corregir">
+        <di:waypoint x="2884" y="1331" />
+        <di:waypoint x="2884" y="775" />
+        <di:waypoint x="2564" y="775" />
+        <di:waypoint x="2564" y="219" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2888" y="1039" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Pedir_di" bpmnElement="MF_Pedir">
+        <di:waypoint x="4214" y="981" />
+        <di:waypoint x="4214" y="901" />
+        <di:waypoint x="2544" y="901" />
+        <di:waypoint x="2544" y="219" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4218" y="947" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Recogida_di" bpmnElement="MF_Recogida">
+        <di:waypoint x="3764" y="1221" />
+        <di:waypoint x="3764" y="1201" />
+        <di:waypoint x="3720" y="1201" />
+        <di:waypoint x="3720" y="239" />
+        <di:waypoint x="3764" y="239" />
+        <di:waypoint x="3764" y="219" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3724" y="706" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Originales_di" bpmnElement="MF_Originales">
+        <di:waypoint x="3864" y="219" />
+        <di:waypoint x="3864" y="264" />
+        <di:waypoint x="4014" y="264" />
+        <di:waypoint x="4014" y="2001" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3868" y="234" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SUB_START_di" bpmnElement="SUB_START">
+        <dc:Bounds x="2150" y="1242" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2123" y="1283" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SUB_END_OK_di" bpmnElement="SUB_END_OK">
+        <dc:Bounds x="3200" y="1242" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3106" y="1280" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SUB_END_PAPEL_di" bpmnElement="SUB_END_PAPEL">
+        <dc:Bounds x="3280" y="1352" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3253" y="1393" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_CARGA_di" bpmnElement="TB_GW_CARGA">
+        <dc:Bounds x="3400" y="1235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3370" y="1198" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TMR_T01_di" bpmnElement="TMR_T01">
+        <dc:Bounds x="2300" y="1542" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2273" y="1495" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="MSG_T01_di" bpmnElement="MSG_T01">
+        <dc:Bounds x="2800" y="1542" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2840" y="1592" width="90" height="56" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TMR_T02_di" bpmnElement="TMR_T02">
+        <dc:Bounds x="4268" y="1041" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4174" y="1103" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TMR_001_di" bpmnElement="TMR_001">
+        <dc:Bounds x="3468" y="1931" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3508" y="1969" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="F_S01_di" bpmnElement="F_S01">
+        <di:waypoint x="2186" y="1260" />
+        <di:waypoint x="2230" y="1260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S02_di" bpmnElement="F_S02">
+        <di:waypoint x="3350" y="1260" />
+        <di:waypoint x="3400" y="1260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S03_di" bpmnElement="F_S03">
+        <di:waypoint x="3450" y="1260" />
+        <di:waypoint x="3540" y="1260" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3451" y="1229" width="88" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_S04_di" bpmnElement="F_S04">
+        <di:waypoint x="3425" y="1285" />
+        <di:waypoint x="3425" y="1345" />
+        <di:waypoint x="3414" y="1345" />
+        <di:waypoint x="3414" y="1871" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3418" y="1348" width="90" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
