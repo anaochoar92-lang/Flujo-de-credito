@@ -35,3 +35,24 @@ Decisiones de Sergio en esta sesión: Lovable cumple los dos papeles (demo y por
 | TEC-06 | Cuando Ana responda PEND-01 y PEND-02, actualizar el BPMN del MVP (v02), el prompt de Lovable (v03) y, si aplica, crear el TO-BE v04 | En la v04, corregir también el nombre de la colaboración, que todavía dice «TO-BE PROPUESTA v02» |
 
 **Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio).
+
+---
+
+## 2026-10-27 — Ana (con Claude)
+
+### Qué se hizo
+| # | Qué | Archivos |
+|---|---|---|
+| 1 | Ana respondió PEND-01 a PEND-04: **todas quedan como la propuesta** (ronda 21) | `02-analisis/entrevista.md` |
+
+### Estado de los pendientes
+| ID | Estado |
+|---|---|
+| PEND-01 | Cerrado: ruta en papel en el MVP y el módulo B; el módulo A sigue el v03 |
+| PEND-02 | Cerrado: sin tarea aparte |
+| PEND-03 | Cerrado: 20 días exactos es válido; hora America/Santo_Domingo |
+| PEND-04 | Cerrado: aprobada la app con los dos módulos |
+| TEC-06 | Sin efecto: no hay que crear BPMN del MVP v02, prompt de Lovable v03 ni TO-BE v04 por estas respuestas (el nombre de la colaboración del v03 se corrige en la próxima versión que se haga) |
+| TEC-01 a TEC-05 | Siguen abiertos (David / Sergio) |
+
+**Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio).

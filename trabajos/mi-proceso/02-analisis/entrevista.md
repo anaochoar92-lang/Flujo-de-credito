@@ -254,3 +254,15 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | ITER-3 | ¿Orden INC-1 → INC-2 → INC-3 y recogida con comisión fuera? | «Sí.» | Confirmado |
 
 **Resultado ronda 20:** `14-mvp/backlog-autonomo.md` aprobado. Sin efecto en ROI ni KPI.
+
+## Ronda 21 — 2026-10-27 (pendientes de la bitácora del equipo, PEND-01 a PEND-04)
+Respuesta de Ana para las cuatro: «Todos los PEND déjalos como me indicaste en la columna: si no respondes, se quedan así.»
+
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| PEND-01 | Si Legal rechaza un documento dudoso, ¿ruta en papel o volver a pedir el documento? | Se deja como está: el MVP y el módulo B de Lovable siguen REQ-MVP-02 (**ruta en papel**); el módulo A (demo) sigue el TO-BE v03 (volver a pedir). La app lo explica en la ayuda | Confirmado |
+| PEND-02 | Si Despacho pide corrección, ¿basta con registrarlo o hace falta la tarea «Pedir documento corregido»? | **Sin tarea aparte** (`CORREGIR` + documento, como en el contrato del paso 23) | Confirmado |
+| PEND-03 | ¿20 días exactos es válido? ¿Hora de República Dominicana? | **Sí** (20 días exactos es válido) y **sí** (America/Santo_Domingo) | Confirmado |
+| PEND-04 | ¿Lovable con los dos módulos (demo en Camunda + Portal MVP)? | **Sí**, visto bueno a la decisión de Sergio | Confirmado |
+
+**Resultado ronda 21:** se mantienen `14-mvp/proceso-mvp-v01.bpmn` y `14-demo/prompt-lovable-v02.md` tal como están; no hace falta BPMN del MVP v02, prompt de Lovable v03 ni TO-BE v04 por estas respuestas (TEC-06 queda sin efecto). Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
