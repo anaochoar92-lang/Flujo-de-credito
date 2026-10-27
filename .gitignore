@@ -1,8 +1,10 @@
 # macOS
 .DS_Store
 
-# Claude Flow (local)
+# Claude Flow / Ruflo (local)
 .claude-flow/
+.claude/proven-config.json
+.claude/.proven-config-version
 
 # Secretos locales generados por scripts/levantar.*
 .env
