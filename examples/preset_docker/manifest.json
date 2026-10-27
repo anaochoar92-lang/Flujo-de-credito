@@ -1,0 +1,66 @@
+{
+  "generado_utc": "2026-10-21T22:49:35+00:00",
+  "esquema_exportacion": "mba-etl-v1",
+  "escenario": "mock",
+  "fuente": "base de datos local del MVP",
+  "anonimizacion": "pseudonimizacion de radicados y actores; CHIP y detalles excluidos",
+  "advertencia": "Datos demo: valor_referencia_sintetico no es una liquidacion legal. No calcular ROI observado sin bases reales.",
+  "csv": {
+    "preset_casos.csv": {
+      "filas": 3,
+      "sha256": "457dd3554a595459ec1d4e9895cebf82e69ab58b5cd0be72259c777f7f4b5037",
+      "columnas": [
+        "caso_id",
+        "radicado_pseudo",
+        "escenario",
+        "estado",
+        "uso",
+        "area_terreno_m2",
+        "area_construida_m2",
+        "prevalidacion_ok",
+        "valor_referencia_sintetico_cop",
+        "fecha_creacion_utc",
+        "fecha_cierre_utc",
+        "duracion_ciclo_min"
+      ]
+    },
+    "preset_eventos.csv": {
+      "filas": 18,
+      "sha256": "b7ecb2c9f91d3918ef6533cdf9ffab1762140abbef4aac30e46689f844733f1d",
+      "columnas": [
+        "evento_id",
+        "caso_id",
+        "escenario",
+        "momento_utc",
+        "accion",
+        "tarea",
+        "actor_pseudo"
+      ]
+    },
+    "preset_kpis_mensuales.csv": {
+      "filas": 2,
+      "sha256": "1b3ff5931e9a10908c93ec3cc73342ea0bf8f82e25f33125d0f011c607df2406",
+      "columnas": [
+        "mes",
+        "escenario",
+        "casos_iniciados",
+        "casos_finalizados",
+        "tasa_finalizacion_pct",
+        "casos_prevalidacion_ok",
+        "tasa_prevalidacion_pct",
+        "duracion_media_ciclo_min",
+        "monto_referencia_sintetico_medio_cop"
+      ]
+    },
+    "preset_actividades.csv": {
+      "filas": 9,
+      "sha256": "859d7c57f648317b658979b80b783502ea986d7057af61a8f7f39e1fc08a479a",
+      "columnas": [
+        "mes",
+        "escenario",
+        "accion",
+        "numero_eventos"
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_liquidacion_cargas_asis_mba" targetNamespace="https://ejemplo.mba/bpmn">
+  <bpmn:process id="liquidacion_cargas_asis_mba" name="Liquidación AS-IS · MBA" isExecutable="true">
+    <bpmn:startEvent id="Node_Start" name="Inicio">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Node_Cotejar" name="Cotejar radicación">
+      <bpmn:extensionElements>
+        <zeebe:userTask/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Node_Areas" name="Validar áreas">
+      <bpmn:extensionElements>
+        <zeebe:userTask/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Node_Aprobar" name="Aprobar preliquidación">
+      <bpmn:extensionElements>
+        <zeebe:userTask/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Node_End" name="Fin">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Node_Start" targetRef="Node_Cotejar"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Node_Cotejar" targetRef="Node_Areas"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Node_Areas" targetRef="Node_Aprobar"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Node_Aprobar" targetRef="Node_End"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="liquidacion_cargas_asis_mba">
+      <bpmndi:BPMNShape id="Shape_Start" bpmnElement="Node_Start">
+        <dc:Bounds x="100" y="210" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Cotejar" bpmnElement="Node_Cotejar">
+        <dc:Bounds x="255" y="195" width="160" height="82"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Areas" bpmnElement="Node_Areas">
+        <dc:Bounds x="465" y="195" width="160" height="82"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Aprobar" bpmnElement="Node_Aprobar">
+        <dc:Bounds x="675" y="195" width="160" height="82"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End" bpmnElement="Node_End">
+        <dc:Bounds x="900" y="210" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_1" bpmnElement="Flow_1">
+        <di:waypoint x="150" y="235.0"/>
+        <di:waypoint x="255" y="236.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_2" bpmnElement="Flow_2">
+        <di:waypoint x="415" y="236.0"/>
+        <di:waypoint x="465" y="236.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_3" bpmnElement="Flow_3">
+        <di:waypoint x="625" y="236.0"/>
+        <di:waypoint x="675" y="236.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_4" bpmnElement="Flow_4">
+        <di:waypoint x="835" y="236.0"/>
+        <di:waypoint x="900" y="235.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

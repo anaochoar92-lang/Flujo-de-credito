@@ -1,0 +1,10 @@
+# Opcional para estudiantes con Docker Compose compatible con watch.
+services:
+  api:
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./app
+          target: /workspace/app
+        - action: rebuild
+          path: ./requirements.txt

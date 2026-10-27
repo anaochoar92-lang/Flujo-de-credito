@@ -1,0 +1,103 @@
+name: mba-mvp-local
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-mba}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD. Ejecute scripts/levantar.ps1 o scripts/levantar.sh}
+      POSTGRES_DB: ${POSTGRES_DB:-mba_mvp}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    networks: [mvp]
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment: &backend_env
+      ENGINE_MODE: ${ENGINE_MODE:-mock}
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: ${POSTGRES_DB:-mba_mvp}
+      DB_USER: ${POSTGRES_USER:-mba}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      CAMUNDA_BASE_URL: ${CAMUNDA_BASE_URL:-}
+      CAMUNDA_PROCESS_ASIS: ${CAMUNDA_PROCESS_ASIS:-liquidacion_cargas_asis_mba}
+      CAMUNDA_PROCESS_TOBE: ${CAMUNDA_PROCESS_TOBE:-liquidacion_cargas_tobe_mba}
+      CAMUNDA_AUTH_MODE: ${CAMUNDA_AUTH_MODE:-oauth}
+      CAMUNDA_OAUTH_URL: ${CAMUNDA_OAUTH_URL:-}
+      CAMUNDA_CLIENT_ID: ${CAMUNDA_CLIENT_ID:-}
+      CAMUNDA_CLIENT_SECRET: ${CAMUNDA_CLIENT_SECRET:-}
+      CAMUNDA_OAUTH_AUDIENCE: ${CAMUNDA_OAUTH_AUDIENCE:-}
+      CAMUNDA_TOKEN: ${CAMUNDA_TOKEN:-}
+    depends_on:
+      db: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=4).read()"]
+      interval: 10s
+      timeout: 6s
+      retries: 10
+      start_period: 15s
+    networks: [mvp]
+
+  web:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${MVP_PORT:-8088}:80"
+    volumes:
+      - ./infra/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./app/static:/usr/share/nginx/html:ro
+    depends_on:
+      api: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/healthz"]
+      interval: 15s
+      timeout: 4s
+      retries: 5
+    networks: [mvp]
+
+  # Interfaz de exploración SQL opcional, accesible solo desde la PC local.
+  adminer:
+    image: adminer:4
+    profiles: [db-ui]
+    ports:
+      - "127.0.0.1:8089:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    depends_on:
+      db: {condition: service_healthy}
+    networks: [mvp]
+
+  etl:
+    profiles: [herramientas]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      ENGINE_MODE: ${ENGINE_MODE:-mock}
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: ${POSTGRES_DB:-mba_mvp}
+      DB_USER: ${POSTGRES_USER:-mba}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+    command: ["python", "-m", "scripts.etl_preset", "--out", "/exports"]
+    volumes:
+      - ./exports:/exports
+    depends_on:
+      db: {condition: service_healthy}
+    networks: [mvp]
+
+volumes:
+  pgdata:
+
+networks:
+  mvp:
+    driver: bridge

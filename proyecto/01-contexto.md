@@ -1,0 +1,13 @@
+# Contexto del nuevo MVP
+- Organización/sector:
+- Usuario final:
+- Problema concreto:
+- Producto o servicio:
+- Indicador de éxito:
+- SOP de referencia y versión:
+- BPMN AS-IS/TO-BE y versiones:
+- Restricciones legales y privacidad:
+- Primer recorrido demostrable:
+- Máximo dos tareas humanas iniciales:
+- Qué NO hará la primera versión:
+- Supuestos pendientes de validar:

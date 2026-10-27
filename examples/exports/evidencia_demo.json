@@ -1,0 +1,23 @@
+[
+  {
+    "caso_id": 1,
+    "escenario": "ASIS",
+    "instancia": "DEMO-1",
+    "tareas": 3,
+    "estado": "FINALIZADO"
+  },
+  {
+    "caso_id": 2,
+    "escenario": "TOBE",
+    "instancia": "DEMO-2",
+    "tareas": 2,
+    "estado": "FINALIZADO"
+  },
+  {
+    "caso_id": 3,
+    "escenario": "TOBE",
+    "instancia": "DEMO-3",
+    "tareas": 3,
+    "estado": "FINALIZADO"
+  }
+]

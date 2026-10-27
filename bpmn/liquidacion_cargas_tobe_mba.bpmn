@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_liquidacion_cargas_tobe_mba" targetNamespace="https://ejemplo.mba/bpmn">
+  <bpmn:process id="liquidacion_cargas_tobe_mba" name="Liquidación TO-BE · MBA" isExecutable="true">
+    <bpmn:startEvent id="Node_Start" name="Inicio">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Node_Decision" name="¿Prevalidación automática OK?" default="Flow_3">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Node_Subsanar" name="Subsanar información">
+      <bpmn:extensionElements>
+        <zeebe:userTask/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Node_Revisar" name="Revisar preliquidación">
+      <bpmn:extensionElements>
+        <zeebe:userTask/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Node_Aprobar" name="Aprobar preliquidación">
+      <bpmn:extensionElements>
+        <zeebe:userTask/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Node_End" name="Fin">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Node_Start" targetRef="Node_Decision"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Node_Decision" targetRef="Node_Revisar">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=validacionPreviaOk = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Node_Decision" targetRef="Node_Subsanar"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Node_Subsanar" targetRef="Node_Revisar"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Node_Revisar" targetRef="Node_Aprobar"/>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Node_Aprobar" targetRef="Node_End"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="liquidacion_cargas_tobe_mba">
+      <bpmndi:BPMNShape id="Shape_Start" bpmnElement="Node_Start">
+        <dc:Bounds x="100" y="210" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Decision" bpmnElement="Node_Decision">
+        <dc:Bounds x="250" y="195" width="52" height="52"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Subsanar" bpmnElement="Node_Subsanar">
+        <dc:Bounds x="420" y="350" width="160" height="82"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Revisar" bpmnElement="Node_Revisar">
+        <dc:Bounds x="620" y="210" width="160" height="82"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Aprobar" bpmnElement="Node_Aprobar">
+        <dc:Bounds x="820" y="210" width="160" height="82"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End" bpmnElement="Node_End">
+        <dc:Bounds x="1050" y="220" width="50" height="50"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_1" bpmnElement="Flow_1">
+        <di:waypoint x="150" y="235.0"/>
+        <di:waypoint x="250" y="221.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_2" bpmnElement="Flow_2">
+        <di:waypoint x="302" y="221.0"/>
+        <di:waypoint x="620" y="251.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_3" bpmnElement="Flow_3">
+        <di:waypoint x="276.0" y="247"/>
+        <di:waypoint x="276.0" y="376.0"/>
+        <di:waypoint x="420" y="391.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_4" bpmnElement="Flow_4">
+        <di:waypoint x="580" y="391.0"/>
+        <di:waypoint x="590" y="391.0"/>
+        <di:waypoint x="590" y="251.0"/>
+        <di:waypoint x="620" y="251.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_5" bpmnElement="Flow_5">
+        <di:waypoint x="780" y="251.0"/>
+        <di:waypoint x="820" y="251.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_6" bpmnElement="Flow_6">
+        <di:waypoint x="980" y="251.0"/>
+        <di:waypoint x="1050" y="245.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

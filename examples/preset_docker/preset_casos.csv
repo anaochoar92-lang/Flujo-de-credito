@@ -1,0 +1,4 @@
+﻿caso_id,radicado_pseudo,escenario,estado,uso,area_terreno_m2,area_construida_m2,prevalidacion_ok,valor_referencia_sintetico_cop,fecha_creacion_utc,fecha_cierre_utc,duracion_ciclo_min
+1,RAD-2C6C65F47B96,ASIS,FINALIZADO,residencial,180.0,380.0,1,4560000.0,2026-10-21T22:49:35+00:00,2026-10-21T22:49:35+00:00,0.0
+2,RAD-BE9B17AD1876,TOBE,FINALIZADO,residencial,180.0,380.0,1,4560000.0,2026-10-21T22:49:35+00:00,2026-10-21T22:49:35+00:00,0.0
+3,RAD-58623B88E753,TOBE,FINALIZADO,residencial,180.0,380.0,0,4560000.0,2026-10-21T22:49:35+00:00,2026-10-21T22:49:35+00:00,0.0

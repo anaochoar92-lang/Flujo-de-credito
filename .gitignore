@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Claude Flow (local)
+.claude-flow/
+
+# Secretos locales generados por scripts/levantar.*
+.env

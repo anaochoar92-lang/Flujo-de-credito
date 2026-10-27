@@ -1,0 +1,3 @@
+﻿mes,escenario,casos_iniciados,casos_finalizados,tasa_finalizacion_pct,casos_prevalidacion_ok,tasa_prevalidacion_pct,duracion_media_ciclo_min,monto_referencia_sintetico_medio_cop
+2026-10,ASIS,1,1,100.0,1,100.0,0.0,4560000.0
+2026-10,TOBE,2,2,100.0,1,50.0,0.0,4560000.0
