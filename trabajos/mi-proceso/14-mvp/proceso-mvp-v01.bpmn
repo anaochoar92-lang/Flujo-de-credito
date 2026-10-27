@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_FlujoCredito_MVP" targetNamespace="https://laboratorio.example.org/bpmn" exporter="Taller Claude Code (Python)" exporterVersion="1.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
+  <bpmn:message id="Msg_DocsCargados" name="documentos-cargados">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=solicitudId" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:collaboration id="Collaboration_MVP" name="Flujo de crédito preaprobado — MVP portal de documentos v01 (PROPUESTA, datos SINTÉTICOS)">
+    <bpmn:participant id="Participant_Cliente_MVP" name="Cliente" processRef="Process_Cliente_MVP" />
+    <bpmn:participant id="Participant_Banco_MVP" name="Banco — MVP portal de documentos (tramo del TO-BE v03)" processRef="Process_Credito_MVP" />
+    <bpmn:messageFlow id="MF_Enlace" name="Correo con enlace al portal" sourceRef="TB_SND_ENLACE" targetRef="CL_START" />
+    <bpmn:messageFlow id="MF_Docs" name="documentos-cargados" sourceRef="CL_CARGAR" targetRef="TB_RCV_DOCS" />
+    <bpmn:messageFlow id="MF_Corregir" name="Correo: volver a cargar el documento rechazado" sourceRef="TB_SND_CORREGIR" targetRef="CL_CARGAR" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Cliente_MVP" name="Cliente" isExecutable="false">
+    <bpmn:startEvent id="CL_START" name="Recibe el enlace al portal">
+      <bpmn:outgoing>F_C01</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MED_CL_START" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="CL_CARGAR" name="Cargar los 4 documentos en el portal">
+      <bpmn:incoming>F_C01</bpmn:incoming>
+      <bpmn:outgoing>F_C02</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="CL_END" name="Documentos enviados">
+      <bpmn:incoming>F_C02</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_C01" sourceRef="CL_START" targetRef="CL_CARGAR" />
+    <bpmn:sequenceFlow id="F_C02" sourceRef="CL_CARGAR" targetRef="CL_END" />
+  </bpmn:process>
+  <bpmn:process id="Process_Credito_MVP" name="Banco — MVP portal de documentos" isExecutable="true">
+    <bpmn:documentation>MVP paso 24. Tramo del TO-BE v03 desde el envío del enlace hasta la verificación de Despacho. Fuentes: 14-mvp/alcance-equipo.md y 14-mvp/ears-equipo.md (REQ-MVP-01 a 03). Sin temporizadores, ruta en papel, recogida ni desembolso (exclusiones CTX-3). Datos SINTÉTICOS.</bpmn:documentation>
+    <bpmn:laneSet id="LaneSet_MVP">
+      <bpmn:lane id="Lane_Sistema" name="Sistema / portal (IT del banco)">
+        <bpmn:flowNodeRef>MVP_START</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_SND_ENLACE</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_CARGA_MERGE</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_RCV_DOCS</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_SVC_VALIDAR</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_VALIDO</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_SND_CORREGIR</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_PAPEL_AGOTADO</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Legal" name="Legal">
+        <bpmn:flowNodeRef>TB_ACT_REVISAR</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_LEGAL</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_PAPEL_LEGAL</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Despacho" name="Analista de crédito (Despacho)">
+        <bpmn:flowNodeRef>TB_GW_VERIF_MERGE</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_ACT_VERIF</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>TB_GW_VERIF</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>END_VERIFICADO</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="MVP_START" name="Cliente aceptó la decisión (inicio del MVP)">
+      <bpmn:outgoing>F_M01</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sendTask id="TB_SND_ENLACE" name="Enviar enlace al portal por correo [PROPUESTA]">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="enviar-correo-enlace" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_M01</bpmn:incoming>
+      <bpmn:outgoing>F_M02</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:exclusiveGateway id="TB_GW_CARGA_MERGE">
+      <bpmn:incoming>F_M02</bpmn:incoming>
+      <bpmn:incoming>F_M10</bpmn:incoming>
+      <bpmn:incoming>F_M17</bpmn:incoming>
+      <bpmn:outgoing>F_M03</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:receiveTask id="TB_RCV_DOCS" name="Recibir documentos cargados [PROPUESTA]" messageRef="Msg_DocsCargados">
+      <bpmn:incoming>F_M03</bpmn:incoming>
+      <bpmn:outgoing>F_M04</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:serviceTask id="TB_SVC_VALIDAR" name="Validar documentos: completos, ≤ 20 días calendario y legibles [PROPUESTA]">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="validar-documentos" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_M04</bpmn:incoming>
+      <bpmn:outgoing>F_M05</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="TB_GW_VALIDO" name="¿Resultado de la validación?">
+      <bpmn:incoming>F_M05</bpmn:incoming>
+      <bpmn:outgoing>F_M06</bpmn:outgoing>
+      <bpmn:outgoing>F_M07</bpmn:outgoing>
+      <bpmn:outgoing>F_M08</bpmn:outgoing>
+      <bpmn:outgoing>F_M09</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sendTask id="TB_SND_CORREGIR" name="Pedir al cliente que vuelva a cargar [PROPUESTA]">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="enviar-correo-correccion" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_M08</bpmn:incoming>
+      <bpmn:outgoing>F_M10</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:endEvent id="END_PAPEL_AGOTADO" name="Pasa a ruta en papel (intentos agotados)">
+      <bpmn:incoming>F_M09</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="TB_ACT_REVISAR" name="Revisar documento dudoso (Legal)">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_M07</bpmn:incoming>
+      <bpmn:outgoing>F_M11</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="TB_GW_LEGAL" name="¿Legal acepta?">
+      <bpmn:incoming>F_M11</bpmn:incoming>
+      <bpmn:outgoing>F_M12</bpmn:outgoing>
+      <bpmn:outgoing>F_M13</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="END_PAPEL_LEGAL" name="Pasa a ruta en papel (Legal rechaza)">
+      <bpmn:incoming>F_M13</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="TB_GW_VERIF_MERGE">
+      <bpmn:incoming>F_M06</bpmn:incoming>
+      <bpmn:incoming>F_M12</bpmn:incoming>
+      <bpmn:outgoing>F_M14</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="TB_ACT_VERIF" name="Verificar expediente digital (Despacho)">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+      </bpmn:extensionElements>
+      <bpmn:incoming>F_M14</bpmn:incoming>
+      <bpmn:outgoing>F_M15</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="TB_GW_VERIF" name="¿Expediente digital OK?">
+      <bpmn:incoming>F_M15</bpmn:incoming>
+      <bpmn:outgoing>F_M16</bpmn:outgoing>
+      <bpmn:outgoing>F_M17</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="END_VERIFICADO" name="Expediente digital verificado">
+      <bpmn:incoming>F_M16</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F_M01" sourceRef="MVP_START" targetRef="TB_SND_ENLACE" />
+    <bpmn:sequenceFlow id="F_M02" sourceRef="TB_SND_ENLACE" targetRef="TB_GW_CARGA_MERGE" />
+    <bpmn:sequenceFlow id="F_M03" sourceRef="TB_GW_CARGA_MERGE" targetRef="TB_RCV_DOCS" />
+    <bpmn:sequenceFlow id="F_M04" sourceRef="TB_RCV_DOCS" targetRef="TB_SVC_VALIDAR" />
+    <bpmn:sequenceFlow id="F_M05" sourceRef="TB_SVC_VALIDAR" targetRef="TB_GW_VALIDO" />
+    <bpmn:sequenceFlow id="F_M06" name="Válidos y datos iguales" sourceRef="TB_GW_VALIDO" targetRef="TB_GW_VERIF_MERGE">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = &quot;valido&quot;</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_M07" name="Dudoso: datos no coinciden" sourceRef="TB_GW_VALIDO" targetRef="TB_ACT_REVISAR">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = &quot;dudoso&quot;</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_M08" name="Rechazado (menos de 5 intentos del documento)" sourceRef="TB_GW_VALIDO" targetRef="TB_SND_CORREGIR">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = &quot;rechazado&quot;</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_M09" name="5 intentos agotados en un documento" sourceRef="TB_GW_VALIDO" targetRef="END_PAPEL_AGOTADO">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=resultadoValidacion = &quot;agotado&quot;</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_M10" sourceRef="TB_SND_CORREGIR" targetRef="TB_GW_CARGA_MERGE" />
+    <bpmn:sequenceFlow id="F_M11" sourceRef="TB_ACT_REVISAR" targetRef="TB_GW_LEGAL" />
+    <bpmn:sequenceFlow id="F_M12" name="Acepta" sourceRef="TB_GW_LEGAL" targetRef="TB_GW_VERIF_MERGE">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=legalAcepta = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_M13" name="Rechaza" sourceRef="TB_GW_LEGAL" targetRef="END_PAPEL_LEGAL">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=legalAcepta = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_M14" sourceRef="TB_GW_VERIF_MERGE" targetRef="TB_ACT_VERIF" />
+    <bpmn:sequenceFlow id="F_M15" sourceRef="TB_ACT_VERIF" targetRef="TB_GW_VERIF" />
+    <bpmn:sequenceFlow id="F_M16" name="OK" sourceRef="TB_GW_VERIF" targetRef="END_VERIFICADO">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=expedienteOk = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F_M17" name="Pedir corrección de un documento" sourceRef="TB_GW_VERIF" targetRef="TB_GW_CARGA_MERGE">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=expedienteOk = false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_MVP">
+    <bpmndi:BPMNPlane id="BPMNPlane_MVP" bpmnElement="Collaboration_MVP">
+      <bpmndi:BPMNShape id="Participant_Cliente_MVP_di" bpmnElement="Participant_Cliente_MVP" isHorizontal="true">
+        <dc:Bounds x="100" y="40" width="1520" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_Banco_MVP_di" bpmnElement="Participant_Banco_MVP" isHorizontal="true">
+        <dc:Bounds x="100" y="210" width="1520" height="530" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Sistema_di" bpmnElement="Lane_Sistema" isHorizontal="true">
+        <dc:Bounds x="130" y="210" width="1490" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Legal_di" bpmnElement="Lane_Legal" isHorizontal="true">
+        <dc:Bounds x="130" y="460" width="1490" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Despacho_di" bpmnElement="Lane_Despacho" isHorizontal="true">
+        <dc:Bounds x="130" y="600" width="1490" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CL_START_di" bpmnElement="CL_START">
+        <dc:Bounds x="272" y="92" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CL_CARGAR_di" bpmnElement="CL_CARGAR">
+        <dc:Bounds x="470" y="70" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CL_END_di" bpmnElement="CL_END">
+        <dc:Bounds x="652" y="92" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="MVP_START_di" bpmnElement="MVP_START">
+        <dc:Bounds x="162" y="352" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_SND_ENLACE_di" bpmnElement="TB_SND_ENLACE">
+        <dc:Bounds x="240" y="330" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_CARGA_MERGE_di" bpmnElement="TB_GW_CARGA_MERGE" isMarkerVisible="true">
+        <dc:Bounds x="380" y="345" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_RCV_DOCS_di" bpmnElement="TB_RCV_DOCS">
+        <dc:Bounds x="470" y="330" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_SVC_VALIDAR_di" bpmnElement="TB_SVC_VALIDAR">
+        <dc:Bounds x="620" y="330" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_VALIDO_di" bpmnElement="TB_GW_VALIDO" isMarkerVisible="true">
+        <dc:Bounds x="770" y="345" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_SND_CORREGIR_di" bpmnElement="TB_SND_CORREGIR">
+        <dc:Bounds x="620" y="225" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_PAPEL_AGOTADO_di" bpmnElement="END_PAPEL_AGOTADO">
+        <dc:Bounds x="872" y="247" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_ACT_REVISAR_di" bpmnElement="TB_ACT_REVISAR">
+        <dc:Bounds x="880" y="490" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_LEGAL_di" bpmnElement="TB_GW_LEGAL" isMarkerVisible="true">
+        <dc:Bounds x="1030" y="505" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_PAPEL_LEGAL_di" bpmnElement="END_PAPEL_LEGAL">
+        <dc:Bounds x="1132" y="512" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_VERIF_MERGE_di" bpmnElement="TB_GW_VERIF_MERGE" isMarkerVisible="true">
+        <dc:Bounds x="1130" y="645" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_ACT_VERIF_di" bpmnElement="TB_ACT_VERIF">
+        <dc:Bounds x="1230" y="630" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TB_GW_VERIF_di" bpmnElement="TB_GW_VERIF" isMarkerVisible="true">
+        <dc:Bounds x="1380" y="645" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="END_VERIFICADO_di" bpmnElement="END_VERIFICADO">
+        <dc:Bounds x="1482" y="652" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="F_C01_di" bpmnElement="F_C01">
+        <di:waypoint x="308" y="110" />
+        <di:waypoint x="470" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_C02_di" bpmnElement="F_C02">
+        <di:waypoint x="570" y="110" />
+        <di:waypoint x="652" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M01_di" bpmnElement="F_M01">
+        <di:waypoint x="198" y="370" />
+        <di:waypoint x="240" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M02_di" bpmnElement="F_M02">
+        <di:waypoint x="340" y="370" />
+        <di:waypoint x="380" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M03_di" bpmnElement="F_M03">
+        <di:waypoint x="430" y="370" />
+        <di:waypoint x="470" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M04_di" bpmnElement="F_M04">
+        <di:waypoint x="570" y="370" />
+        <di:waypoint x="620" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M05_di" bpmnElement="F_M05">
+        <di:waypoint x="720" y="370" />
+        <di:waypoint x="770" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M06_di" bpmnElement="F_M06">
+        <di:waypoint x="795" y="395" />
+        <di:waypoint x="795" y="670" />
+        <di:waypoint x="1130" y="670" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M07_di" bpmnElement="F_M07">
+        <di:waypoint x="820" y="370" />
+        <di:waypoint x="850" y="370" />
+        <di:waypoint x="850" y="530" />
+        <di:waypoint x="880" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M08_di" bpmnElement="F_M08">
+        <di:waypoint x="795" y="345" />
+        <di:waypoint x="795" y="265" />
+        <di:waypoint x="720" y="265" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M09_di" bpmnElement="F_M09">
+        <di:waypoint x="795" y="345" />
+        <di:waypoint x="795" y="265" />
+        <di:waypoint x="872" y="265" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M10_di" bpmnElement="F_M10">
+        <di:waypoint x="620" y="265" />
+        <di:waypoint x="405" y="265" />
+        <di:waypoint x="405" y="345" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M11_di" bpmnElement="F_M11">
+        <di:waypoint x="980" y="530" />
+        <di:waypoint x="1030" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M12_di" bpmnElement="F_M12">
+        <di:waypoint x="1055" y="555" />
+        <di:waypoint x="1055" y="620" />
+        <di:waypoint x="1155" y="620" />
+        <di:waypoint x="1155" y="645" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M13_di" bpmnElement="F_M13">
+        <di:waypoint x="1080" y="530" />
+        <di:waypoint x="1132" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M14_di" bpmnElement="F_M14">
+        <di:waypoint x="1180" y="670" />
+        <di:waypoint x="1230" y="670" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M15_di" bpmnElement="F_M15">
+        <di:waypoint x="1330" y="670" />
+        <di:waypoint x="1380" y="670" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M16_di" bpmnElement="F_M16">
+        <di:waypoint x="1430" y="670" />
+        <di:waypoint x="1482" y="670" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F_M17_di" bpmnElement="F_M17">
+        <di:waypoint x="1405" y="695" />
+        <di:waypoint x="1405" y="725" />
+        <di:waypoint x="405" y="725" />
+        <di:waypoint x="405" y="395" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Enlace_di" bpmnElement="MF_Enlace">
+        <di:waypoint x="290" y="330" />
+        <di:waypoint x="290" y="128" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Docs_di" bpmnElement="MF_Docs">
+        <di:waypoint x="520" y="150" />
+        <di:waypoint x="520" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_Corregir_di" bpmnElement="MF_Corregir">
+        <di:waypoint x="670" y="225" />
+        <di:waypoint x="670" y="190" />
+        <di:waypoint x="550" y="190" />
+        <di:waypoint x="550" y="150" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
