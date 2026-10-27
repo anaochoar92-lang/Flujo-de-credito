@@ -41,4 +41,4 @@ Clave de tarea sugerida: `cred-{caso_id}-{rol}-{etapa}`, donde `etapa` sube en c
 | 24 | Camunda real: desplegar el BPMN del MVP y probar 1 instancia con 2 tareas | Quien tenga las credenciales del clúster; no poner credenciales en el repo |
 | 25 | Preset: subir los CSV del MVP y crear un KPI a mano (p. ej. % de casos dudosos o intentos promedio por caso) | Equipo, en la UI de Preset |
 | 26 | Auditoría: `python -m pytest -q` + revisión SOP–EARS–BPMN–API–DB; revisar la regla de datos reales de DAT-3 | David / Sergio, con Claude para el informe |
-| 27 | Backlog de 3 incrementos | Ana con Claude (no requiere Python) |
+| 27 | Backlog de 3 incrementos: **hecho y aprobado** (ronda 20), ver `14-mvp/backlog-autonomo.md`. Implementar INC-1 → INC-2 → INC-3 después del paso 23 | Ana con Claude; implementación David / Sergio |

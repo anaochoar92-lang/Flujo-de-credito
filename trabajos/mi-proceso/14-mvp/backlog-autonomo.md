@@ -1,6 +1,6 @@
 # Backlog autónomo del MVP — paso 27 (`/27-iterar`)
 
-**Fecha:** 2026-10-26 · **Skill:** `mvp-iterar` · **Estado:** **PROPUESTA — pendiente de aprobación (ITER-1 a ITER-3, ronda 20)**.
+**Fecha:** 2026-10-26 · **Skill:** `mvp-iterar` · **Estado:** **APROBADO** (ronda 20, 2026-10-26). Orden INC-1 → INC-2 → INC-3; días hábiles = lunes a viernes, sin feriados.
 **Base:** `14-mvp/alcance-equipo.md` (exclusiones), `08-tobe/requisitos-ears-to-be.md`, `14-mvp/entrega-paso23-david-sergio.md`. Datos SINTÉTICOS.
 **Condición previa:** que el paso 23 (MVP base) esté implementado y con las pruebas en verde. Cada incremento se hace **uno por vez** y, al terminar, se vuelve a auditar (paso 26).
 **Efecto en los números:** ninguno sobre el ROI (16,7 %, 10,1 meses) ni sobre los KPI del tablero, que salen de `09-datos`. Los incrementos solo agregan medidas **del MVP** (casos de demostración).
@@ -30,7 +30,7 @@ Se tomaron los requisitos TO-BE que el alcance dejó fuera y se ordenaron por va
 - **Criterio de aceptación:** con fecha simulada del día hábil 10 el caso sigue abierto; el día 11 se cierra y queda el evento `CERRADA_VENCIMIENTO` (`TMR_T01` / `TMR_T02`). El CSV permite calcular KPI-03 del MVP.
 - **Prueba negativa:** un caso ya en «Revisión Legal» o «Verificación» **no** se cierra; revisar dos veces el mismo día no duplica el evento; un fin de semana no cuenta.
 - **Respaldo:** la revisión es manual (botón o llamada), no un proceso automático en segundo plano; si falla, no cierra nada.
-- **Supuesto a confirmar:** ver ITER-2.
+- **Días hábiles (ITER-2):** lunes a viernes, **sin feriados**, para no complicar el MVP. Los feriados de República Dominicana quedan fuera.
 
 ## INC-3 · Recordatorios de los días 3 y 6 y llamada del día 8 (M)
 - **EARS (por estado):** Mientras el caso no tenga los 4 documentos válidos, el sistema deberá registrar un **recordatorio por correo** los días hábiles 3 y 6 y, el día 8, crear para el **Analista** la tarea «Llamar al cliente».
@@ -39,7 +39,7 @@ Se tomaron los requisitos TO-BE que el alcance dejó fuera y se ordenaron por va
 - **Prueba negativa:** si el cliente completa sus documentos el día 5, no hay recordatorio del día 6 ni llamada; no se envían dos recordatorios el mismo día. El correo se **simula** (evento), no se envía.
 - **Respaldo:** desactivar con una variable de entorno sin tocar INC-1 ni INC-2.
 
-## Preguntas para aprobar (ronda 20)
-- **ITER-1:** ¿Empezamos por **INC-1** (estado visible para el cliente)?
-- **ITER-2:** Para INC-2 e INC-3, ¿los días hábiles son **lunes a viernes sin feriados** en el MVP? Los feriados de República Dominicana quedarían para después.
-- **ITER-3:** ¿Apruebas el orden INC-1 → INC-2 → INC-3 y dejar fuera la recogida con comisión hasta conocer el monto?
+## Decisiones (ronda 20)
+- **ITER-1:** se empieza por INC-1 (estado visible para el cliente).
+- **ITER-2:** días hábiles de lunes a viernes, sin feriados.
+- **ITER-3:** orden INC-1 → INC-2 → INC-3; la recogida con comisión queda fuera hasta conocer el monto.

@@ -245,3 +245,12 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | PY-1 | ¿Instalar Python con winget para correr la app y las pruebas? | «OK»; luego: «No instales Python», «sube todo a GitHub, que David y Sergio hacen esa tarea». | El código y las pruebas los hacen David y Sergio. Nota: Python 3.12 ya había quedado instalado en el equipo de Ana antes del segundo mensaje; se borró el entorno del proyecto |
 
 **Resultado ronda 19:** `14-mvp/entrega-paso23-david-sergio.md` y `14-mvp/pruebas-propuestas/test_credito.py` (11 pruebas, sin código todavía). Línea base del kit comprobada: 32 pruebas en verde con `pyyaml`. Sin efecto en ROI ni KPI.
+
+## Ronda 20 — 2026-10-26 (backlog del MVP, skill `mvp-iterar`, paso 27)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| ITER-1 | ¿Empezar por INC-1 (estado visible para el cliente)? | «Sí.» | Confirmado |
+| ITER-2 | ¿Días hábiles de lunes a viernes sin feriados en el MVP? | «Sin feriados, para no complicarnos.» | Confirmado |
+| ITER-3 | ¿Orden INC-1 → INC-2 → INC-3 y recogida con comisión fuera? | «Sí.» | Confirmado |
+
+**Resultado ronda 20:** `14-mvp/backlog-autonomo.md` aprobado. Sin efecto en ROI ni KPI.
