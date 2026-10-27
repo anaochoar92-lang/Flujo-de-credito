@@ -215,3 +215,12 @@ Nota: `docs/origen-presentacion-sesion3.md`, que pide leer el skill, no existe e
 | P19 | ¿Quién aplica las correcciones del tablero Preset del reporte de validación? | «Sí, córrelo tú con la mejor propuesta y lo más acertado que puedas.» | Autorizado. No aplicado: la extensión de Chrome no estaba conectada; guía en `11-preset/correcciones-paso19.md` |
 
 **Resultado ronda 16:** `14-mvp/alcance-equipo.md` y `11-preset/correcciones-paso19.md`. Sin efecto en ROI ni KPI.
+
+## Ronda 17 — 2026-10-26 (EARS del MVP, skill `mvp-ears`, paso 21)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| EARS-1 | ¿Los 20 días son calendario, desde la fecha de expedición hasta el día de la carga? | «Sí.» | Confirmado |
+| EARS-2 | ¿En el MVP la legibilidad la marca una persona con una casilla (sin lectura automática)? | «Sí.» | Confirmado |
+| EARS-3 | ¿Se aprueban REQ-MVP-01 a 03? | «Sí.» | Aprobados |
+
+**Resultado ronda 17:** `14-mvp/ears-equipo.md` aprobado. Sin efecto en ROI ni KPI.
