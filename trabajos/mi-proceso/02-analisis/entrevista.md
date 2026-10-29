@@ -283,3 +283,11 @@ Respuesta de Ana para las cuatro: «Todos los PEND déjalos como me indicaste en
 | SIG-3 | ¿Otra cosa pendiente? | «No.» | — |
 
 **Resultado ronda 23:** INC-1 implementado. Ruta `GET /api/credito/estado/{id_solicitud}` que devuelve solo `id_solicitud`, `hito` y `actualizado_en`, y caja «Consultar mi solicitud» en `credito.html` (si la consulta falla, la caja se oculta). Un `SOL-` inexistente y un formato inválido dan el mismo 404. 44 pruebas en verde (42 previas + 2 de INC-1). Nota: el backlog decía «43 pruebas previas»; eran 42. Un caso dudoso que vuelve con una corrección pasa otra vez por Legal si los datos siguen sin coincidir (comportamiento del MVP, sin cambios). Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI. Siguiente: INC-2.
+
+## Ronda 24 — 2026-10-28 (conexión a Camunda SaaS)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| CAM-2 | ¿Conectar este equipo a Camunda y ajustar el proyecto Python con las credenciales del clúster? | «Conéctate a Camunda con las credenciales que te voy a pasar y ajusta el proyecto de Python para que funcione con estas credenciales.» | Confirmado: **reemplaza a CAM-1** |
+| SIG-4 / SIG-5 | Aviso del paso 26 a David y Sergio; INC-2 | Sin respuesta | Pendiente |
+
+**Resultado ronda 24:** credenciales guardadas solo en `.env` (ignorado por git; no se suben). `app/camunda.py` acepta los nombres de variables de la consola SaaS (`ZEEBE_*`, `CAMUNDA_TOKEN_AUDIENCE`, `CAMUNDA_CLIENT_MODE=saas`). El token OAuth se obtiene bien, pero el clúster `ea62933b…` (pdx-1) responde **503** en `/v2/topology`: probablemente está pausado o todavía arrancando. 44 pruebas en verde. Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
