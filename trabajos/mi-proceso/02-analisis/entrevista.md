@@ -291,3 +291,5 @@ Respuesta de Ana para las cuatro: «Todos los PEND déjalos como me indicaste en
 | SIG-4 / SIG-5 | Aviso del paso 26 a David y Sergio; INC-2 | Sin respuesta | Pendiente |
 
 **Resultado ronda 24:** credenciales guardadas solo en `.env` (ignorado por git; no se suben). `app/camunda.py` acepta los nombres de variables de la consola SaaS (`ZEEBE_*`, `CAMUNDA_TOKEN_AUDIENCE`, `CAMUNDA_CLIENT_MODE=saas`). El token OAuth se obtiene bien, pero el clúster `ea62933b…` (pdx-1) responde **503** en `/v2/topology`: probablemente está pausado o todavía arrancando. 44 pruebas en verde. Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
+
+**Actualización ronda 24 (mismo día):** Ana reanudó el clúster. Conexión comprobada: `/v2/topology` responde con 3 brokers, versión 8.10.5; `/api/health/camunda` de la app da `ok` con `ENGINE_MODE=camunda`. El clúster no tiene **ningún proceso desplegado** (0 definiciones). Pendientes: CAM-3 (desplegar `proceso-mvp-v01.bpmn`) y CAM-4 (conectar `credito.py` a Camunda).
