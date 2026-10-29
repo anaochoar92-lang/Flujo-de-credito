@@ -1,0 +1,6 @@
+oportunidad,mejora,puntaje,decision,efecto_en_tablero
+OPP-01,Portal web de carga de documentos por el cliente (sin el concesionario como intermediario),4.00,Aprobada (paquete A),"El 85,4 % de los expedientes TO-BE usa el portal"
+OPP-02,Validación automática de completitud (4 documentos) y vigencia (1 mes con margen) al cargar,4.20,Aprobada (paquete A),"Devoluciones 20,0 % → 6,9 %"
+OPP-03,Consulta del estado de la solicitud en la web y avisos al cliente,3.65,Aprobada (paquete A),Mejora la experiencia del cliente; no reduce días
+OPP-04,Recogida de originales a domicilio por mensajero certificado en paralelo a la verificación digital,3.55,Aprobada (paquete A),Los originales se recogen sin volver a la ruta lenta
+OPP-05,RPA para acelerar el escaneo actual,2.75,No recomendada,Acelera un escaneo que pierde sentido con el portal
