@@ -16,7 +16,7 @@ Se tomaron los requisitos TO-BE que el alcance dejó fuera y se ordenaron por va
 | Recogida de originales con comisión | REQ-TOBE-009 (b), 016 | Medio | L | Alto: falta el monto de la comisión | Fuera por ahora |
 | Ruta en papel completa | REQ-TOBE-007, 008 | Bajo para la demo | L | Alto: duplica el AS-IS | Fuera |
 
-## INC-1 · Estado de la solicitud visible para el cliente (S, < 90 min)
+## INC-1 · Estado de la solicitud visible para el cliente (S, < 90 min) — **HECHO** (ronda 23, 2026-10-28)
 - **EARS (ubicuo):** El portal deberá mostrar al cliente, con su `SOL-NNNNN`, el **hito actual** de su solicitud: «Enlace enviado», «Documentos con observaciones», «En revisión», «En verificación», «Expediente verificado» o «Pasa a atención presencial».
 - **Archivos:** `app/credito.py` (nueva ruta `GET /api/credito/estado/{id_solicitud}`), `app/static/credito.html` (caja «Consultar mi solicitud»), `tests/test_credito.py`.
 - **Criterio de aceptación:** cada estado interno se traduce a un hito; la respuesta trae **solo** `id_solicitud`, hito y fecha del último cambio.

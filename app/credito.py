@@ -26,6 +26,11 @@ TAREA_POR_ESTADO = {
     "VERIFICACION_DESPACHO": ("despacho", "TB_ACT_VERIF", "Verificar expediente digital"),
 }
 RESULTADOS = {"legal": ("ACEPTA", "RECHAZA"), "despacho": ("OK", "CORREGIR")}
+# INC-1 (REQ-TOBE-014): estado interno → hito que ve el cliente.
+HITOS = {"ENLACE_ENVIADO": "Enlace enviado", "DOCUMENTOS_RECHAZADOS": "Documentos con observaciones",
+         "ESPERANDO_CORRECCION": "Documentos con observaciones", "REVISION_LEGAL": "En revisión",
+         "VERIFICACION_DESPACHO": "En verificación", "VERIFICADO": "Expediente verificado",
+         "RUTA_PAPEL": "Pasa a atención presencial"}
 
 
 class CredCaso(Base):
@@ -297,6 +302,17 @@ def completar(key: str, payload: CompletarCredito, req: Request):
             log(db, c, "CORRECCION_SOLICITADA", tarea="TB_ACT_VERIF", actor=payload.actor, detalles={**detalles, "documento": doc.tipo})
         db.commit()
         return {"ok": True, "caso": ser_caso(c)}
+
+@router.get("/estado/{id_solicitud}")
+def estado_cliente(id_solicitud: str, req: Request):
+    # Mismo 404 para formato inválido e inexistente: no revela qué IDs existen. Sin correo, cédula ni montos.
+    no_existe = HTTPException(404, "Solicitud no encontrada")
+    if not re.fullmatch(r"SOL-\d{5}", id_solicitud.strip().upper()): raise no_existe
+    with db_session(req) as db:
+        c = db.scalar(select(CredCaso).where(CredCaso.id_solicitud == id_solicitud.strip().upper()))
+        if not c: raise no_existe
+        ultimo = c.eventos[-1].momento if c.eventos else c.creado_en
+        return {"id_solicitud": c.id_solicitud, "hito": HITOS.get(c.estado, "En revisión"), "actualizado_en": iso(ultimo)}
 
 @router.get("/casos")
 def casos(req: Request):

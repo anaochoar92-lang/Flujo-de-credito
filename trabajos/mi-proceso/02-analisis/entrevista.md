@@ -274,3 +274,12 @@ Respuesta de Ana para las cuatro: «Todos los PEND déjalos como me indicaste en
 | CAM-1 | ¿Despliegue en Camunda (paso 24, TEC-02 y TEC-03)? | «Lo dejo a David/Sergio» | Confirmado: sin credenciales en este equipo |
 
 **Resultado ronda 22:** paso 23 implementado (`app/credito.py`, `app/static/credito.html`, `tests/test_credito.py`); 42 pruebas en verde (32 del kit + 10 del MVP; el archivo de pruebas tiene 10, no 11 como se anotó en la ronda 19). Python en un entorno aislado (`.venv/`, fuera de git). Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
+
+## Ronda 23 — 2026-10-28 (presentación e INC-1)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| SIG-1 | ¿Subir a GitHub la versión nueva de `Automatización PPT.pptx`? | «Sí.» | Hecho (commit `dccbb98`) |
+| SIG-2 | ¿Empezar el backlog del paso 27 con INC-1 (estado visible para el cliente)? | «OK.» | Hecho |
+| SIG-3 | ¿Otra cosa pendiente? | «No.» | — |
+
+**Resultado ronda 23:** INC-1 implementado. Ruta `GET /api/credito/estado/{id_solicitud}` que devuelve solo `id_solicitud`, `hito` y `actualizado_en`, y caja «Consultar mi solicitud» en `credito.html` (si la consulta falla, la caja se oculta). Un `SOL-` inexistente y un formato inválido dan el mismo 404. 44 pruebas en verde (42 previas + 2 de INC-1). Nota: el backlog decía «43 pruebas previas»; eran 42. Un caso dudoso que vuelve con una corrección pasa otra vez por Legal si los datos siguen sin coincidir (comportamiento del MVP, sin cambios). Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI. Siguiente: INC-2.

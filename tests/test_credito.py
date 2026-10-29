@@ -130,3 +130,37 @@ def test_entradas_invalidas(client):
     assert {d["tipo"]: d for d in r.json()["documentos"]}["IDENTIDAD"]["motivo_rechazo"] == "fecha futura"
     assert client.post("/api/credito/casos/9999/documentos", json=[doc("IDENTIDAD")]).status_code == 404
     assert completar(client, "cred-9999-legal-0", resultado="ACEPTA").status_code == 404
+
+
+def estado(client, id_solicitud): return client.get(f"/api/credito/estado/{id_solicitud}")
+
+def test_inc1_hitos_visibles_para_el_cliente(client):
+    c = nuevo(client)
+    sol = c["id_solicitud"]
+    r = estado(client, sol)
+    assert r.status_code == 200 and set(r.json()) == {"id_solicitud", "hito", "actualizado_en"}
+    assert r.json()["hito"] == "Enlace enviado"
+    client.post(f"/api/credito/casos/{c['id']}/documentos", json=[doc(t) for t in TIPOS[:3]])
+    assert estado(client, sol).json()["hito"] == "Documentos con observaciones"
+    client.post(f"/api/credito/casos/{c['id']}/documentos", json=[doc("PAGARE", cedula="002-9999999-9")])
+    assert estado(client, sol.lower()).json()["hito"] == "En revisión"
+    completar(client, tareas(client, "legal")[0]["key"], resultado="ACEPTA")
+    assert estado(client, sol).json()["hito"] == "En verificación"
+    completar(client, tareas(client, "despacho")[0]["key"], resultado="OK")
+    assert estado(client, sol).json()["hito"] == "Expediente verificado"
+    limpio = nuevo(client)
+    client.post(f"/api/credito/casos/{limpio['id']}/documentos", json=[doc(t) for t in TIPOS])
+    completar(client, tareas(client, "despacho")[0]["key"], resultado="CORREGIR", documento="INGRESOS")
+    assert estado(client, limpio["id_solicitud"]).json()["hito"] == "Documentos con observaciones"
+    otro = nuevo(client)
+    client.post(f"/api/credito/casos/{otro['id']}/documentos", json=[doc(t) for t in TIPOS[:3]] + [doc("PAGARE", cedula="002-9999999-9")])
+    completar(client, tareas(client, "legal")[0]["key"], resultado="RECHAZA")
+    assert estado(client, otro["id_solicitud"]).json()["hito"] == "Pasa a atención presencial"
+
+def test_inc1_no_revela_ids_ni_datos_personales(client):
+    c = nuevo(client)
+    inexistente = "SOL-00001" if c["id_solicitud"] != "SOL-00001" else "SOL-00002"
+    a, b = estado(client, inexistente), estado(client, "no-es-un-id")
+    assert a.status_code == b.status_code == 404 and a.json() == b.json()
+    texto = estado(client, c["id_solicitud"]).text
+    assert "demo@ejemplo.test" not in texto and "350000" not in texto and "001-0000001-1" not in texto
