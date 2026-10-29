@@ -1,6 +1,6 @@
 """MVP didáctico. Sin autenticación de usuarios; limitar a localhost en demo."""
-import csv, io, json, os
-from contextlib import asynccontextmanager
+import asyncio, csv, io, json, os
+from contextlib import asynccontextmanager, suppress
 from datetime import datetime, timezone
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, StreamingResponse
@@ -12,7 +12,7 @@ from .db import Caso, Evento, setup_db
 from .schemas import CasoNuevo, CompletarTarea
 from .camunda import CamundaClient, CamundaError
 from . import db as db_module
-from .credito import router as credito_router, crear_vista_preset
+from .credito import router as credito_router, crear_vista_preset, trabajador_camunda
 
 load_dotenv()
 MOCK_TASKS = {
@@ -47,7 +47,14 @@ async def lifespan(app):
     app.state.session_factory = setup_db()
     crear_vista_preset(db_module.engine)
     app.state.camunda = CamundaClient()
+    # CAM-4 (ronda 25): solo en ENGINE_MODE=camunda se necesita completar los trabajos automáticos
+    # (TB_SND_ENLACE, TB_SVC_VALIDAR, TB_SND_CORREGIR) para que las instancias reales avancen.
+    tarea = asyncio.create_task(trabajador_camunda(app)) if mode() == "camunda" else None
     yield
+    if tarea:
+        tarea.cancel()
+        with suppress(asyncio.CancelledError):
+            await tarea
 
 app = FastAPI(title="MBA · Liquidación de cargas urbanísticas (MVP didáctico)", lifespan=lifespan)
 app.include_router(credito_router)

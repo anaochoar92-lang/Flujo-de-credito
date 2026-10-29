@@ -15,6 +15,9 @@ class CamundaClient:
         # Con CAMUNDA_CLIENT_MODE=saas (credenciales de la consola) se usa OAuth aunque falte CAMUNDA_AUTH_MODE.
         saas = os.getenv("CAMUNDA_CLIENT_MODE", "").lower() == "saas"
         self.auth_mode = env("CAMUNDA_AUTH_MODE", default="oauth" if saas else "none").lower()
+        # Clúster con multi-tenencia (confirmado en vivo, 2026-10-29): process-instances, jobs/activation
+        # y messages/publication exigen el tenant; user-tasks/search y la completación no lo piden.
+        self.tenant = env("CAMUNDA_TENANT_ID", default="<default>")
         self.token = ""
         self.expires = 0.0
 
@@ -60,7 +63,8 @@ class CamundaClient:
     def health(self): return self._request("GET", "topology")
 
     def start(self, process_id, variables):
-        return self._request("POST", "process-instances", {"processDefinitionId": process_id, "variables": variables})
+        return self._request("POST", "process-instances",
+                              {"processDefinitionId": process_id, "variables": variables, "tenantId": self.tenant})
 
     def tasks(self, instance_key):
         result = self._request("POST", "user-tasks/search", {"filter": {"processInstanceKey": str(instance_key)}, "page": {"limit": 100}})
@@ -72,3 +76,19 @@ class CamundaClient:
     def status(self, instance_key):
         """Consulta estado de proceso, disponible en REST v2 (eventual consistency)."""
         return self._request("GET", f"process-instances/{instance_key}")
+
+    def activate_jobs(self, job_type, max_jobs=10, timeout_ms=10000, worker="credito-mvp"):
+        """Jobs de las tareas de envío/validación automática (TB_SND_*, TB_SVC_VALIDAR). jobs/activation exige tenantIds (lista)."""
+        result = self._request("POST", "jobs/activation",
+                                {"type": job_type, "maxJobsToActivate": max_jobs, "timeout": timeout_ms,
+                                 "worker": worker, "tenantIds": [self.tenant]})
+        return result.get("jobs", [])
+
+    def complete_job(self, job_key, variables=None):
+        return self._request("POST", f"jobs/{job_key}/completion", {"variables": variables or {}})
+
+    def publish_message(self, name, correlation_key, variables=None, ttl_ms=60000):
+        """messages/publication exige tenantId (singular, a diferencia de jobs/activation)."""
+        return self._request("POST", "messages/publication",
+                              {"name": name, "correlationKey": correlation_key, "variables": variables or {},
+                               "timeToLive": ttl_ms, "tenantId": self.tenant})

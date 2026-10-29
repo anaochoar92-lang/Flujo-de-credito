@@ -3,6 +3,7 @@ from datetime import date, timedelta
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
+from app.camunda import CamundaError
 
 TIPOS = ["IDENTIDAD", "INGRESOS", "ESTADO_CUENTA", "PAGARE"]
 
@@ -11,6 +12,44 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path/'credito.sqlite3'}")
     monkeypatch.setenv("ENGINE_MODE", "mock")
     with TestClient(app) as c: yield c
+
+class FakeCamunda:
+    """Doble de CamundaClient para probar CAM-4 sin red ni clúster real (incluye lo que usa el
+    trabajador automático, aunque estas pruebas no dependen de él: no hay trabajos reales pendientes)."""
+    def __init__(self):
+        self.iniciadas, self.mensajes, self.completadas = [], [], []
+        self._contador, self._tareas = 1000, {}
+
+    def start(self, process_id, variables):
+        self._contador += 1
+        self.iniciadas.append((process_id, dict(variables)))
+        return {"processInstanceKey": self._contador}
+
+    def tasks(self, instance_key): return self._tareas.get(str(instance_key), [])
+
+    def complete(self, key, variables): self.completadas.append((key, dict(variables)))
+
+    def publish_message(self, name, correlation_key, variables=None, ttl_ms=60000):
+        self.mensajes.append((name, correlation_key, dict(variables or {})))
+
+    def activate_jobs(self, job_type, max_jobs=10, timeout_ms=10000, worker="credito-mvp"): return []
+    def complete_job(self, job_key, variables=None): pass
+
+    def agregar_tarea(self, instance_key, element_id, task_key):
+        self._tareas.setdefault(str(instance_key), []).append(
+            {"elementId": element_id, "userTaskKey": task_key, "state": "CREATED"})
+
+@pytest.fixture()
+def client_camunda(tmp_path, monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path/'credito_camunda.sqlite3'}")
+    monkeypatch.setenv("ENGINE_MODE", "camunda")
+    fake = FakeCamunda()
+    # Sustituye la clase real ANTES de levantar la app: el trabajador automático del lifespan
+    # arranca con app.state.camunda, así que nunca debe tocar la red real durante las pruebas.
+    monkeypatch.setattr("app.main.CamundaClient", lambda: fake)
+    with TestClient(app) as c:
+        c.fake = fake
+        yield c
 
 def doc(tipo, dias=5, legible=True, cedula="001-0000001-1"):
     d = {"tipo": tipo, "fecha_expedicion": (date.today() - timedelta(days=dias)).isoformat(), "legible": legible,
@@ -164,3 +203,52 @@ def test_inc1_no_revela_ids_ni_datos_personales(client):
     assert a.status_code == b.status_code == 404 and a.json() == b.json()
     texto = estado(client, c["id_solicitud"]).text
     assert "demo@ejemplo.test" not in texto and "350000" not in texto and "001-0000001-1" not in texto
+
+
+# --- CAM-4 (ronda 25): conexión real con Camunda, probada con FakeCamunda (sin red) ---
+
+def test_cam4_crea_instancia_real_y_publica_la_validacion(client_camunda):
+    c = client_camunda
+    caso = nuevo(c)
+    assert caso["instance_key"].isdigit()
+    assert caso["bpmn_id"] == "Process_Credito_MVP"
+    assert c.fake.iniciadas == [("Process_Credito_MVP", {"solicitudId": caso["id_solicitud"]})]
+
+    r = c.post(f"/api/credito/casos/{caso['id']}/documentos", json=[doc(t) for t in TIPOS])
+    assert r.status_code == 200 and r.json()["camunda_sincronizado"] is True
+    assert c.fake.mensajes[-1] == ("documentos-cargados", caso["id_solicitud"], {"resultadoValidacion": "valido"})
+
+def test_cam4_completa_las_tareas_reales_de_legal_y_despacho(client_camunda):
+    c = client_camunda
+    caso = nuevo(c)
+    c.post(f"/api/credito/casos/{caso['id']}/documentos",
+           json=[doc(t) for t in TIPOS[:3]] + [doc("PAGARE", cedula="002-9999999-9")])
+    instance_key = c.get(f"/api/credito/casos/{caso['id']}").json()["instance_key"]
+    assert c.fake.mensajes[-1][2] == {"resultadoValidacion": "dudoso"}
+
+    c.fake.agregar_tarea(instance_key, "TB_ACT_REVISAR", "RZT-1")
+    r = completar(c, tareas(c, "legal")[0]["key"], resultado="ACEPTA")
+    assert r.status_code == 200 and c.fake.completadas[-1] == ("RZT-1", {"legalAcepta": True})
+    assert r.json()["caso"]["estado"] == "VERIFICACION_DESPACHO"
+
+    c.fake.agregar_tarea(instance_key, "TB_ACT_VERIF", "DZT-1")
+    r = completar(c, tareas(c, "despacho")[0]["key"], resultado="CORREGIR", documento="INGRESOS")
+    assert r.status_code == 200 and c.fake.completadas[-1] == ("DZT-1", {"expedienteOk": False})
+
+def test_cam4_si_camunda_no_tiene_la_tarea_no_cambia_nada_local(client_camunda):
+    c = client_camunda
+    caso = nuevo(c)
+    c.post(f"/api/credito/casos/{caso['id']}/documentos", json=[doc(t) for t in TIPOS])
+    key = tareas(c, "despacho")[0]["key"]
+    # No se registró la tarea gemela en el Fake: Camunda no la tiene -> debe fallar sin tocar el estado local.
+    r = completar(c, key, resultado="OK")
+    assert r.status_code == 502 and not c.fake.completadas
+    assert c.get(f"/api/credito/casos/{caso['id']}").json()["estado"] == "VERIFICACION_DESPACHO"
+
+def test_cam4_si_camunda_falla_al_iniciar_no_crea_el_caso(client_camunda):
+    c = client_camunda
+    def falla(*a, **k): raise CamundaError("clúster no disponible (simulado)")
+    c.fake.start = falla
+    r = c.post("/api/credito/casos", json={"cliente_alias": "Cliente Demo", "correo_cliente": "demo@ejemplo.test", "monto": 350000})
+    assert r.status_code == 502
+    assert c.get("/api/credito/casos").json() == []

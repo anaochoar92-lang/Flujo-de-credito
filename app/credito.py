@@ -1,10 +1,14 @@
-"""MVP Flujo de crédito preaprobado (trabajos/mi-proceso/14-mvp). Datos SINTÉTICOS; solo modo mock.
+"""MVP Flujo de crédito preaprobado (trabajos/mi-proceso/14-mvp). Datos SINTÉTICOS.
 
 Porción TO-BE: envío del enlace (TB_SND_ENLACE) → carga del cliente (CL_CARGAR) → validación
 (TB_SVC_VALIDAR, simulada) → Legal si hay datos distintos (TB_ACT_REVISAR) → Despacho (TB_ACT_VERIF).
-Las tareas no se guardan en tabla: se derivan del estado del caso, igual que el modo mock del kit.
+En ENGINE_MODE=mock las tareas se derivan del estado del caso (no se guardan en tabla). En
+ENGINE_MODE=camunda (CAM-4, ronda 25) además se inicia una instancia real de `Process_Credito_MVP`,
+se publica el mensaje de la validación y se completan las tareas reales de Legal/Despacho; si Camunda
+falla, la decisión local NO se confirma (ver `completar_en_camunda`) salvo en la validación de
+documentos, que es best-effort (el MVP ya decidió localmente; Camunda es una copia de demostración).
 """
-import csv, io, json, random, re
+import asyncio, csv, io, json, logging, os, random, re
 from datetime import date, datetime, timezone
 from zoneinfo import ZoneInfo
 from fastapi import APIRouter, HTTPException, Request
@@ -13,11 +17,16 @@ from pydantic import BaseModel, Field
 from sqlalchemy import String, Float, Integer, Boolean, Date, DateTime, ForeignKey, Text, select, text, inspect
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .db import Base
+from .camunda import CamundaError
+
+logger = logging.getLogger("credito.camunda")
 
 TIPOS = ["IDENTIDAD", "INGRESOS", "ESTADO_CUENTA", "PAGARE"]
 MAX_INTENTOS = 5          # por documento (REQ-MVP-01, DAT-2)
 VIGENCIA_DIAS = 20        # días calendario desde la expedición (REQ-MVP-01)
-PROCESO_TOBE = "Process_Credito_TOBE"
+PROCESO_MVP = "Process_Credito_MVP"           # bpmn:process id real en 14-mvp/proceso-mvp-v01.bpmn
+MENSAJE_DOCS = "documentos-cargados"          # bpmn:message del BPMN del MVP, correlationKey = solicitudId
+JOBS_AUTOMATICOS = ("enviar-correo-enlace", "validar-documentos", "enviar-correo-correccion")
 ZONA = ZoneInfo("America/Santo_Domingo")  # PEND-03 (ronda 21)
 ESPERA_DOCUMENTOS = ("ENLACE_ENVIADO", "DOCUMENTOS_RECHAZADOS", "ESPERANDO_CORRECCION")
 TAREA_POR_ESTADO = {
@@ -37,7 +46,7 @@ class CredCaso(Base):
     __tablename__ = "cred_casos"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     id_solicitud: Mapped[str] = mapped_column(String(9), unique=True, index=True)
-    bpmn_id: Mapped[str] = mapped_column(String(100), default=PROCESO_TOBE)
+    bpmn_id: Mapped[str] = mapped_column(String(100), default=PROCESO_MVP)
     instance_key: Mapped[str | None] = mapped_column(String(80), nullable=True)
     cliente_alias: Mapped[str] = mapped_column(String(80))
     correo_cliente: Mapped[str] = mapped_column(String(120))
@@ -128,6 +137,7 @@ router = APIRouter(prefix="/api/credito", tags=["credito"])
 def now(): return datetime.now(timezone.utc)
 def iso(v): return v.isoformat() if v else None
 def db_session(req: Request): return req.app.state.session_factory()
+def mode(): return os.getenv("ENGINE_MODE", "mock").lower()
 
 def log(db, caso, accion, tarea=None, actor="sistema", detalles=None):
     caso.eventos.append(CredEvento(accion=accion, tarea=tarea, actor=actor, detalles=json.dumps(detalles or {}, ensure_ascii=False)))
@@ -191,6 +201,52 @@ def diferencias(docs):
         if len(valores) > 1: out.append(etiqueta)
     return out
 
+def sincronizar_validacion(req, c, resultado):
+    """Publica el resultado de la validación a la instancia real de Camunda (best-effort, CAM-4).
+    La decisión ya quedó en la base local; si Camunda no responde, el MVP sigue funcionando."""
+    if mode() != "camunda" or not (c.instance_key or "").isdigit():
+        return None
+    try:
+        req.app.state.camunda.publish_message(MENSAJE_DOCS, c.id_solicitud, {"resultadoValidacion": resultado})
+        return True
+    except CamundaError as ex:
+        logger.warning("No se pudo publicar %s para %s: %s", MENSAJE_DOCS, c.id_solicitud, ex)
+        return False
+
+def completar_en_camunda(req, c, element_id, variables):
+    """Completa la tarea real de Camunda antes de tocar el estado local (CAM-4): si falla, no se
+    confirma nada local (a diferencia de la validación, aquí sí es una decisión humana de Legal/Despacho)."""
+    if mode() != "camunda" or not (c.instance_key or "").isdigit():
+        return
+    activas = req.app.state.camunda.tasks(c.instance_key)
+    objetivo = next((t for t in activas if t.get("elementId") == element_id), None)
+    if not objetivo:
+        raise CamundaError(f"Camunda no tiene una tarea activa de {element_id} para la instancia {c.instance_key}")
+    clave = objetivo.get("userTaskKey") or objetivo.get("key")
+    req.app.state.camunda.complete(clave, variables)
+
+async def trabajador_camunda(app):
+    """Completa los trabajos automáticos (TB_SND_ENLACE, TB_SVC_VALIDAR, TB_SND_CORREGIR): esa lógica
+    ya la hizo el MVP en Python; aquí solo se le avisa a Camunda que el paso quedó hecho, para que la
+    instancia avance. Solo corre si ENGINE_MODE=camunda (ver lifespan en app/main.py)."""
+    espera = 3
+    while True:
+        try:
+            for tipo in JOBS_AUTOMATICOS:
+                for job in app.state.camunda.activate_jobs(tipo, max_jobs=10, timeout_ms=10000):
+                    clave = job.get("jobKey") or job.get("key")
+                    try:
+                        app.state.camunda.complete_job(clave, {})
+                    except CamundaError as ex:
+                        logger.warning("No se pudo completar el trabajo %s de %s: %s", clave, tipo, ex)
+            espera = 3
+        except asyncio.CancelledError:
+            raise
+        except CamundaError as ex:
+            logger.warning("Camunda no respondió al activar trabajos automáticos: %s", ex)
+            espera = min(espera * 2, 60)
+        await asyncio.sleep(espera)
+
 
 @router.post("/casos", status_code=201)
 def crear(payload: CasoCredito, req: Request):
@@ -199,9 +255,17 @@ def crear(payload: CasoCredito, req: Request):
                      correo_cliente=payload.correo_cliente.strip(), monto=payload.monto)
         c.documentos = [CredDocumento(tipo=t) for t in TIPOS]
         db.add(c); db.flush()
-        c.instance_key = f"DEMO-{c.id}"
+        if mode() == "camunda":
+            try:
+                resultado = req.app.state.camunda.start(PROCESO_MVP, {"solicitudId": c.id_solicitud})
+                c.instance_key = str(resultado["processInstanceKey"])
+            except (CamundaError, KeyError) as ex:
+                db.rollback()
+                raise HTTPException(502, f"No se pudo iniciar el proceso en Camunda: {ex}")
+        else:
+            c.instance_key = f"DEMO-{c.id}"
         # El correo se simula: se registra el evento, no se envía nada (alcance del MVP).
-        log(db, c, "ENLACE_ENVIADO", tarea="TB_SND_ENLACE", detalles={"correo": "simulado"})
+        log(db, c, "ENLACE_ENVIADO", tarea="TB_SND_ENLACE", detalles={"correo": "simulado", "instance_key": c.instance_key})
         db.commit()
         return ser_caso(c)
 
@@ -247,21 +311,27 @@ def cargar(caso_id: int, docs: list[DocumentoCarga], req: Request):
             if agotados:
                 c.estado = "RUTA_PAPEL"; c.etapa += 1; c.cerrado_en = now()
                 log(db, c, "INTENTOS_AGOTADOS", detalles={"documentos": agotados})
+                resultado = "agotado"
             else:
                 cambiar_estado(c, "DOCUMENTOS_RECHAZADOS")
+                resultado = "rechazado"
             db.commit()
-            return JSONResponse(status_code=422, content={**ser_caso(c), "motivos": rechazos})
+            sincronizado = sincronizar_validacion(req, c, resultado)
+            return JSONResponse(status_code=422, content={**ser_caso(c), "motivos": rechazos, "camunda_sincronizado": sincronizado})
 
         dif = diferencias(c.documentos)
         if dif:
             c.caso_dudoso = True
             cambiar_estado(c, "REVISION_LEGAL")
             log(db, c, "CASO_DUDOSO", tarea="TB_GW_VALIDO", detalles={"campos_distintos": dif})
+            resultado = "dudoso"
         else:
             cambiar_estado(c, "VERIFICACION_DESPACHO")
             log(db, c, "DOCUMENTOS_VALIDOS", tarea="TB_GW_VALIDO")
+            resultado = "valido"
         db.commit()
-        return ser_caso(c)
+        sincronizado = sincronizar_validacion(req, c, resultado)
+        return {**ser_caso(c), "camunda_sincronizado": sincronizado}
 
 @router.get("/tareas")
 def tareas(req: Request, rol: str | None = None):
@@ -284,6 +354,13 @@ def completar(key: str, payload: CompletarCredito, req: Request):
         if payload.resultado not in RESULTADOS[rol]:
             raise HTTPException(422, f"Resultado inválido para {rol}: use {' o '.join(RESULTADOS[rol])}")
         detalles = {"resultado": payload.resultado, "observacion": payload.observacion}
+        try:
+            if rol == "legal":
+                completar_en_camunda(req, c, "TB_ACT_REVISAR", {"legalAcepta": payload.resultado == "ACEPTA"})
+            else:
+                completar_en_camunda(req, c, "TB_ACT_VERIF", {"expedienteOk": payload.resultado == "OK"})
+        except CamundaError as ex:
+            raise HTTPException(502, f"No se pudo completar la tarea en Camunda: {ex}")
         if rol == "legal":
             c.decision_legal = payload.resultado
             cambiar_estado(c, "VERIFICACION_DESPACHO" if payload.resultado == "ACEPTA" else "RUTA_PAPEL")

@@ -293,3 +293,21 @@ Respuesta de Ana para las cuatro: «Todos los PEND déjalos como me indicaste en
 **Resultado ronda 24:** credenciales guardadas solo en `.env` (ignorado por git; no se suben). `app/camunda.py` acepta los nombres de variables de la consola SaaS (`ZEEBE_*`, `CAMUNDA_TOKEN_AUDIENCE`, `CAMUNDA_CLIENT_MODE=saas`). El token OAuth se obtiene bien, pero el clúster `ea62933b…` (pdx-1) responde **503** en `/v2/topology`: probablemente está pausado o todavía arrancando. 44 pruebas en verde. Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
 
 **Actualización ronda 24 (mismo día):** Ana reanudó el clúster. Conexión comprobada: `/v2/topology` responde con 3 brokers, versión 8.10.5; `/api/health/camunda` de la app da `ok` con `ENGINE_MODE=camunda`. El clúster no tiene **ningún proceso desplegado** (0 definiciones). Pendientes: CAM-3 (desplegar `proceso-mvp-v01.bpmn`) y CAM-4 (conectar `credito.py` a Camunda).
+
+## Ronda 25 — 2026-10-29 (CAM-4: conectar `credito.py` a Camunda)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| CAM-4 | ¿Conectar el MVP de crédito a Camunda, aunque CAM-3 (desplegar el BPMN) siga bloqueado por permisos? | «Ejecuta CAM-4, deja CAM-3 hasta que David nos dé permisos.» | Hecho |
+
+**Resultado ronda 25:** `app/credito.py` queda conectado a Camunda (gatillado por `ENGINE_MODE=camunda`, sin afectar el modo mock):
+- **Crear solicitud:** inicia una instancia real de `Process_Credito_MVP` (antes el código usaba por error el id `Process_Credito_TOBE`, que no existe en ningún BPMN; se corrigió). Si Camunda falla, no se crea el caso localmente (502).
+- **Cargar documentos:** publica el mensaje `documentos-cargados` con el resultado de la validación (best-effort: la decisión ya quedó en la base local, así que un fallo de Camunda no bloquea al cliente; queda `camunda_sincronizado: true/false` en la respuesta).
+- **Legal y Despacho:** antes de cambiar el estado local, completa la tarea real en Camunda; si Camunda no la tiene activa, el intento falla con 502 **sin tocar nada local** (consistente con el resto del kit).
+- **Trabajador automático** (`app/main.py`, nuevo, solo en modo Camunda): completa los pasos automáticos del BPMN (enviar enlace, validar, pedir corrección) para que la instancia no se quede esperando.
+- **48 pruebas en verde** (44 + 4 nuevas de CAM-4, con un doble de Camunda sin red).
+
+**Probado en vivo contra el clúster pdx-1** (sin desplegar nada): crear una solicitud devuelve `502` con el motivo exacto de Camunda («process definition ... Process_Credito_MVP ... none found»), tal como se espera mientras CAM-3 siga pendiente; el trabajador automático ve el `401` (falta autorizar el tenant para activar trabajos) y sigue funcionando sin caerse.
+
+**CAM-3 sigue pendiente de David.** Además del permiso ya pedido (`CREATE` sobre `RESOURCE`/despliegues), la prueba de hoy encontró que el cliente API también necesita: `ACTIVATE` sobre `JOB` para el tenant `<default>` (hoy da 401, "Authorized tenants are []") y `CREATE` sobre `MESSAGE` para `documentos-cargados` (hoy da 403). Falta pedir los tres para que el flujo funcione de punta a punta.
+
+Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
