@@ -14,3 +14,6 @@
 __pycache__/
 .pytest_cache/
 mvp.sqlite3
+
+# Credenciales descargadas de la consola de Camunda (Env vars)
+*-env.sh
