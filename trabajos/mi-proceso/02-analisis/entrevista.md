@@ -311,3 +311,16 @@ Respuesta de Ana para las cuatro: «Todos los PEND déjalos como me indicaste en
 **CAM-3 sigue pendiente de David.** Además del permiso ya pedido (`CREATE` sobre `RESOURCE`/despliegues), la prueba de hoy encontró que el cliente API también necesita: `ACTIVATE` sobre `JOB` para el tenant `<default>` (hoy da 401, "Authorized tenants are []") y `CREATE` sobre `MESSAGE` para `documentos-cargados` (hoy da 403). Falta pedir los tres para que el flujo funcione de punta a punta.
 
 Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
+
+## Ronda 26 — 2026-10-29 (PPT: digitalización y verificación automatizada)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| PPT-1 | Agregar a la presentación que se hicieron dos cosas: digitalizar los documentos y automatizar la verificación | «Para la PPT también debemos agregar que se hicieron dos cosas...» | Hecho |
+
+**Resultado ronda 26:** en `Automatización PPT.pptx`:
+- **Lámina 12** (el MVP): fila TEC-05 de la tabla pasó de «Sin iniciar» a **Completado** (48 pruebas, no 43); la nota inferior ahora dice «Hecho: documentos digitalizados; verificación automatizada con Camunda», y aclara que David y Sergio solo falta el despliegue.
+- **Lámina 11** (recorrido): la leyenda ámbar ya no dice «código y despliegue a cargo del equipo técnico» (el código ya está hecho); queda «despliegue a cargo del equipo técnico; código ya hecho».
+- Edición con `python-pptx`, cambiando el texto de los *runs* existentes (conserva el formato); validado con `scripts/office/validate.py` (sin errores). No hay LibreOffice instalado en este equipo, así que no se pudo generar una vista previa de las láminas; los cálculos de espacio de cada caja de texto se hicieron a mano antes de escribir, y el texto nuevo quedó por debajo del límite estimado de cada caja.
+- Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
+
+**Cierre del día:** servidor local (`uvicorn`, puerto 8000) detenido. Todo subido a GitHub.
