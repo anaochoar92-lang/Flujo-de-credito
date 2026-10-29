@@ -1,6 +1,6 @@
 # Paso 23 (frontend) y siguientes — encargo para David y Sergio
 
-**Fecha:** 2026-10-26 · **De:** Ana (con Claude) · **Estado:** especificación aprobada; **código sin escribir**. En la máquina de Ana no se corre Python (decisión de la ronda 19), así que la implementación y las pruebas las hacen David y Sergio.
+**Fecha:** 2026-10-26 · **De:** Ana (con Claude) · **Estado:** **implementado el 2026-10-28** (ronda 22: se hizo en el equipo de Ana; 42 pruebas en verde). Lo que sigue abajo es la especificación original. En la máquina de Ana no se corre Python (decisión de la ronda 19), así que la implementación y las pruebas las hacen David y Sergio.
 **Datos:** SINTÉTICOS. **Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio).
 
 ## Qué leer primero (en este orden)

@@ -56,3 +56,33 @@ Decisiones de Sergio en esta sesión: Lovable cumple los dos papeles (demo y por
 | TEC-01 a TEC-05 | Siguen abiertos (David / Sergio) |
 
 **Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio).
+
+---
+
+## 2026-10-28 — Ana (con Claude)
+
+### Qué se hizo
+| # | Qué | Archivos |
+|---|---|---|
+| 1 | **Paso 23 / TEC-05 hecho.** API del MVP en `/api/credito` (tablas `cred_casos`, `cred_documentos`, `cred_eventos` y vista `vw_preset_mvp_casos`) y pantalla en `/credito`. No se tocaron los endpoints del kit | `app/credito.py`, `app/static/credito.html`, `app/main.py` (+7 líneas) |
+| 2 | Pruebas copiadas a `tests/` y `pytest.ini` con `testpaths = tests` (la copia de `pruebas-propuestas` queda como registro y ya no se ejecuta dos veces). **42 en verde** | `tests/test_credito.py`, `pytest.ini` |
+| 3 | `requirements.txt`: se agregan `PyYAML` (faltaba para `test_preset_bundle.py`) y `tzdata` (zona `America/Santo_Domingo` en Windows, PEND-03) | `requirements.txt` |
+| 4 | `.gitignore`: `.venv/`, `__pycache__/`, `.pytest_cache/`, `mvp.sqlite3` | `.gitignore` |
+| 5 | Presentación ejecutiva del proceso | `Automatización PPT.pptx` |
+
+### Cómo probarlo
+```
+python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m pytest -q
+.venv\Scripts\python -m uvicorn app.main:app --reload   # abrir http://localhost:8000/credito
+```
+
+### Estado de los pendientes
+| ID | Estado |
+|---|---|
+| TEC-05 | **Cerrado** (falta solo tomar las 4 capturas del paso 23: caso creado, tarea activa, tarea completada, CSV) |
+| TEC-01 a TEC-04 | Siguen abiertos (David / Sergio): necesitan Camunda Modeler, credenciales del clúster o Lovable/Supabase |
+| Siguiente | Paso 25 (CSV del MVP a Preset), paso 26 (auditoría) e INC-1 del backlog |
+
+**Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio). Los datos del MVP no se mezclan con `09-datos/`.

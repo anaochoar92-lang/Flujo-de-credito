@@ -8,3 +8,9 @@
 
 # Secretos locales generados por scripts/levantar.*
 .env
+
+# Entorno local de Python y base SQLite de la demo
+.venv/
+__pycache__/
+.pytest_cache/
+mvp.sqlite3

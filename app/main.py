@@ -11,6 +11,8 @@ from dotenv import load_dotenv
 from .db import Caso, Evento, setup_db
 from .schemas import CasoNuevo, CompletarTarea
 from .camunda import CamundaClient, CamundaError
+from . import db as db_module
+from .credito import router as credito_router, crear_vista_preset
 
 load_dotenv()
 MOCK_TASKS = {
@@ -43,10 +45,12 @@ def calculate_demo(input: CasoNuevo):
 @asynccontextmanager
 async def lifespan(app):
     app.state.session_factory = setup_db()
+    crear_vista_preset(db_module.engine)
     app.state.camunda = CamundaClient()
     yield
 
 app = FastAPI(title="MBA · Liquidación de cargas urbanísticas (MVP didáctico)", lifespan=lifespan)
+app.include_router(credito_router)
 app.mount("/static", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "static")), name="static")
 
 def serialize(c):
@@ -61,6 +65,9 @@ def mode(): return os.getenv("ENGINE_MODE", "mock").lower()
 
 @app.get("/")
 def home(): return FileResponse(os.path.join(os.path.dirname(__file__), "static", "index.html"))
+
+@app.get("/credito")
+def credito_home(): return FileResponse(os.path.join(os.path.dirname(__file__), "static", "credito.html"))
 
 @app.get("/api/health")
 def health(req: Request):

@@ -266,3 +266,11 @@ Respuesta de Ana para las cuatro: «Todos los PEND déjalos como me indicaste en
 | PEND-04 | ¿Lovable con los dos módulos (demo en Camunda + Portal MVP)? | **Sí**, visto bueno a la decisión de Sergio | Confirmado |
 
 **Resultado ronda 21:** se mantienen `14-mvp/proceso-mvp-v01.bpmn` y `14-demo/prompt-lovable-v02.md` tal como están; no hace falta BPMN del MVP v02, prompt de Lovable v03 ni TO-BE v04 por estas respuestas (TEC-06 queda sin efecto). Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
+
+## Ronda 22 — 2026-10-28 (paso 23 en el equipo de Ana)
+| ID | Pregunta | Respuesta | Estado |
+|---|---|---|---|
+| PY-2 | En la ronda 19 se decidió no correr Python en el equipo de Ana. ¿Se cambia para programar y probar aquí el paso 23? | «Sí, hazlo aquí» (pedido: «ejecuta los pasos que faltan e instala lo que necesites») | Confirmado: **reemplaza a PY-1** |
+| CAM-1 | ¿Despliegue en Camunda (paso 24, TEC-02 y TEC-03)? | «Lo dejo a David/Sergio» | Confirmado: sin credenciales en este equipo |
+
+**Resultado ronda 22:** paso 23 implementado (`app/credito.py`, `app/static/credito.html`, `tests/test_credito.py`); 42 pruebas en verde (32 del kit + 10 del MVP; el archivo de pruebas tiene 10, no 11 como se anotó en la ronda 19). Python en un entorno aislado (`.venv/`, fuera de git). Sin efecto en ROI (16,7 %), recuperación (10,1 meses) ni KPI.
