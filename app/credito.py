@@ -233,10 +233,12 @@ async def trabajador_camunda(app):
     while True:
         try:
             for tipo in JOBS_AUTOMATICOS:
-                for job in app.state.camunda.activate_jobs(tipo, max_jobs=10, timeout_ms=10000):
+                # httpx es síncrono y jobs/activation hace long-polling (~10 s): en un hilo aparte para no
+                # bloquear el event loop, si no las peticiones HTTP de la app se quedan esperando.
+                for job in await asyncio.to_thread(app.state.camunda.activate_jobs, tipo, max_jobs=10, timeout_ms=10000):
                     clave = job.get("jobKey") or job.get("key")
                     try:
-                        app.state.camunda.complete_job(clave, {})
+                        await asyncio.to_thread(app.state.camunda.complete_job, clave, {})
                     except CamundaError as ex:
                         logger.warning("No se pudo completar el trabajo %s de %s: %s", clave, tipo, ex)
             espera = 3
