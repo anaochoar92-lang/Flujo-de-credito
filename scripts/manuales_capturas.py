@@ -41,7 +41,12 @@ with sync_playwright() as pw:
     # Cliente: formulario de carga
     pg.goto(B + f"/credito?caso={nuevo['id']}"); pg.wait_for_timeout(1200)
     pg.click("text=Llenar ejemplo válido"); pg.wait_for_timeout(300)
+    # «Buscar archivo…» abre el selector del sistema operativo: se elige un archivo de muestra (solo se muestra el nombre).
+    with open(f"{OUT}/cedula_cliente_demo.pdf", "wb") as f: f.write(b"%PDF-1.4 demo" + b" " * 240000)
+    with pg.expect_file_chooser() as fc: pg.locator("text=Buscar archivo").first.click()
+    fc.value.set_files(f"{OUT}/cedula_cliente_demo.pdf"); pg.wait_for_timeout(300)
     panel("2. Carga de documentos").screenshot(path=f"{OUT}/c_carga.png")
+    pg.locator("#carga .doc").first.screenshot(path=f"{OUT}/c_carga_corta.png")
     # Cliente: documento rechazado
     pg.goto(B + f"/credito?caso={r['id']}"); pg.wait_for_timeout(1200)
     panel("2. Carga de documentos").screenshot(path=f"{OUT}/c_rechazo.png")

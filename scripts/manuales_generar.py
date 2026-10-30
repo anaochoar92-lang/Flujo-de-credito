@@ -26,7 +26,7 @@ pdfmetrics.registerFontFamily("UI", normal="UI", bold="UI-B", italic="UI-I", bol
 
 TEAL, DARK, INK, MUTED = colors.HexColor("#0f7c7a"), colors.HexColor("#0e3b43"), colors.HexColor("#142334"), colors.HexColor("#57687c")
 SOFT, LINE, WARN, RED = colors.HexColor("#e8f4f3"), colors.HexColor("#dce4ef"), colors.HexColor("#fff4d9"), colors.HexColor("#c8553d")
-VERSION = "Versión 1.0 · 29/10/2026"
+VERSION = "Versión 1.1 · 30/10/2026"
 W = letter[0] - 3.6 * cm
 
 st = {
@@ -126,7 +126,7 @@ INGRESO_DEMO = ("Esta es una demostración local: <b>no hay usuario ni contrase�
                 "responsable de la demo que levante la aplicación.")
 MSG_TAREA = [
     ["«La tarea ya no está activa (¿doble clic?)»", "Alguien (o un segundo clic) ya completó esa tarea.", "Recargue la página (F5). No repita la acción."],
-    ["«No se pudo completar la tarea en Camunda…»", "El motor de procesos no respondió. <b>No se guardó nada.</b>", "Intente de nuevo en unos minutos; si sigue, avise a soporte."],
+    ["«No se pudo completar la tarea en Camunda…»", "El motor de procesos no confirmó el paso (la app ya reintentó unos segundos). <b>No se guardó nada</b>: el portal y Camunda siguen iguales.", "Espere un momento y pulse de nuevo; si sigue, avise a soporte."],
 ]
 
 # ─────────────────────────────── CLIENTE ───────────────────────────────
@@ -149,10 +149,13 @@ cliente = [
                 "• <b>Fecha de expedición</b>: máximo 20 días calendario antes de hoy.<br/>"
                 "• <b>Nombre declarado</b>: escríbalo <b>igual</b> en los 4 documentos.<br/>"
                 "• <b>Cédula</b> (Cédula y Pagaré), <b>Salario</b> (Comprobante) y <b>Monto</b> (Pagaré), tal como aparecen en el papel.",
+                f"Pulse {btn('Buscar archivo…')}, elija en su equipo el archivo del documento (PDF, JPG o PNG) y verifique "
+                "que su nombre aparezca junto al botón.",
                 f"Deje marcada la casilla {btn('Legible')} solo si el documento se lee completo.",
-                f"Pulse {btn('Cargar documentos')}."], ancho=W * 0.56 - 10),
-         caja(f"Los botones {btn('Llenar ejemplo válido')} y {btn('Llenar ejemplo dudoso')} llenan datos de prueba; "
-              "úselos solo en demostraciones.", ancho=W * 0.56 - 10)],
+                f"Pulse {btn('Cargar documentos')}. Verá una barra de avance mientras se «sube»."], ancho=W * 0.56 - 10),
+         caja("<b>Demostración:</b> el archivo <b>no sale de su equipo</b>; el portal solo muestra su nombre. "
+              f"Los botones {btn('Llenar ejemplo válido')} y {btn('Llenar ejemplo dudoso')} llenan datos y un archivo de prueba.",
+              ancho=W * 0.56 - 10)],
         img("c_carga_corta", 7.2, "Formulario de carga (se muestra el primer documento).")[:2], 0.56),
     H("Reglas para que sus documentos se acepten"),
     caja("• Los <b>4</b> documentos son obligatorios.  • Fecha de expedición de <b>máximo 20 días calendario</b> (20 días exactos sí vale).<br/>"
@@ -163,13 +166,16 @@ cliente = [
         ["Verde: «Documentos válidos»", "Sus 4 documentos fueron aceptados y pasan a revisión del banco.", "Nada. Le llegarán correos con cada avance."],
         ["Rojo: «Rechazados: Pagaré (vencido (&gt; 20 días))…»", "Uno o más documentos no se aceptaron. Cada rechazo suma 1 intento a ese documento.", "Corrija solo esos documentos (paso 4)."],
         ["Rojo: «No se aceptan más cargas: intentos agotados…»", "Un documento llegó a 5 intentos.", "Espere la llamada de un asesor para entregarlo en papel."],
+        ["Rojo: «Seleccione el archivo de: …»", "Falta elegir el archivo de esos documentos. No se envió nada.", f"Pulse {btn('Buscar archivo…')} en cada uno y cargue de nuevo."],
+        ["Rojo: «Camunda no confirmó la carga; no se registró nada…»", "El sistema del banco no confirmó la recepción. No se guardó ni se descontó ningún intento.", "Espere unos segundos y pulse de nuevo; si sigue, avise a su asesor."],
     ], [0.32, 0.38, 0.30]),
     H("4. Corregir un documento rechazado"),
     lado_a_lado(
         pasos([f"Abra el correo <b>«Documentos con observaciones»</b> o <b>«Despacho pide corregir un documento»</b> y pulse {btn('Ir al portal')}.",
                "Los documentos aceptados aparecen arriba con <font name='SYM'>✓</font> y <b>no</b> se vuelven a subir.",
                "Solo verá los rechazados, con el motivo en rojo y el conteo de <b>intentos x/5</b>.",
-               f"Corrija los datos o la fecha, revise {btn('Legible')} y pulse {btn('Cargar documentos')}."], ancho=W * 0.5 - 10),
+               f"Corrija los datos o la fecha, elija de nuevo el archivo con {btn('Buscar archivo…')}, revise {btn('Legible')} "
+               f"y pulse {btn('Cargar documentos')}."], ancho=W * 0.5 - 10),
         img("c_rechazo", 7.6, "Pagaré rechazado por vencido; los otros 3 ya están aceptados.")[:2], 0.5),
     H("5. Consultar en qué va su solicitud"),
     pasos([f"En la sección {btn('Consultar mi solicitud')} escriba su número <b>SOL-NNNNN</b> y pulse {btn('Consultar')}.",
@@ -264,6 +270,9 @@ analista = [
     caja(INGRESO_DEMO + "<br/><font size=8>Responsable de la demo, en la carpeta del proyecto: "
          "<font name='Courier'>.venv\\Scripts\\python -m uvicorn app.main:app --port 8000</font></font>",
          WARN, colors.HexColor("#e0b84a")),
+    caja("<b>Con Camunda conectado</b>, cada paso del portal se confirma primero en Camunda: si Camunda no responde, el portal "
+         "no avanza y muestra el error, así ambos muestran siempre lo mismo. Cree las solicitudes <b>siempre desde el portal</b>: "
+         "una instancia iniciada desde la consola de Camunda queda sin número SOL y el portal no puede seguirla."),
     H("2. Registrar una solicitud aceptada"),
     lado_a_lado(
         pasos([f"En {btn('1. Solicitud aceptada')} escriba el <b>alias</b> del cliente, su <b>correo</b> y el <b>monto aprobado</b> (RD$). Use solo datos sintéticos.",
@@ -290,10 +299,15 @@ analista = [
     H("4. Descargar datos para Preset"),
     P(f"Pulse {btn('CSV casos')}, {btn('CSV documentos')} o {btn('CSV eventos')}. Todos traen la columna "
       "<b>fuente_datos = SINTETICO</b> para no mezclarlos con datos reales."),
+    P(f"{btn('CSV todos los casos en Camunda')} lista <b>todas</b> las instancias del proceso en Camunda (activas, completadas y "
+      "canceladas), no solo la del caso elegido, con su estado en Camunda junto al estado en el portal. Sirve para comprobar "
+      "que ambos coinciden. Solo funciona con Camunda conectado."),
     H("5. Mensajes que puede ver"),
     tabla(["Mensaje", "Qué hacer"], [
         ["El navegador marca el correo o el monto en rojo", "Corrija el formato: correo con @ y dominio; monto mayor que 0."],
         ["«No se pudo iniciar el proceso en Camunda…»", "El motor de procesos no respondió y la solicitud <b>no</b> se creó. Intente de nuevo o avise a soporte."],
+        ["«Camunda no confirmó la carga…» / «No se pudo completar la tarea en Camunda…»", "El paso no se guardó en ningún lado. Espere unos segundos y repita; si persiste, revise los permisos del cliente API en Camunda."],
+        ["Al abrir el CSV de Camunda: «solo está disponible con ENGINE_MODE=camunda»", "La demo corre sin Camunda (modo simulado). Use los otros CSV."],
     ], [0.42, 0.58]),
 ]
 
