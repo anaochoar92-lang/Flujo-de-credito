@@ -43,3 +43,11 @@ Se tomaron los requisitos TO-BE que el alcance dejó fuera y se ordenaron por va
 - **ITER-1:** se empieza por INC-1 (estado visible para el cliente).
 - **ITER-2:** días hábiles de lunes a viernes, sin feriados.
 - **ITER-3:** orden INC-1 → INC-2 → INC-3; la recogida con comisión queda fuera hasta conocer el monto.
+
+## INC-4 · Buzón de correos simulado para el cliente y los funcionarios (S) — **HECHO** (2026-10-29, Sergio)
+- **EARS (por evento):** Cuando el caso cambie de paso, el sistema deberá dejar en el **buzón simulado** del destinatario un correo con asunto `SOL-NNNNN · …` y un enlace al caso en el portal. Al **cliente**: enlace al portal (`TB_SND_ENLACE`), documentos rechazados con motivo e intento (`TB_SND_CORREGIR`), corrección pedida por Despacho (`TB_SND_CORREGIR`), expediente verificado (`END_VERIFICADO`) o paso a atención presencial (`END_PAPEL_AGOTADO`, `END_PAPEL_LEGAL`). A **Legal** y **Despacho**: aviso de tarea nueva en su bandeja (`TB_ACT_REVISAR`, `TB_ACT_VERIF`).
+- **Archivos:** `app/credito.py` (tabla `cred_correos`, rutas `GET /api/credito/correos?rol=&para=` y `POST /api/credito/correos/{id}/leido`), `app/static/buzon.html` (página `/buzon` con pestañas Cliente / Legal / Despacho), `app/static/credito.html` (enlace al buzón; `/credito?caso=N` abre ese caso), `app/main.py` (+3 líneas), `tests/test_credito.py` (+6 pruebas).
+- **Criterio de aceptación:** cada transición deja exactamente un correo al destinatario correcto; abrir un correo lo marca como leído; el buzón del cliente se filtra por su dirección.
+- **Prueba negativa:** si Camunda rechaza completar una tarea, no queda correo (se revierte con el resto); rol desconocido → 422; correo inexistente → 404; el 5.º rechazo de un documento manda «atención presencial», no «vuelva a cargar».
+- **Respaldo:** ningún correo sale de la app (no hay SMTP); si la página `/buzon` falla, el portal `/credito` no cambia.
+- **No cambia:** BPMN, tablas existentes, vista de Preset ni las 48 pruebas previas (54 en verde).

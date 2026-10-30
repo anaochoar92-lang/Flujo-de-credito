@@ -86,3 +86,22 @@ python -m venv .venv
 | Siguiente | Paso 25 (CSV del MVP a Preset), paso 26 (auditoría) e INC-1 del backlog |
 
 **Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio). Los datos del MVP no se mezclan con `09-datos/`.
+
+---
+
+## 2026-10-29 — Sergio (con Claude)
+
+### Qué se hizo
+| # | Qué | Archivos |
+|---|---|---|
+| 1 | `scripts/prueba_manual_credito.py` corrido contra el clúster SaaS del equipo: crea caso, carga documentos y aparece la tarea de Despacho; **falla al completar Despacho (502)** porque el cliente API de Sergio no tiene permisos de lectura (403 en `process-instances`, búsquedas de tareas vacías) | — |
+| 2 | Bug corregido: el trabajador automático de Camunda bloqueaba el servidor (~10 s por cada `jobs/activation`); ahora corre en un hilo aparte | `app/credito.py` (commit `49d4766`) |
+| 3 | **INC-4: buzón de correos simulado** en `/buzon` (cliente, Legal, Despacho). Ver `14-mvp/backlog-autonomo.md` | `app/credito.py`, `app/static/buzon.html`, `app/static/credito.html`, `app/main.py`, `tests/test_credito.py` |
+
+### Pendientes nuevos
+| ID | Pregunta | Qué afecta | Propuesta mientras tanto |
+|---|---|---|---|
+| PEND-05 | ¿Están bien los correos del buzón simulado (cuáles se mandan y su texto)? Hoy: al cliente enlace, rechazo, corrección, verificado y atención presencial; a Legal y Despacho aviso de tarea nueva | INC-4; textos en `app/credito.py` | Quedan como están |
+| TEC-07 | Dar al cliente API de Sergio permisos de lectura de instancias y de lectura/actualización de tareas de usuario en `Process_Credito_MVP` (Identity → Authorizations), o compartir el cliente que usa Ana. Cancelar en Operate las instancias de prueba `4503599627375176` y `6755399441060640` | Prueba end-to-end con Camunda real | Owner del clúster |
+
+**Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio). Los correos son SINTÉTICOS y no salen de la app.

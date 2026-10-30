@@ -40,6 +40,11 @@ HITOS = {"ENLACE_ENVIADO": "Enlace enviado", "DOCUMENTOS_RECHAZADOS": "Documento
          "ESPERANDO_CORRECCION": "Documentos con observaciones", "REVISION_LEGAL": "En revisión",
          "VERIFICACION_DESPACHO": "En verificación", "VERIFICADO": "Expediente verificado",
          "RUTA_PAPEL": "Pasa a atención presencial"}
+# INC-4: correos simulados (se guardan en cred_correos, no se envía nada). Buzones de funcionarios sintéticos.
+BUZON_ROL = {"legal": "legal@credito-demo.test", "despacho": "despacho@credito-demo.test"}
+ROLES_CORREO = ("cliente", "legal", "despacho")
+NOMBRE_DOC = {"IDENTIDAD": "Cédula", "INGRESOS": "Comprobante de ingresos", "ESTADO_CUENTA": "Estado de cuenta", "PAGARE": "Pagaré"}
+CAMPO_DOC = {"nombre": "nombre", "cedula": "cédula", "salario": "salario", "monto": "monto"}
 
 
 class CredCaso(Base):
@@ -62,6 +67,7 @@ class CredCaso(Base):
     cerrado_en: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     documentos: Mapped[list["CredDocumento"]] = relationship(back_populates="caso", cascade="all, delete-orphan", order_by="CredDocumento.id")
     eventos: Mapped[list["CredEvento"]] = relationship(back_populates="caso", cascade="all, delete-orphan", order_by="CredEvento.id")
+    correos: Mapped[list["CredCorreo"]] = relationship(back_populates="caso", cascade="all, delete-orphan", order_by="CredCorreo.id")
 
 
 class CredDocumento(Base):
@@ -92,6 +98,21 @@ class CredEvento(Base):
     actor: Mapped[str] = mapped_column(String(80), default="sistema")
     detalles: Mapped[str] = mapped_column(Text, default="{}")
     caso: Mapped[CredCaso] = relationship(back_populates="eventos")
+
+
+class CredCorreo(Base):
+    __tablename__ = "cred_correos"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    caso_id: Mapped[int] = mapped_column(ForeignKey("cred_casos.id"), index=True)
+    momento: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    rol: Mapped[str] = mapped_column(String(10), index=True)
+    para: Mapped[str] = mapped_column(String(120))
+    asunto: Mapped[str] = mapped_column(String(160))
+    cuerpo: Mapped[str] = mapped_column(Text)
+    enlace: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    elemento: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    leido: Mapped[bool] = mapped_column(Boolean, default=False)
+    caso: Mapped[CredCaso] = relationship(back_populates="correos")
 
 
 class CasoCredito(BaseModel):
@@ -142,6 +163,24 @@ def mode(): return os.getenv("ENGINE_MODE", "mock").lower()
 def log(db, caso, accion, tarea=None, actor="sistema", detalles=None):
     caso.eventos.append(CredEvento(accion=accion, tarea=tarea, actor=actor, detalles=json.dumps(detalles or {}, ensure_ascii=False)))
 
+def correo(caso, rol, asunto, cuerpo, elemento=None):
+    """INC-4: deja el correo en el buzón simulado del rol (no se envía nada); el enlace abre el caso en el portal."""
+    para = caso.correo_cliente if rol == "cliente" else BUZON_ROL[rol]
+    caso.correos.append(CredCorreo(rol=rol, para=para, asunto=f"{caso.id_solicitud} · {asunto}", cuerpo=cuerpo,
+                                   enlace=f"/credito?caso={caso.id}", elemento=elemento))
+
+def aviso_tarea(caso, detalle=""):
+    """Aviso al funcionario cuando le aparece una tarea nueva en su bandeja (Legal o Despacho)."""
+    rol, element_id, nombre = TAREA_POR_ESTADO[caso.estado]
+    correo(caso, rol, f"Nueva tarea: {nombre}",
+           f"Hay una tarea nueva en la bandeja de {rol.capitalize()} para la solicitud {caso.id_solicitud}.\n{detalle}\n"
+           "Ábrala en el portal para completarla.", element_id)
+
+def correo_papel(caso, razon, elemento):
+    correo(caso, "cliente", "Su solicitud pasa a atención presencial",
+           f"Hola {caso.cliente_alias}:\n\n{razon}\nUn asesor lo contactará para indicarle cómo entregar los documentos en papel.",
+           elemento)
+
 def cambiar_estado(caso, estado):
     # Cada cambio sube la etapa: una clave de tarea vieja deja de ser válida (doble clic → 409).
     caso.estado = estado
@@ -172,6 +211,11 @@ def ser_caso(c):
 def ser_evento(e):
     return {"id": e.id, "caso_id": e.caso_id, "momento": iso(e.momento), "accion": e.accion, "tarea": e.tarea,
             "actor": e.actor, "detalles": e.detalles}
+
+def ser_correo(m):
+    return {"id": m.id, "caso_id": m.caso_id, "id_solicitud": m.caso.id_solicitud, "momento": iso(m.momento), "rol": m.rol,
+            "de": "notificaciones@credito-demo.test", "para": m.para, "asunto": m.asunto, "cuerpo": m.cuerpo,
+            "enlace": m.enlace, "elemento": m.elemento, "leido": m.leido}
 
 def obtener(db, caso_id):
     c = db.get(CredCaso, caso_id)
@@ -268,6 +312,10 @@ def crear(payload: CasoCredito, req: Request):
             c.instance_key = f"DEMO-{c.id}"
         # El correo se simula: se registra el evento, no se envía nada (alcance del MVP).
         log(db, c, "ENLACE_ENVIADO", tarea="TB_SND_ENLACE", detalles={"correo": "simulado", "instance_key": c.instance_key})
+        correo(c, "cliente", "Cargue sus documentos en el portal",
+               f"Hola {c.cliente_alias}:\n\nSu crédito preaprobado por RD$ {c.monto:,.0f} fue aceptado. Para continuar, cargue en el "
+               "portal sus 4 documentos: cédula, comprobante de ingresos, estado de cuenta y pagaré.\n"
+               f"Cada documento debe tener máximo {VIGENCIA_DIAS} días de expedido y ser legible.", "TB_SND_ENLACE")
         db.commit()
         return ser_caso(c)
 
@@ -313,9 +361,15 @@ def cargar(caso_id: int, docs: list[DocumentoCarga], req: Request):
             if agotados:
                 c.estado = "RUTA_PAPEL"; c.etapa += 1; c.cerrado_en = now()
                 log(db, c, "INTENTOS_AGOTADOS", detalles={"documentos": agotados})
+                correo_papel(c, f"Se agotaron los {MAX_INTENTOS} intentos de carga de: "
+                                f"{', '.join(NOMBRE_DOC[t] for t in agotados)}.", "END_PAPEL_AGOTADO")
                 resultado = "agotado"
             else:
                 cambiar_estado(c, "DOCUMENTOS_RECHAZADOS")
+                lineas = "\n".join(f"- {NOMBRE_DOC[t]}: {m} (intento {por_tipo[t].intentos} de {MAX_INTENTOS})" for t, m in rechazos.items())
+                correo(c, "cliente", "Documentos con observaciones",
+                       f"Hola {c.cliente_alias}:\n\nNo pudimos aceptar estos documentos:\n{lineas}\n\n"
+                       "Vuelva a cargar solo esos documentos en el portal; los aceptados se conservan.", "TB_SND_CORREGIR")
                 resultado = "rechazado"
             db.commit()
             sincronizado = sincronizar_validacion(req, c, resultado)
@@ -326,10 +380,12 @@ def cargar(caso_id: int, docs: list[DocumentoCarga], req: Request):
             c.caso_dudoso = True
             cambiar_estado(c, "REVISION_LEGAL")
             log(db, c, "CASO_DUDOSO", tarea="TB_GW_VALIDO", detalles={"campos_distintos": dif})
+            aviso_tarea(c, f"Datos que no coinciden entre documentos: {', '.join(CAMPO_DOC[x] for x in dif)}.")
             resultado = "dudoso"
         else:
             cambiar_estado(c, "VERIFICACION_DESPACHO")
             log(db, c, "DOCUMENTOS_VALIDOS", tarea="TB_GW_VALIDO")
+            aviso_tarea(c, "Los 4 documentos son válidos y sus datos coinciden.")
             resultado = "valido"
         db.commit()
         sincronizado = sincronizar_validacion(req, c, resultado)
@@ -367,10 +423,17 @@ def completar(key: str, payload: CompletarCredito, req: Request):
             c.decision_legal = payload.resultado
             cambiar_estado(c, "VERIFICACION_DESPACHO" if payload.resultado == "ACEPTA" else "RUTA_PAPEL")
             log(db, c, "REVISION_LEGAL_COMPLETADA", tarea="TB_ACT_REVISAR", actor=payload.actor, detalles=detalles)
+            if payload.resultado == "ACEPTA":
+                aviso_tarea(c, "Legal aceptó el documento dudoso.")
+            else:
+                correo_papel(c, "Legal no pudo validar los datos de sus documentos en línea.", "END_PAPEL_LEGAL")
         elif payload.resultado == "OK":
             c.resultado_despacho, c.verificado_en = "OK", now()
             cambiar_estado(c, "VERIFICADO")
             log(db, c, "EXPEDIENTE_VERIFICADO", tarea="TB_ACT_VERIF", actor=payload.actor, detalles=detalles)
+            correo(c, "cliente", "Su expediente digital fue verificado",
+                   f"Hola {c.cliente_alias}:\n\nDespacho verificó sus 4 documentos. Su expediente digital quedó completo; "
+                   "le avisaremos el siguiente paso de su crédito.", "END_VERIFICADO")
         else:
             doc = next((d for d in c.documentos if d.tipo == payload.documento), None)
             if not doc: raise HTTPException(422, f"Indique el documento a corregir: {', '.join(TIPOS)}")
@@ -379,8 +442,29 @@ def completar(key: str, payload: CompletarCredito, req: Request):
             c.resultado_despacho = "CORREGIR"
             cambiar_estado(c, "ESPERANDO_CORRECCION")
             log(db, c, "CORRECCION_SOLICITADA", tarea="TB_ACT_VERIF", actor=payload.actor, detalles={**detalles, "documento": doc.tipo})
+            correo(c, "cliente", "Despacho pide corregir un documento",
+                   f"Hola {c.cliente_alias}:\n\nDocumento: {NOMBRE_DOC[doc.tipo]}\nObservación: {doc.motivo_rechazo}\n\n"
+                   "Vuelva a cargar ese documento en el portal.", "TB_SND_CORREGIR")
         db.commit()
         return {"ok": True, "caso": ser_caso(c)}
+
+@router.get("/correos")
+def correos(req: Request, rol: str, para: str | None = None):
+    """INC-4: buzón simulado de un rol; el del cliente se puede filtrar por su correo."""
+    if rol not in ROLES_CORREO: raise HTTPException(422, f"Rol inválido: use {', '.join(ROLES_CORREO)}")
+    with db_session(req) as db:
+        q = select(CredCorreo).where(CredCorreo.rol == rol)
+        if para: q = q.where(CredCorreo.para == para.strip())
+        return [ser_correo(m) for m in db.scalars(q.order_by(CredCorreo.id.desc()).limit(200)).all()]
+
+@router.post("/correos/{correo_id}/leido")
+def marcar_leido(correo_id: int, req: Request):
+    with db_session(req) as db:
+        m = db.get(CredCorreo, correo_id)
+        if not m: raise HTTPException(404, "Correo no encontrado")
+        m.leido = True
+        db.commit()
+        return ser_correo(m)
 
 @router.get("/estado/{id_solicitud}")
 def estado_cliente(id_solicitud: str, req: Request):

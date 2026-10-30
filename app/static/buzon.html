@@ -1,0 +1,30 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Buzón simulado · MVP</title><style>
+:root{font-family:ui-sans-serif,system-ui,Arial;color:#142334;background:#f5f7fb}*{box-sizing:border-box}body{margin:0}header{padding:24px 5%;background:#0e3b43;color:#fff}header small{color:#9db7b3}header a{color:#bfe3df}main{max-width:1250px;margin:22px auto;padding:0 20px}.panel{background:#fff;border:1px solid #dce4ef;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 3px 12px #162c4310}h1{font-size:26px;margin:4px 0}h2{font-size:18px;margin:0 0 6px}label{font-size:13px;font-weight:650;margin-right:6px}select{padding:8px;border-radius:7px;border:1px solid #b8c4d3;background:white;max-width:100%}button,.btn{border:0;border-radius:8px;background:#0f7c7a;color:white;font-size:14px;padding:10px 15px;cursor:pointer;text-decoration:none;display:inline-block}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tabs button{background:#dcefee;color:#0e3b43}.tabs button.on{background:#0f7c7a;color:#fff}.cnt{display:inline-block;min-width:20px;margin-left:6px;padding:1px 6px;border-radius:10px;background:#c8553d;color:#fff;font-size:12px}.cnt:empty{display:none}.badge{display:inline-block;background:#dcefee;color:#0e3b43;border-radius:6px;padding:3px 6px;font-size:12px}.muted{color:#57687c;font-size:13px}.warn{background:#fff4d9;padding:10px;border-radius:6px;font-size:13px;margin-bottom:20px}.mail{display:grid;grid-template-columns:minmax(260px,2fr) 3fr;gap:20px}.lista{border:1px solid #e4eaf2;border-radius:8px;max-height:560px;overflow-y:auto}.item{padding:10px 12px;border-bottom:1px solid #e4eaf2;cursor:pointer}.item:hover{background:#f2f7f7}.item.sel{background:#dcefee}.item.nuevo .as{font-weight:700}.item.nuevo .as::before{content:"● ";color:#0f7c7a}.as{font-size:14px;margin:2px 0}.lector{border:1px solid #e4eaf2;border-radius:8px;padding:16px;min-height:300px}.cuerpo{white-space:pre-wrap;line-height:1.5;font-size:14px;margin:14px 0}.cab{font-size:13px;color:#57687c;border-bottom:1px solid #e4eaf2;padding-bottom:10px}.cab b{color:#142334}@media(max-width:850px){.mail{grid-template-columns:1fr}}</style></head>
+<body><header><small>SINTÉTICO / DEMOSTRACIÓN · MVP FLUJO DE CRÉDITO PREAPROBADO</small><h1>Buzón de correo simulado</h1><div>Correos que el sistema "envía" al cliente y a los funcionarios · <a href="/credito">Ir al portal del MVP</a></div></header><main>
+<div class="warn">Ningún correo sale de esta aplicación: se guardan en la base local y solo se ven aquí. Direcciones <b>sintéticas</b>.</div>
+<section class="panel"><div class="tabs" id="tabs"></div><div id="filtro"></div>
+<div class="mail"><div><div class="lista" id="lista"></div></div><div class="lector" id="lector"><p class="muted">Seleccione un correo.</p></div></div></section></main>
+<script>
+const $=id=>document.getElementById(id);const ROLES={cliente:'Cliente',legal:'Legal',despacho:'Despacho'};
+let rol='cliente',para='',sel=null,correos=[];
+function safe(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+const fecha=v=>new Date(v).toLocaleString('es-DO');
+async function get(u){const r=await fetch(u);if(!r.ok)throw new Error(r.status);return r.json();}
+function tabs(cuentas){$('tabs').innerHTML=Object.entries(ROLES).map(([k,v])=>`<button class="${k===rol?'on':''}" onclick="cambiar('${k}')">${v}<span class="cnt">${cuentas[k]||''}</span></button>`).join('');}
+function cambiar(r){rol=r;sel=null;$('lector').innerHTML='<p class="muted">Seleccione un correo.</p>';cargar();}
+async function filtroCliente(){if(rol!=='cliente'){$('filtro').innerHTML='';return;}
+ // Sin inicio de sesión: el cliente elige su dirección entre las de los casos (todas sintéticas).
+ const casos=await get('/api/credito/casos');const dirs=[...new Set(casos.map(c=>c.correo_cliente))];
+ if(para&&!dirs.includes(para))para='';
+ $('filtro').innerHTML=`<p><label>Buzón de</label><select onchange="para=this.value;sel=null;cargar()"><option value="">Todos los clientes</option>${dirs.map(d=>`<option ${d===para?'selected':''}>${safe(d)}</option>`).join('')}</select></p>`;}
+async function cargar(){try{
+ const [cl,lg,dp]=await Promise.all(Object.keys(ROLES).map(r=>get('/api/credito/correos?rol='+r)));
+ const sinLeer=l=>l.filter(m=>!m.leido).length;tabs({cliente:sinLeer(cl),legal:sinLeer(lg),despacho:sinLeer(dp)});
+ await filtroCliente();correos=({cliente:cl,legal:lg,despacho:dp})[rol].filter(m=>!para||m.para===para);
+ $('lista').innerHTML=correos.length?correos.map(m=>`<div class="item ${m.leido?'':'nuevo'} ${m.id===sel?'sel':''}" onclick="abrir(${m.id})"><div class="muted">${fecha(m.momento)} · para ${safe(m.para)}</div><div class="as">${safe(m.asunto)}</div></div>`).join(''):'<p class="muted" style="padding:12px">Sin correos todavía. Cree una solicitud en el portal.</p>';
+}catch(x){$('lista').innerHTML='<p class="muted" style="padding:12px">No se pudo cargar el buzón.</p>';}}
+async function abrir(id){sel=id;const m=correos.find(x=>x.id===id);if(!m)return;
+ $('lector').innerHTML=`<h2>${safe(m.asunto)}</h2><div class="cab">De: <b>${safe(m.de)}</b><br>Para: <b>${safe(m.para)}</b><br>${fecha(m.momento)}${m.elemento?` · <span class="badge">${safe(m.elemento)}</span>`:''}</div><div class="cuerpo">${safe(m.cuerpo)}</div>${m.enlace?`<a class="btn" href="${safe(m.enlace)}" target="_blank" rel="noopener">${rol==='cliente'?'Ir al portal':'Abrir en mi bandeja'}</a>`:''}`;
+ if(!m.leido){try{await fetch(`/api/credito/correos/${id}/leido`,{method:'POST'});}catch(x){}}await cargar();}
+cargar();setInterval(()=>{if(!document.hidden)cargar();},5000);
+</script></body></html>

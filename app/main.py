@@ -76,6 +76,9 @@ def home(): return FileResponse(os.path.join(os.path.dirname(__file__), "static"
 @app.get("/credito")
 def credito_home(): return FileResponse(os.path.join(os.path.dirname(__file__), "static", "credito.html"))
 
+@app.get("/buzon")
+def credito_buzon(): return FileResponse(os.path.join(os.path.dirname(__file__), "static", "buzon.html"))
+
 @app.get("/api/health")
 def health(req: Request):
     """Readiness local exclusivamente; no depende de la conectividad con Camunda Cloud."""

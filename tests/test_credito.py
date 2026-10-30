@@ -252,3 +252,68 @@ def test_cam4_si_camunda_falla_al_iniciar_no_crea_el_caso(client_camunda):
     r = c.post("/api/credito/casos", json={"cliente_alias": "Cliente Demo", "correo_cliente": "demo@ejemplo.test", "monto": 350000})
     assert r.status_code == 502
     assert c.get("/api/credito/casos").json() == []
+
+# INC-4: buzón de correos simulados (cliente, Legal y Despacho). No se envía nada.
+def buzon(client, rol, **filtro): return client.get("/api/credito/correos", params={"rol": rol, **filtro}).json()
+
+def test_inc4_enlace_aviso_a_despacho_y_verificado(client):
+    c = nuevo(client)
+    m = buzon(client, "cliente")
+    assert len(m) == 1 and m[0]["elemento"] == "TB_SND_ENLACE" and m[0]["para"] == "demo@ejemplo.test"
+    assert m[0]["asunto"].startswith(c["id_solicitud"]) and m[0]["enlace"] == f"/credito?caso={c['id']}" and not m[0]["leido"]
+    client.post(f"/api/credito/casos/{c['id']}/documentos", json=[doc(t) for t in TIPOS])
+    assert [x["elemento"] for x in buzon(client, "despacho")] == ["TB_ACT_VERIF"]
+    assert buzon(client, "legal") == []
+    completar(client, tareas(client, "despacho")[0]["key"], resultado="OK")
+    assert [x["elemento"] for x in buzon(client, "cliente")] == ["END_VERIFICADO", "TB_SND_ENLACE"]  # más reciente primero
+
+def test_inc4_rechazo_dudoso_y_papel_avisan_a_quien_corresponde(client):
+    c = nuevo(client)
+    client.post(f"/api/credito/casos/{c['id']}/documentos", json=[doc(t) for t in TIPOS[:3]] + [doc("PAGARE", dias=25)])
+    rech = buzon(client, "cliente")[0]
+    assert rech["elemento"] == "TB_SND_CORREGIR" and "Pagaré: vencido (> 20 días) (intento 1 de 5)" in rech["cuerpo"]
+    client.post(f"/api/credito/casos/{c['id']}/documentos", json=[doc("PAGARE", cedula="002-9999999-9")])
+    legal = buzon(client, "legal")
+    assert len(legal) == 1 and legal[0]["elemento"] == "TB_ACT_REVISAR" and "cédula" in legal[0]["cuerpo"]
+    assert legal[0]["para"] == "legal@credito-demo.test" and buzon(client, "despacho") == []
+    completar(client, tareas(client, "legal")[0]["key"], resultado="RECHAZA")
+    assert buzon(client, "cliente")[0]["elemento"] == "END_PAPEL_LEGAL" and buzon(client, "despacho") == []
+
+def test_inc4_correccion_de_despacho_y_legal_acepta(client):
+    c = nuevo(client)
+    client.post(f"/api/credito/casos/{c['id']}/documentos", json=[doc(t) for t in TIPOS[:3]] + [doc("PAGARE", cedula="X")])
+    completar(client, tareas(client, "legal")[0]["key"], resultado="ACEPTA")
+    assert [x["elemento"] for x in buzon(client, "despacho")] == ["TB_ACT_VERIF"]
+    completar(client, tareas(client, "despacho")[0]["key"], resultado="CORREGIR", documento="INGRESOS", observacion="Comprobante cortado")
+    m = buzon(client, "cliente")[0]
+    assert m["elemento"] == "TB_SND_CORREGIR" and "Comprobante de ingresos" in m["cuerpo"] and "Comprobante cortado" in m["cuerpo"]
+
+def test_inc4_intentos_agotados_avisan_ruta_en_papel(client):
+    c = nuevo(client)
+    validos = [doc(t) for t in TIPOS[:3]]
+    client.post(f"/api/credito/casos/{c['id']}/documentos", json=validos + [doc("PAGARE", dias=30)])
+    for _ in range(4):
+        client.post(f"/api/credito/casos/{c['id']}/documentos", json=[doc("PAGARE", dias=30)])
+    m = buzon(client, "cliente")
+    assert m[0]["elemento"] == "END_PAPEL_AGOTADO" and "Pagaré" in m[0]["cuerpo"]
+    assert sum(x["elemento"] == "TB_SND_CORREGIR" for x in m) == 4  # el 5.º rechazo ya no pide volver a cargar
+
+def test_inc4_filtro_leido_y_entradas_invalidas(client):
+    a = nuevo(client)
+    client.post("/api/credito/casos", json={"cliente_alias": "Otra Demo", "correo_cliente": "otra@ejemplo.test", "monto": 1000})
+    assert len(buzon(client, "cliente")) == 2
+    solo = buzon(client, "cliente", para="demo@ejemplo.test")
+    assert len(solo) == 1 and solo[0]["caso_id"] == a["id"]
+    r = client.post(f"/api/credito/correos/{solo[0]['id']}/leido")
+    assert r.status_code == 200 and r.json()["leido"] is True
+    assert buzon(client, "cliente", para="demo@ejemplo.test")[0]["leido"] is True
+    assert client.post("/api/credito/correos/9999/leido").status_code == 404
+    assert client.get("/api/credito/correos", params={"rol": "gerente"}).status_code == 422
+    assert client.get("/buzon").status_code == 200
+
+def test_inc4_si_camunda_falla_no_queda_correo(client_camunda):
+    c = client_camunda
+    caso = nuevo(c)
+    c.post(f"/api/credito/casos/{caso['id']}/documentos", json=[doc(t) for t in TIPOS])
+    assert completar(c, tareas(c, "despacho")[0]["key"], resultado="OK").status_code == 502
+    assert [x["elemento"] for x in buzon(c, "cliente")] == ["TB_SND_ENLACE"]  # sin «verificado»
