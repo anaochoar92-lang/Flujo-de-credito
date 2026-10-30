@@ -73,6 +73,18 @@ class CamundaClient:
     def complete(self, key, variables):
         return self._request("POST", f"user-tasks/{key}/completion", {"variables": variables})
 
+    def instances(self, process_id, limite=1000):
+        """Todas las instancias del proceso (activas, completadas y canceladas), paginando con cursor."""
+        items, cursor = [], None
+        while len(items) < limite:
+            page = {"limit": 100, **({"after": cursor} if cursor else {})}
+            result = self._request("POST", "process-instances/search",
+                                   {"filter": {"processDefinitionId": process_id}, "sort": [{"field": "startDate"}], "page": page})
+            items += result.get("items", [])
+            cursor = result.get("page", {}).get("endCursor")
+            if not cursor or len(result.get("items", [])) < 100: break
+        return items[:limite]
+
     def status(self, instance_key):
         """Consulta estado de proceso, disponible en REST v2 (eventual consistency)."""
         return self._request("GET", f"process-instances/{instance_key}")
@@ -86,6 +98,13 @@ class CamundaClient:
 
     def complete_job(self, job_key, variables=None):
         return self._request("POST", f"jobs/{job_key}/completion", {"variables": variables or {}})
+
+    def correlate_message(self, name, correlation_key, variables=None):
+        """A diferencia de publish_message, falla (404) si ninguna instancia espera el mensaje:
+        así la app sabe con certeza si el proceso avanzó. Devuelve el processInstanceKey correlacionado."""
+        return self._request("POST", "messages/correlation",
+                              {"name": name, "correlationKey": correlation_key, "variables": variables or {},
+                               "tenantId": self.tenant})
 
     def publish_message(self, name, correlation_key, variables=None, ttl_ms=60000):
         """messages/publication exige tenantId (singular, a diferencia de jobs/activation)."""

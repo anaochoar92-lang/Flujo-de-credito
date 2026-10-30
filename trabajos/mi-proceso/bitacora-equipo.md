@@ -105,3 +105,24 @@ python -m venv .venv
 | TEC-07 | Dar al cliente API de Sergio permisos de lectura de instancias y de lectura/actualización de tareas de usuario en `Process_Credito_MVP` (Identity → Authorizations), o compartir el cliente que usa Ana. Cancelar en Operate las instancias de prueba `4503599627375176` y `6755399441060640` | Prueba end-to-end con Camunda real | Owner del clúster |
 
 **Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio). Los correos son SINTÉTICOS y no salen de la app.
+
+---
+
+## 2026-10-30 — Sergio (con Claude)
+
+### Qué se hizo
+| # | Qué | Archivos |
+|---|---|---|
+| 1 | **Prueba end-to-end contra el clúster real superada**: SOL-94181 (dudoso → Legal → corrección → Despacho) y SOL-94406 (válido → Despacho) terminaron `COMPLETED` en `END_VERIFICADO`, igual que en la app | — |
+| 2 | Para lograrlo, el Owner dio al cliente API: tenant `<default>`, `Message: CREATE`, en *Process Definition* lectura de definición/instancias y `READ_USER_TASK`/`UPDATE_USER_TASK`, y `CANCEL_PROCESS_INSTANCE`. Además se desplegaron los formularios `revision-legal` y `verificacion-expediente`: el BPMN desplegado los referencia y sin ellos la tarea no se crea (incidente `FORM_NOT_FOUND`) | Clúster |
+| 3 | **Sincronización estricta**: la carga de documentos usa `messages/correlation` (falla si la instancia no espera el mensaje) y se verifica que llegó a la instancia del caso; si Camunda no confirma, no se guarda nada local. Reintentos breves y un trabajador automático por tipo de trabajo en paralelo | `app/credito.py`, `app/camunda.py`, `tests/test_credito.py` |
+| 4 | Carga de documentos con botón "Buscar archivo…" (selector del sistema operativo; solo se muestra el nombre, el archivo no se envía) y CSV "todos los casos en Camunda" (`/api/credito/export/camunda.csv`, cruza instancias del clúster con los casos locales) | `app/static/credito.html`, `app/credito.py` |
+| 5 | Limpieza: se cancelaron 2 instancias iniciadas desde la consola (sin `solicitudId`, la app no puede seguirlas) y se borraron de la base local los casos que no coincidían con Camunda | — |
+
+### Pendientes
+| ID | Estado |
+|---|---|
+| TEC-07 | **Cerrado** (permisos y formularios listos) |
+| Nota | Las solicitudes de prueba se crean siempre desde el portal; las iniciadas desde la consola de Camunda quedan sin `solicitudId` |
+
+**Efecto en los números:** ninguno (ROI 16,7 %, 10,1 meses; KPI sin cambio).

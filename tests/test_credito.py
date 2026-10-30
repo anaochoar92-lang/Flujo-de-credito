@@ -1,4 +1,5 @@
 """Pruebas del MVP Flujo de crédito preaprobado (REQ-MVP-01 a 03, trabajos/mi-proceso/14-mvp). Datos SINTÉTICOS."""
+import csv, io
 from datetime import date, timedelta
 import pytest
 from fastapi.testclient import TestClient
@@ -29,11 +30,23 @@ class FakeCamunda:
 
     def complete(self, key, variables): self.completadas.append((key, dict(variables)))
 
-    def publish_message(self, name, correlation_key, variables=None, ttl_ms=60000):
-        self.mensajes.append((name, correlation_key, dict(variables or {})))
+    def correlate_message(self, name, correlation_key, variables=None):
+        # Como Camunda: falla si ninguna instancia espera ese solicitudId.
+        for n, (_, v) in enumerate(self.iniciadas):
+            if v.get("solicitudId") == correlation_key:
+                self.mensajes.append((name, correlation_key, dict(variables or {})))
+                return {"processInstanceKey": 1001 + n}
+        raise CamundaError(f"sin suscripción para {correlation_key} (simulado)")
 
     def activate_jobs(self, job_type, max_jobs=10, timeout_ms=10000, worker="credito-mvp"): return []
     def complete_job(self, job_key, variables=None): pass
+
+    def instances(self, process_id, limite=1000):
+        """Lo que ya se inició aquí más una instancia ajena (iniciada fuera de la app)."""
+        propias = [{"processInstanceKey": 1001 + n, "state": "ACTIVE", "hasIncident": False, "processDefinitionVersion": 1,
+                    "startDate": "2026-10-30T00:00:00Z", "endDate": None} for n in range(len(self.iniciadas))]
+        return propias + [{"processInstanceKey": 9999, "state": "TERMINATED", "hasIncident": False, "processDefinitionVersion": 1,
+                           "startDate": "2026-10-30T00:00:00Z", "endDate": "2026-10-30T01:00:00Z"}]
 
     def agregar_tarea(self, instance_key, element_id, task_key):
         self._tareas.setdefault(str(instance_key), []).append(
@@ -43,6 +56,7 @@ class FakeCamunda:
 def client_camunda(tmp_path, monkeypatch):
     monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path/'credito_camunda.sqlite3'}")
     monkeypatch.setenv("ENGINE_MODE", "camunda")
+    monkeypatch.setattr("app.credito.PAUSA_CAMUNDA", 0)  # sin esperas entre reintentos
     fake = FakeCamunda()
     # Sustituye la clase real ANTES de levantar la app: el trabajador automático del lifespan
     # arranca con app.state.camunda, así que nunca debe tocar la red real durante las pruebas.
@@ -317,3 +331,36 @@ def test_inc4_si_camunda_falla_no_queda_correo(client_camunda):
     c.post(f"/api/credito/casos/{caso['id']}/documentos", json=[doc(t) for t in TIPOS])
     assert completar(c, tareas(c, "despacho")[0]["key"], resultado="OK").status_code == 502
     assert [x["elemento"] for x in buzon(c, "cliente")] == ["TB_SND_ENLACE"]  # sin «verificado»
+
+def test_csv_camunda_lista_todas_las_instancias_y_cruza_con_lo_local(client_camunda):
+    c = client_camunda
+    a, b = nuevo(c), nuevo(c)
+    r = c.get("/api/credito/export/camunda.csv")
+    assert r.status_code == 200
+    filas = list(csv.DictReader(io.StringIO(r.text)))
+    assert [f["process_instance_key"] for f in filas] == [a["instance_key"], b["instance_key"], "9999"]
+    assert filas[0]["id_solicitud"] == a["id_solicitud"] and filas[0]["en_app_local"] == "True"
+    assert filas[2]["id_solicitud"] == "" and filas[2]["en_app_local"] == "False" and filas[2]["estado_camunda"] == "TERMINATED"
+    assert all(f["fuente_datos"] == "SINTETICO" for f in filas)
+
+def test_csv_camunda_en_mock_responde_409(client):
+    assert client.get("/api/credito/export/camunda.csv").status_code == 409
+
+def test_cam4_si_camunda_no_confirma_la_carga_no_avanza_nada_local(client_camunda):
+    c = client_camunda
+    caso = nuevo(c)
+    def falla(*a, **k): raise CamundaError("sin suscripción (simulado)")
+    c.fake.correlate_message = falla
+    r = c.post(f"/api/credito/casos/{caso['id']}/documentos", json=[doc(t) for t in TIPOS])
+    assert r.status_code == 502
+    actual = c.get(f"/api/credito/casos/{caso['id']}").json()
+    assert actual["estado"] == "ENLACE_ENVIADO" and all(d["estado"] == "PENDIENTE" for d in actual["documentos"])
+    assert tareas(c, "despacho") == [] and [x["elemento"] for x in buzon(c, "despacho")] == []
+
+def test_cam4_mensaje_que_llega_a_otra_instancia_se_rechaza(client_camunda):
+    c = client_camunda
+    caso = nuevo(c)
+    c.fake.correlate_message = lambda *a, **k: {"processInstanceKey": 4242}
+    r = c.post(f"/api/credito/casos/{caso['id']}/documentos", json=[doc(t) for t in TIPOS])
+    assert r.status_code == 502 and "otra instancia" in r.json()["detail"]
+    assert c.get(f"/api/credito/casos/{caso['id']}").json()["estado"] == "ENLACE_ENVIADO"

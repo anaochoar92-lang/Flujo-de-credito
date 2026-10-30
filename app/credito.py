@@ -4,11 +4,11 @@ Porción TO-BE: envío del enlace (TB_SND_ENLACE) → carga del cliente (CL_CARG
 (TB_SVC_VALIDAR, simulada) → Legal si hay datos distintos (TB_ACT_REVISAR) → Despacho (TB_ACT_VERIF).
 En ENGINE_MODE=mock las tareas se derivan del estado del caso (no se guardan en tabla). En
 ENGINE_MODE=camunda (CAM-4, ronda 25) además se inicia una instancia real de `Process_Credito_MVP`,
-se publica el mensaje de la validación y se completan las tareas reales de Legal/Despacho; si Camunda
-falla, la decisión local NO se confirma (ver `completar_en_camunda`) salvo en la validación de
-documentos, que es best-effort (el MVP ya decidió localmente; Camunda es una copia de demostración).
+se correlaciona el mensaje de la validación y se completan las tareas reales de Legal/Despacho. Todo
+avance es estricto: si Camunda no confirma el paso, la app local no confirma nada (ver
+`sincronizar_validacion` y `completar_en_camunda`), así ambos lados muestran siempre lo mismo.
 """
-import asyncio, csv, io, json, logging, os, random, re
+import asyncio, csv, io, json, logging, os, random, re, time
 from datetime import date, datetime, timezone
 from zoneinfo import ZoneInfo
 from fastapi import APIRouter, HTTPException, Request
@@ -27,6 +27,9 @@ VIGENCIA_DIAS = 20        # días calendario desde la expedición (REQ-MVP-01)
 PROCESO_MVP = "Process_Credito_MVP"           # bpmn:process id real en 14-mvp/proceso-mvp-v01.bpmn
 MENSAJE_DOCS = "documentos-cargados"          # bpmn:message del BPMN del MVP, correlationKey = solicitudId
 JOBS_AUTOMATICOS = ("enviar-correo-enlace", "validar-documentos", "enviar-correo-correccion")
+# Camunda avanza en segundo plano (trabajos automáticos, índice de búsqueda): se reintenta un rato
+# antes de dar el paso por fallido. Las pruebas lo ponen en 0 para no esperar.
+REINTENTOS_CAMUNDA, PAUSA_CAMUNDA = 6, 2.0
 ZONA = ZoneInfo("America/Santo_Domingo")  # PEND-03 (ronda 21)
 ESPERA_DOCUMENTOS = ("ENLACE_ENVIADO", "DOCUMENTOS_RECHAZADOS", "ESPERANDO_CORRECCION")
 TAREA_POR_ESTADO = {
@@ -245,47 +248,62 @@ def diferencias(docs):
         if len(valores) > 1: out.append(etiqueta)
     return out
 
+def reintentar(paso):
+    """Ejecuta el paso contra Camunda; si falla, espera y reintenta (la instancia puede ir unos segundos atrás)."""
+    for n in range(REINTENTOS_CAMUNDA):
+        try:
+            return paso()
+        except CamundaError:
+            if n == REINTENTOS_CAMUNDA - 1: raise
+            time.sleep(PAUSA_CAMUNDA)
+
 def sincronizar_validacion(req, c, resultado):
-    """Publica el resultado de la validación a la instancia real de Camunda (best-effort, CAM-4).
-    La decisión ya quedó en la base local; si Camunda no responde, el MVP sigue funcionando."""
+    """Correlaciona el resultado de la validación con la instancia real (estricto): messages/correlation
+    falla si la instancia no está esperando documentos, y se comprueba que avanzó la instancia del caso."""
     if mode() != "camunda" or not (c.instance_key or "").isdigit():
         return None
-    try:
-        req.app.state.camunda.publish_message(MENSAJE_DOCS, c.id_solicitud, {"resultadoValidacion": resultado})
-        return True
-    except CamundaError as ex:
-        logger.warning("No se pudo publicar %s para %s: %s", MENSAJE_DOCS, c.id_solicitud, ex)
-        return False
+    def paso():
+        r = req.app.state.camunda.correlate_message(MENSAJE_DOCS, c.id_solicitud, {"resultadoValidacion": resultado})
+        if str(r.get("processInstanceKey")) != c.instance_key:
+            raise CamundaError(f"el mensaje llegó a otra instancia ({r.get('processInstanceKey')}), no a {c.instance_key}")
+    reintentar(paso)
+    return True
 
 def completar_en_camunda(req, c, element_id, variables):
     """Completa la tarea real de Camunda antes de tocar el estado local (CAM-4): si falla, no se
     confirma nada local (a diferencia de la validación, aquí sí es una decisión humana de Legal/Despacho)."""
     if mode() != "camunda" or not (c.instance_key or "").isdigit():
         return
-    activas = req.app.state.camunda.tasks(c.instance_key)
-    objetivo = next((t for t in activas if t.get("elementId") == element_id), None)
-    if not objetivo:
-        raise CamundaError(f"Camunda no tiene una tarea activa de {element_id} para la instancia {c.instance_key}")
+    def buscar():
+        activas = req.app.state.camunda.tasks(c.instance_key)
+        objetivo = next((t for t in activas if t.get("elementId") == element_id), None)
+        if not objetivo:
+            raise CamundaError(f"Camunda no tiene una tarea activa de {element_id} para la instancia {c.instance_key}")
+        return objetivo
+    objetivo = reintentar(buscar)  # la tarea tarda unos segundos en aparecer en la búsqueda
     clave = objetivo.get("userTaskKey") or objetivo.get("key")
     req.app.state.camunda.complete(clave, variables)
 
 async def trabajador_camunda(app):
     """Completa los trabajos automáticos (TB_SND_ENLACE, TB_SVC_VALIDAR, TB_SND_CORREGIR): esa lógica
     ya la hizo el MVP en Python; aquí solo se le avisa a Camunda que el paso quedó hecho, para que la
-    instancia avance. Solo corre si ENGINE_MODE=camunda (ver lifespan en app/main.py)."""
-    espera = 3
+    instancia avance. Solo corre si ENGINE_MODE=camunda (ver lifespan en app/main.py).
+    Un ciclo por tipo en paralelo: con long-polling secuencial cada tipo esperaba a los otros (~10 s c/u)."""
+    await asyncio.gather(*(trabajador_tipo(app, tipo) for tipo in JOBS_AUTOMATICOS))
+
+async def trabajador_tipo(app, tipo):
+    espera = 1
     while True:
         try:
-            for tipo in JOBS_AUTOMATICOS:
-                # httpx es síncrono y jobs/activation hace long-polling (~10 s): en un hilo aparte para no
-                # bloquear el event loop, si no las peticiones HTTP de la app se quedan esperando.
-                for job in await asyncio.to_thread(app.state.camunda.activate_jobs, tipo, max_jobs=10, timeout_ms=10000):
-                    clave = job.get("jobKey") or job.get("key")
-                    try:
-                        await asyncio.to_thread(app.state.camunda.complete_job, clave, {})
-                    except CamundaError as ex:
-                        logger.warning("No se pudo completar el trabajo %s de %s: %s", clave, tipo, ex)
-            espera = 3
+            # httpx es síncrono y jobs/activation hace long-polling (~10 s): en un hilo aparte para no
+            # bloquear el event loop, si no las peticiones HTTP de la app se quedan esperando.
+            for job in await asyncio.to_thread(app.state.camunda.activate_jobs, tipo, max_jobs=10, timeout_ms=10000):
+                clave = job.get("jobKey") or job.get("key")
+                try:
+                    await asyncio.to_thread(app.state.camunda.complete_job, clave, {})
+                except CamundaError as ex:
+                    logger.warning("No se pudo completar el trabajo %s de %s: %s", clave, tipo, ex)
+            espera = 1
         except asyncio.CancelledError:
             raise
         except CamundaError as ex:
@@ -371,8 +389,12 @@ def cargar(caso_id: int, docs: list[DocumentoCarga], req: Request):
                        f"Hola {c.cliente_alias}:\n\nNo pudimos aceptar estos documentos:\n{lineas}\n\n"
                        "Vuelva a cargar solo esos documentos en el portal; los aceptados se conservan.", "TB_SND_CORREGIR")
                 resultado = "rechazado"
+            try:
+                sincronizado = sincronizar_validacion(req, c, resultado)
+            except CamundaError as ex:
+                db.rollback()
+                raise HTTPException(502, f"Camunda no confirmó la carga; no se registró nada, intente de nuevo: {ex}")
             db.commit()
-            sincronizado = sincronizar_validacion(req, c, resultado)
             return JSONResponse(status_code=422, content={**ser_caso(c), "motivos": rechazos, "camunda_sincronizado": sincronizado})
 
         dif = diferencias(c.documentos)
@@ -387,8 +409,12 @@ def cargar(caso_id: int, docs: list[DocumentoCarga], req: Request):
             log(db, c, "DOCUMENTOS_VALIDOS", tarea="TB_GW_VALIDO")
             aviso_tarea(c, "Los 4 documentos son válidos y sus datos coinciden.")
             resultado = "valido"
+        try:
+            sincronizado = sincronizar_validacion(req, c, resultado)
+        except CamundaError as ex:
+            db.rollback()
+            raise HTTPException(502, f"Camunda no confirmó la carga; no se registró nada, intente de nuevo: {ex}")
         db.commit()
-        sincronizado = sincronizar_validacion(req, c, resultado)
         return {**ser_caso(c), "camunda_sincronizado": sincronizado}
 
 @router.get("/tareas")
@@ -502,6 +528,24 @@ def exportar(tabla: str, req: Request):
                      for d in db.scalars(select(CredDocumento).order_by(CredDocumento.id)).all()]
         elif tabla == "eventos":
             filas = [{**ser_evento(e), "fuente_datos": "SINTETICO"} for e in db.scalars(select(CredEvento).order_by(CredEvento.id)).all()]
+        elif tabla == "camunda":
+            # Todas las instancias del proceso en el clúster, cruzadas con el caso local por instance_key.
+            if mode() != "camunda":
+                raise HTTPException(409, "El CSV de Camunda solo está disponible con ENGINE_MODE=camunda")
+            try:
+                instancias = req.app.state.camunda.instances(PROCESO_MVP)
+            except CamundaError as ex:
+                raise HTTPException(502, f"No se pudo consultar Camunda: {ex}")
+            locales = {c.instance_key: c for c in db.scalars(select(CredCaso)).all()}
+            filas = []
+            for i in instancias:
+                c = locales.get(str(i.get("processInstanceKey")))
+                filas.append({"process_instance_key": i.get("processInstanceKey"), "estado_camunda": i.get("state"),
+                              "incidente": i.get("hasIncident"), "version_proceso": i.get("processDefinitionVersion"),
+                              "inicio": i.get("startDate"), "fin": i.get("endDate"),
+                              "id_solicitud": c.id_solicitud if c else "", "estado_local": c.estado if c else "",
+                              "cliente_alias": c.cliente_alias if c else "", "monto": c.monto if c else "",
+                              "en_app_local": bool(c), "fuente_datos": "SINTETICO"})
         else:
             raise HTTPException(404, "CSV desconocido")
     cols = list(filas[0].keys()) if filas else ["fuente_datos"]
